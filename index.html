@@ -1,344 +1,420 @@
 <!DOCTYPE html>
 <html lang="nl" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#01696f" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Lab Rondes" />
-  <script type="text/javascript" nonce="c6b847c479d540219851524555c" src="//injections.adguard.org?ts=1780932599930&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F1a916f38946f277d24960877d7395845%2F9329b690-5027-4b79-a394-17919b620896%2F7c8e5084.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253D%2522lab-rondes-tracker.html%2522%253B%2520filename%252A%253DUTF-8%2527%2527lab-rondes-tracker.html%26AWSAccessKeyId%3DASIA2F3EMEYE4L4SEMIC%26Signature%3DQLZqV6zAwlgYuGbjpYd3z2EbW30%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEO%252F%252F%252F%252F%252F%252F%252F%252F%252F%252F%252FwEaCXVzLWVhc3QtMSJHMEUCIELLd%252FPjX8xcMMIDq4J8S3yIniYYHY4AcXH9nYJQQHKuAiEAxVII6hhxSVMLUvDUOgWqwNp5aYbzTzvc%252FrDQFF54%252F%252FYq%252FAQIuP%252F%252F%252F%252F%252F%252F%252F%252F%252F%252FARABGgw2OTk3NTMzMDk3MDUiDCbuLZ8ZKQnNPgMmkCrQBA4eFqqh6TLgrSyGCshJ9x%252FKdjm8rfq3%252FfUQcd23rU%252BjIJETWke6FDYnflbX3vUcVvEfIK07p7aeZldJiTT7NMdEJXRNRtkdgAUZtLK89nWXCuBPkS%252FCT4c4sRUasQzY%252FD8dT1J455ooKp8Gr8kv1Y%252FiHqMZOLprgRiIoRkQ4riA%252Bk8GeHB9Gt6LKloRHDugFJkAPUzcecsaUbRMJ%252BD4rS0ksawNvrPPO4LlyW%252BPBaa%252FZNBWboGmp%252BoL3p0RoA2FG1xP7yF9Wc89ARIHJ9WRfRPgWDuzWn%252FuC8IQdZk2HaH%252BzSrfGmMdi9j%252BmM%252FTWU%252FfMQ6VyVaBgo97CLXZzIY4y630qNOCYZKv6ZghGkeBmHHr%252BIDQ7N1PYItmn7SGLyfCT%252BSTX%252FQbuMbdrjclDbDwtUGJonPAL4pkTjGZY8QzvYtjjzs5PlI4rVWUciQiW65Ejm0FY7hpIMGYGSuSEndQaGzf3FQyew78Zb3sl%252BPE4%252B6povKe%252Bk%252Falp9%252Flic48JDs2aefblMGZBWZjUZNOKV8yCS1nVGLbSouBEzeAp6BvZtsX08NpvhUXUVpKVpmrMdQ9KWPNkJ6lcQ%252FkNTtn%252B%252FiavVAmhrtVSVTI%252FSDxCP3tfkHmJspUI5LwBKHdJILJwuEr0EdcU6g1ef3B%252Fy2Zrf3M20CHDxSCfYN%252BnRmZfAJ8c6hdkaP8%252FuKe%252BIDDxQDyM64wXRDF85TG3%252FMC3B75pGO8JSbCOvnUld4CLeB1WHQ0nmu7dgYOfGO9wKzksmxzTGE6wQ7K5zeVTgSUBLHuhbapVEwka%252Bb0QY6mAHqljj0FIXz6dOlbsERsO5TS8CF9mQCu5OIphn1yDZZ%252F5ggMWpSNPdC6WwTcDASFDc4kMWRtMIWTupCmA5mnkHURyAYdUobN0fpzl7U2P6KWvRADC%252BXuT0lNGbXudBOxYIH283vOTNY6d4h99Z0X4O%252F7eqOTo3nbAnJ9fK0oPBwdFAuu7ZwMpyne5hak%252FzLsyn%252B0vHNJ1BCNA%253D%253D%26Expires%3D1780933457&amp;app=comet.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script><script type="text/javascript" nonce="c6b847c479d540219851524555c" src="//injections.adguard.org?ts=1780932599930&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="apple-touch-icon" href="./icon-180.png" />
-  <title>Lab Rondes Tracker</title>
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
-  <style>
-    :root, [data-theme="light"] {
-      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
-      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
-      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
-      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem;
-      --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem;
-      --color-bg: #f7f6f2; --color-surface: #f9f8f5; --color-surface-2: #fbfbf9; --color-surface-offset: #f3f0ec;
-      --color-border: #d4d1ca; --color-divider: #dcd9d5; --color-text: #28251d; --color-text-muted: #6f6d67;
-      --color-text-inverse: #f9f8f4; --color-primary: #01696f; --color-primary-hover: #0c4e54;
-      --color-success: #437a22; --color-warning: #964219; --color-blue: #006494; --color-attention: #7a39bb;
-      --radius-sm: 0.375rem; --radius-md: 0.5rem; --radius-lg: 0.75rem; --radius-xl: 1rem; --radius-full: 9999px;
-      --shadow-sm: 0 1px 2px oklch(0.2 0.01 80 / 0.06); --shadow-md: 0 4px 12px oklch(0.2 0.01 80 / 0.08);
-      --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
-      --font-body: 'Satoshi', Inter, sans-serif;
-    }
-    [data-theme="dark"] {
-      --color-bg: #171614; --color-surface: #1c1b19; --color-surface-2: #201f1d; --color-surface-offset: #1d1c1a;
-      --color-border: #393836; --color-divider: #262523; --color-text: #cdccca; --color-text-muted: #9a9893;
-      --color-text-inverse: #2b2a28; --color-primary: #4f98a3; --color-primary-hover: #227f8b;
-      --color-success: #6daa45; --color-warning: #bb653b; --color-blue: #5591c7; --color-attention: #a86fdf;
-      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.2); --shadow-md: 0 4px 12px oklch(0 0 0 / 0.3);
-    }
-    *,:before,:after{box-sizing:border-box;margin:0;padding:0}
-    html{-moz-text-size-adjust:none;-webkit-text-size-adjust:none;text-size-adjust:none;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
-    body{min-height:100dvh;line-height:1.5;font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg)}
-    button,input,textarea{font:inherit;color:inherit}
-    button{cursor:pointer;border:none;background:none}
-    input,textarea{background:var(--color-surface);border:1px solid oklch(from var(--color-text) l c h / 0.12);border-radius:var(--radius-md)}
-    :focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
-    .app{display:grid;grid-template-columns:300px 1fr;min-height:100dvh}
-    .sidebar{background:var(--color-surface);border-right:1px solid oklch(from var(--color-text) l c h / 0.12);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-6);position:sticky;top:0;height:100dvh;overflow:auto}
-    .logo{display:flex;align-items:center;gap:var(--space-3);font-weight:700;font-size:var(--text-lg)}
-    .logo-mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--color-primary),color-mix(in oklab,var(--color-primary) 60%, white));display:grid;place-items:center;color:white;box-shadow:var(--shadow-sm)}
-    .nav-group,.summary-card,.week-switcher,.info-card,.search-card{background:var(--color-surface-2);border:1px solid oklch(from var(--color-text) l c h / 0.08);border-radius:var(--radius-lg);padding:var(--space-4);box-shadow:var(--shadow-sm)}
-    .nav-group h2,.summary-card h2,.week-switcher h2,.info-card h2,.search-card h2{font-size:var(--text-sm);margin-bottom:var(--space-3);color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.04em}
-    .nav-list{display:grid;gap:var(--space-2)}
-    .nav-btn,.week-btn,.filter-btn,.small-btn{width:100%;text-align:left;padding:0.8rem 0.95rem;border-radius:var(--radius-md);transition:background var(--transition-interactive),color var(--transition-interactive),border-color var(--transition-interactive)}
-    .nav-btn,.week-btn,.filter-btn,.small-btn{border:1px solid oklch(from var(--color-text) l c h / 0.1);background:var(--color-surface)}
-    .nav-btn:hover,.week-btn:hover,.filter-btn:hover,.small-btn:hover{background:var(--color-surface-offset)}
-    .nav-btn.active,.week-btn.active,.filter-btn.active{background:color-mix(in oklab,var(--color-primary) 14%, var(--color-surface));color:var(--color-primary);border-color:color-mix(in oklab,var(--color-primary) 28%, var(--color-border))}
-    .nav-btn small{display:block;color:var(--color-text-muted);font-size:var(--text-xs)}
-    .main{padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-6)}
-    .topbar{display:flex;justify-content:space-between;gap:var(--space-4);align-items:flex-start;flex-wrap:wrap}
-    .title-wrap h1{font-size:var(--text-xl);line-height:1.08;margin-bottom:var(--space-2)}
-    .title-wrap p{color:var(--color-text-muted);max-width:70ch}
-    .top-actions{display:flex;gap:var(--space-2);flex-wrap:wrap}.quick-summary{position:fixed;right:18px;bottom:18px;z-index:45;box-shadow:var(--shadow-md);width:auto;padding:0.9rem 1rem;border-radius:9999px} .nav-arrow{position:fixed;right:18px;z-index:45;width:48px;height:48px;padding:0;border-radius:9999px;display:grid;place-items:center;font-size:1.3rem;box-shadow:var(--shadow-md);background:var(--color-surface);color:var(--color-primary);border:2px solid color-mix(in oklab,var(--color-primary) 30%,var(--color-border));transition:background 120ms ease,transform 80ms ease;} .nav-arrow:hover{background:color-mix(in oklab,var(--color-primary) 10%,var(--color-surface));transform:scale(1.1);} #floatingPrevBtn{bottom:132px;} #floatingNextBtn{bottom:76px;}
-    .small-btn{min-height:44px;padding-inline:1rem}
-    .small-btn.primary{background:var(--color-primary);color:var(--color-text-inverse);border-color:var(--color-primary)}
-    .small-btn.primary:hover{background:var(--color-primary-hover)}
-    .panel{background:var(--color-surface);border:1px solid oklch(from var(--color-text) l c h / 0.1);border-radius:var(--radius-xl);box-shadow:var(--shadow-sm)}
-    #summary-section{scroll-margin-bottom:110px}
-    .panel-header{padding:var(--space-5);border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;gap:var(--space-3);align-items:center;flex-wrap:wrap}
-    .panel-header h2{font-size:var(--text-lg)}
-    .panel-header p{font-size:var(--text-sm);color:var(--color-text-muted)}
-    .panel-body{padding:var(--space-5)}
-    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)}
-    .kpi{background:var(--color-surface-2);border:1px solid oklch(from var(--color-text) l c h / 0.08);border-radius:var(--radius-lg);padding:var(--space-4)}
-    .kpi span{display:block;font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-2);text-transform:uppercase;letter-spacing:.04em}
-    .kpi strong{font-size:var(--text-lg);font-variant-numeric:tabular-nums lining-nums}
-    .route-meta,.option-row,.controls,.search-actions{display:flex;gap:var(--space-2);flex-wrap:wrap}
-    .tag{display:inline-flex;align-items:center;gap:0.45rem;padding:0.4rem 0.7rem;border-radius:var(--radius-full);font-size:var(--text-xs);background:var(--color-surface-offset);border:1px solid oklch(from var(--color-text) l c h / 0.08)}
-    .tag.success{color:var(--color-success);background:color-mix(in oklab,var(--color-success) 10%, var(--color-surface))}
-    .tag.warning{color:var(--color-warning);background:color-mix(in oklab,var(--color-warning) 10%, var(--color-surface))}
-    .tag.attention{color:var(--color-attention);background:color-mix(in oklab,var(--color-attention) 10%, var(--color-surface))}
-    .rooms{display:grid;gap:var(--space-4)}
-    .room-card{border:1px solid oklch(from var(--color-text) l c h / 0.1);border-radius:var(--radius-lg);padding:var(--space-4);background:var(--color-surface-2);display:grid;gap:var(--space-4)}
-    .room-card.highlight{border-color:color-mix(in oklab,var(--color-primary) 45%, var(--color-border));box-shadow:0 0 0 3px color-mix(in oklab,var(--color-primary) 12%, transparent)}
-    .room-head{display:flex;justify-content:space-between;gap:var(--space-3);align-items:flex-start;flex-wrap:wrap}
-    .room-code{font-size:var(--text-lg);font-weight:700}
-    .room-location{color:var(--color-text-muted);font-size:var(--text-sm)}
-    .check-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3)}
-    .toggle-box{border:1px solid oklch(from var(--color-text) l c h / 0.1);border-radius:var(--radius-lg);padding:var(--space-4);background:var(--color-surface);display:grid;gap:var(--space-3)}
-    .option-row button{min-height:44px;padding:0.72rem 0.95rem;border-radius:var(--radius-md);border:1px solid oklch(from var(--color-text) l c h / 0.1);background:var(--color-surface-2)}
-    .option-row button.active-yes{background:color-mix(in oklab,var(--color-success) 14%, var(--color-surface));border-color:color-mix(in oklab,var(--color-success) 30%, var(--color-border));color:var(--color-success)}
-    .option-row button.active-no{background:color-mix(in oklab,var(--color-warning) 14%, var(--color-surface));border-color:color-mix(in oklab,var(--color-warning) 30%, var(--color-border));color:var(--color-warning)}
-    .notes{font-size:var(--text-sm);color:var(--color-text-muted)}
-    .note-area,.search-input{width:100%;min-height:92px;padding:0.85rem}
-    .search-input{min-height:auto;height:48px}
-    .footer-tip{font-size:var(--text-sm);color:var(--color-text-muted)}
-    .empty-state{padding:var(--space-8);text-align:center;color:var(--color-text-muted);border:1px dashed oklch(from var(--color-text) l c h / 0.18);border-radius:var(--radius-lg);background:var(--color-surface-2)}
-    .progress-line{height:10px;border-radius:var(--radius-full);background:var(--color-surface-offset);overflow:hidden}
-    .progress-bar{height:100%;background:linear-gradient(90deg,var(--color-primary),color-mix(in oklab,var(--color-primary) 45%, var(--color-blue)));width:0%;transition:width 240ms ease}
-    .search-result{margin-top:var(--space-3);padding:var(--space-3);border-radius:var(--radius-md);background:var(--color-surface);border:1px solid oklch(from var(--color-text) l c h / 0.1);font-size:var(--text-sm)}
-    .reminder-list{display:grid;gap:var(--space-3)}
-    .reminder-item{padding:var(--space-4);border-radius:var(--radius-lg);background:var(--color-surface-2);border:1px solid oklch(from var(--color-text) l c h / 0.08)}
-    .mobile-toggle{display:none}
-    @media (max-width:1024px){.app{grid-template-columns:1fr}.sidebar{position:fixed;left:0;top:0;bottom:0;width:min(88vw,320px);transform:translateX(-102%);z-index:40;transition:transform var(--transition-interactive)}.sidebar.open{transform:translateX(0)}.mobile-toggle{display:inline-flex}.kpis{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:700px){.main{padding:var(--space-4)}.panel-header,.panel-body{padding:var(--space-4)}.check-row{grid-template-columns:1fr}.kpis{grid-template-columns:1fr}.topbar{align-items:stretch}}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#01696f" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Lab Rondes" />
+<script type="text/javascript" nonce="c6b847c479d540219851524555c" src="//injections.adguard.org?ts=1780932599930&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F1a916f38946f277d24960877d7395845%2F9329b690-5027-4b79-a394-17919b620896%2F7c8e5084.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253D%2522lab-rondes-tracker.html%2522%253B%2520filename%252A%253DUTF-8%2527%2527lab-rondes-tracker.html%26AWSAccessKeyId%3DASIA2F3EMEYE4L4SEMIC%26Signature%3DQLZqV6zAwlgYuGbjpYd3z2EbW30%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEO%252F%252F%252F%252F%252F%252F%252F%252F%252F%252F%252FwEaCXVzLWVhc3QtMSJHMEUCIELLd%252FPjX8xcMMIDq4J8S3yIniYYHY4AcXH9nYJQQHKuAiEAxVII6hhxSVMLUvDUOgWqwNp5aYbzTzvc%252FrDQFF54%252F%252FYq%252FAQIuP%252F%252F%252F%252F%252F%252F%252F%252F%252F%252FARABGgw2OTk3NTMzMDk3MDUiDCbuLZ8ZKQnNPgMmkCrQBA4eFqqh6TLgrSyGCshJ9x%252FKdjm8rfq3%252FfUQcd23rU%252BjIJETWke6FDYnflbX3vUcVvEfIK07p7aeZldJiTT7NMdEJXRNRtkdgAUZtLK89nWXCuBPkS%252FCT4c4sRUasQzY%252FD8dT1J455ooKp8Gr8kv1Y%252FiHqMZOLprgRiIoRkQ4riA%252Bk8GeHB9Gt6LKloRHDugFJkAPUzcecsaUbRMJ%252BD4rS0ksawNvrPPO4LlyW%252BPBaa%252FZNBWboGmp%252BoL3p0RoA2FG1xP7yF9Wc89ARIHJ9WRfRPgWDuzWn%252FuC8IQdZk2HaH%252BzSrfGmMdi9j%252BmM%252FTWU%252FfMQ6VyVaBgo97CLXZzIY4y630qNOCYZKv6ZghGkeBmHHr%252BIDQ7N1PYItmn7SGLyfCT%252BSTX%252FQbuMbdrjclDbDwtUGJonPAL4pkTjGZY8QzvYtjjzs5PlI4rVWUciQiW65Ejm0FY7hpIMGYGSuSEndQaGzf3FQyew78Zb3sl%252BPE4%252B6povKe%252Bk%252Falp9%252Flic48JDs2aefblMGZBWZjUZNOKV8yCS1nVGLbSouBEzeAp6BvZtsX08NpvhUXUVpKVpmrMdQ9KWPNkJ6lcQ%252FkNTtn%252B%252FiavVAmhrtVSVTI%252FSDxCP3tfkHmJspUI5LwBKHdJILJwuEr0EdcU6g1ef3B%252Fy2Zrf3M20CHDxSCfYN%252BnRmZfAJ8c6hdkaP8%252FuKe%252BIDDxQDyM64wXRDF85TG3%252FMC3B75pGO8JSbCOvnUld4CLeB1WHQ0nmu7dgYOfGO9wKzksmxzTGE6wQ7K5zeVTgSUBLHuhbapVEwka%252Bb0QY6mAHqljj0FIXz6dOlbsERsO5TS8CF9mQCu5OIphn1yDZZ%252F5ggMWpSNPdC6WwTcDASFDc4kMWRtMIWTupCmA5mnkHURyAYdUobN0fpzl7U2P6KWvRADC%252BXuT0lNGbXudBOxYIH283vOTNY6d4h99Z0X4O%252F7eqOTo3nbAnJ9fK0oPBwdFAuu7ZwMpyne5hak%252FzLsyn%252B0vHNJ1BCNA%253D%253D%26Expires%3D1780933457&amp;app=comet.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script><script type="text/javascript" nonce="c6b847c479d540219851524555c" src="//injections.adguard.org?ts=1780932599930&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./icon-180.png" />
+<title>Lab Rondes Tracker</title>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="light"] {
+--text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+--text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+--text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+--text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+--text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+--space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem;
+--space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem;
+--color-bg: #f7f6f2; --color-surface: #f9f8f5; --color-surface-2: #fbfbf9; --color-surface-offset: #f3f0ec;
+--color-border: #d4d1ca; --color-divider: #dcd9d5; --color-text: #28251d; --color-text-muted: #6f6d67;
+--color-text-inverse: #f9f8f4; --color-primary: #01696f; --color-primary-hover: #0c4e54;
+--color-success: #437a22; --color-warning: #964219; --color-blue: #006494; --color-attention: #7a39bb;
+--radius-sm: 0.375rem; --radius-md: 0.5rem; --radius-lg: 0.75rem; --radius-xl: 1rem; --radius-full: 9999px;
+--shadow-sm: 0 1px 2px oklch(0.2 0.01 80 / 0.06); --shadow-md: 0 4px 12px oklch(0.2 0.01 80 / 0.08);
+--transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+--font-body: 'Satoshi', Inter, sans-serif;
+}
+[data-theme="dark"] {
+--color-bg: #171614; --color-surface: #1c1b19; --color-surface-2: #201f1d; --color-surface-offset: #1d1c1a;
+--color-border: #393836; --color-divider: #262523; --color-text: #cdccca; --color-text-muted: #9a9893;
+--color-text-inverse: #2b2a28; --color-primary: #4f98a3; --color-primary-hover: #227f8b;
+--color-success: #6daa45; --color-warning: #bb653b; --color-blue: #5591c7; --color-attention: #a86fdf;
+--shadow-sm: 0 1px 2px oklch(0 0 0 / 0.2); --shadow-md: 0 4px 12px oklch(0 0 0 / 0.3);
+}
+*,:before,:after{box-sizing:border-box;margin:0;padding:0}
+html{-moz-text-size-adjust:none;-webkit-text-size-adjust:none;text-size-adjust:none;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{min-height:100dvh;line-height:1.5;font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg)}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+input,textarea{background:var(--color-surface);border:1px solid oklch(from var(--color-text) l c h / 0.12);border-radius:var(--radius-md)}
+:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+.app{display:grid;grid-template-columns:300px 1fr;min-height:100dvh}
+.sidebar{background:var(--color-surface);border-right:1px solid oklch(from var(--color-text) l c h / 0.12);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-6);position:sticky;top:0;height:100dvh;overflow:auto}
+.logo{display:flex;align-items:center;gap:var(--space-3);font-weight:700;font-size:var(--text-lg)}
+.logo-mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--color-primary),color-mix(in oklab,var(--color-primary) 60%, white));display:grid;place-items:center;color:white;box-shadow:var(--shadow-sm)}
+.nav-group,.summary-card,.week-switcher,.info-card,.search-card{background:var(--color-surface-2);border:1px solid oklch(from var(--color-text) l c h / 0.08);border-radius:var(--radius-lg);padding:var(--space-4);box-shadow:var(--shadow-sm)}
+.nav-group h2,.summary-card h2,.week-switcher h2,.info-card h2,.search-card h2{font-size:var(--text-sm);margin-bottom:var(--space-3);color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.04em}
+.nav-list{display:grid;gap:var(--space-2)}
+.nav-btn,.week-btn,.filter-btn,.small-btn{width:100%;text-align:left;padding:0.8rem 0.95rem;border-radius:var(--radius-md);transition:background var(--transition-interactive),color var(--transition-interactive),border-color var(--transition-interactive)}
+.nav-btn,.week-btn,.filter-btn,.small-btn{border:1px solid oklch(from var(--color-text) l c h / 0.1);background:var(--color-surface)}
+.nav-btn:hover,.week-btn:hover,.filter-btn:hover,.small-btn:hover{background:var(--color-surface-offset)}
+.nav-btn.active,.week-btn.active,.filter-btn.active{background:color-mix(in oklab,var(--color-primary) 14%, var(--color-surface));color:var(--color-primary);border-color:color-mix(in oklab,var(--color-primary) 28%, var(--color-border))}
+.nav-btn small{display:block;color:var(--color-text-muted);font-size:var(--text-xs)}
+.main{padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-6)}
+.topbar{display:flex;justify-content:space-between;gap:var(--space-4);align-items:flex-start;flex-wrap:wrap}
+.title-wrap h1{font-size:var(--text-xl);line-height:1.08;margin-bottom:var(--space-2)}
+.title-wrap p{color:var(--color-text-muted);max-width:70ch}
+.top-actions{display:flex;gap:var(--space-2);flex-wrap:wrap}.quick-summary{position:fixed;right:18px;bottom:18px;z-index:45;box-shadow:var(--shadow-md);width:auto;padding:0.9rem 1rem;border-radius:9999px}
+.small-btn{min-height:44px;padding-inline:1rem}
+.small-btn.primary{background:var(--color-primary);color:var(--color-text-inverse);border-color:var(--color-primary)}
+.small-btn.primary:hover{background:var(--color-primary-hover)}
+.panel{background:var(--color-surface);border:1px solid oklch(from var(--color-text) l c h / 0.1);border-radius:var(--radius-xl);box-shadow:var(--shadow-sm)}
+#summary-section{scroll-margin-bottom:110px}
+.panel-header{padding:var(--space-5);border-bottom:1px solid var(--color-divider);display:flex;justify-content:space-between;gap:var(--space-3);align-items:center;flex-wrap:wrap}
+.panel-header h2{font-size:var(--text-lg)}
+.panel-header p{font-size:var(--text-sm);color:var(--color-text-muted)}
+.panel-body{padding:var(--space-5)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)}
+.kpi{background:var(--color-surface-2);border:1px solid oklch(from var(--color-text) l c h / 0.08);border-radius:var(--radius-lg);padding:var(--space-4)}
+.kpi span{display:block;font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-2);text-transform:uppercase;letter-spacing:.04em}
+.kpi strong{font-size:var(--text-lg);font-variant-numeric:tabular-nums lining-nums}
+.route-meta,.option-row,.controls,.search-actions{display:flex;gap:var(--space-2);flex-wrap:wrap}
+.tag{display:inline-flex;align-items:center;gap:0.45rem;padding:0.4rem 0.7rem;border-radius:var(--radius-full);font-size:var(--text-xs);background:var(--color-surface-offset);border:1px solid oklch(from var(--color-text) l c h / 0.08)}
+.tag.success{color:var(--color-success);background:color-mix(in oklab,var(--color-success) 10%, var(--color-surface))}
+.tag.warning{color:var(--color-warning);background:color-mix(in oklab,var(--color-warning) 10%, var(--color-surface))}
+.tag.attention{color:var(--color-attention);background:color-mix(in oklab,var(--color-attention) 10%, var(--color-surface))}
+.rooms{display:grid;gap:var(--space-4)}
+.room-card{border:1px solid oklch(from var(--color-text) l c h / 0.1);border-radius:var(--radius-lg);padding:var(--space-4);background:var(--color-surface-2);display:grid;gap:var(--space-4)}
+.room-card.highlight{border-color:color-mix(in oklab,var(--color-primary) 45%, var(--color-border));box-shadow:0 0 0 3px color-mix(in oklab,var(--color-primary) 12%, transparent)}
+.room-head{display:flex;justify-content:space-between;gap:var(--space-3);align-items:flex-start;flex-wrap:wrap}
+.room-code{font-size:var(--text-lg);font-weight:700}
+.room-location{color:var(--color-text-muted);font-size:var(--text-sm)}
+.check-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3)}
+.toggle-box{border:1px solid oklch(from var(--color-text) l c h / 0.1);border-radius:var(--radius-lg);padding:var(--space-4);background:var(--color-surface);display:grid;gap:var(--space-3)}
+.option-row button{min-height:44px;padding:0.72rem 0.95rem;border-radius:var(--radius-md);border:1px solid oklch(from var(--color-text) l c h / 0.1);background:var(--color-surface-2)}
+.option-row button.active-yes{background:color-mix(in oklab,var(--color-success) 14%, var(--color-surface));border-color:color-mix(in oklab,var(--color-success) 30%, var(--color-border));color:var(--color-success)}
+.option-row button.active-no{background:color-mix(in oklab,var(--color-warning) 14%, var(--color-surface));border-color:color-mix(in oklab,var(--color-warning) 30%, var(--color-border));color:var(--color-warning)}
+.notes{font-size:var(--text-sm);color:var(--color-text-muted)}
+.note-area,.search-input{width:100%;min-height:92px;padding:0.85rem}
+.search-input{min-height:auto;height:48px}
+.footer-tip{font-size:var(--text-sm);color:var(--color-text-muted)}
+.empty-state{padding:var(--space-8);text-align:center;color:var(--color-text-muted);border:1px dashed oklch(from var(--color-text) l c h / 0.18);border-radius:var(--radius-lg);background:var(--color-surface-2)}
+.progress-line{height:10px;border-radius:var(--radius-full);background:var(--color-surface-offset);overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--color-primary),color-mix(in oklab,var(--color-primary) 45%, var(--color-blue)));width:0%;transition:width 240ms ease}
+.search-result{margin-top:var(--space-3);padding:var(--space-3);border-radius:var(--radius-md);background:var(--color-surface);border:1px solid oklch(from var(--color-text) l c h / 0.1);font-size:var(--text-sm)}
+.reminder-list{display:grid;gap:var(--space-3)}
+.reminder-item{padding:var(--space-4);border-radius:var(--radius-lg);background:var(--color-surface-2);border:1px solid oklch(from var(--color-text) l c h / 0.08)}
+.mobile-toggle{display:none}
+@media (max-width:1024px){.app{grid-template-columns:1fr}.sidebar{position:fixed;left:0;top:0;bottom:0;width:min(88vw,320px);transform:translateX(-102%);z-index:40;transition:transform var(--transition-interactive)}.sidebar.open{transform:translateX(0)}.mobile-toggle{display:inline-flex}.kpis{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:700px){.main{padding:var(--space-4)}.panel-header,.panel-body{padding:var(--space-4)}.check-row{grid-template-columns:1fr}.kpis{grid-template-columns:1fr}.topbar{align-items:stretch}}
+/* === Room Nav Buttons === */
+#room-nav {
+  position: fixed;
+  bottom: 80px; /* iets boven de eventuele bottom-bar */
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 999;
+}
+#room-nav button {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--color-primary, #01696f);
+  color: #fff;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+#room-nav button:active {
+  transform: scale(0.92);
+  background: var(--color-primary-dark, #014f54);
+}
+</style>
 </head>
+<!-- Room UP/DOWN navigatie -->
+<div id="room-nav">
+  <button id="roomUp"   title="Vorige kamer">&#9650;</button>
+  <button id="roomDown" title="Volgende kamer">&#9660;</button>
+</div>
+
+<script>
+(function () {
+  let currentRoomIndex = -1;
+
+  function getRooms() {
+    // Selecteer alle zichtbare room-cards
+    return Array.from(document.querySelectorAll('.room-card'))
+      .filter(el => el.offsetParent !== null);
+  }
+
+  function scrollToRoom(index) {
+    const rooms = getRooms();
+    if (!rooms.length) return;
+    currentRoomIndex = Math.max(0, Math.min(index, rooms.length - 1));
+    rooms[currentRoomIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function findClosestRoomIndex() {
+    const rooms = getRooms();
+    if (!rooms.length) return 0;
+    const center = window.innerHeight / 2;
+    let closest = 0, minDist = Infinity;
+    rooms.forEach((el, i) => {
+      const rect = el.getBoundingClientRect();
+      const dist = Math.abs(rect.top + rect.height / 2 - center);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    return closest;
+  }
+
+  document.getElementById('roomUp').addEventListener('click', function () {
+    currentRoomIndex = findClosestRoomIndex();
+    scrollToRoom(currentRoomIndex - 1);
+  });
+
+  document.getElementById('roomDown').addEventListener('click', function () {
+    currentRoomIndex = findClosestRoomIndex();
+    scrollToRoom(currentRoomIndex + 1);
+  });
+})();
+</script>
 <body>
-  <a class="sr-only" href="#main-content">Ga naar inhoud</a>
-  <div class="app">
-    <aside class="sidebar" id="sidebar">
-      <div class="logo" aria-label="Lab Rondes Tracker logo">
-        <div class="logo-mark" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v7l-4 7a3 3 0 0 0 2.7 4h12.6A3 3 0 0 0 21 17l-4-7V3"></path><path d="M9.5 3h5"></path><path d="M8 14h8"></path></svg>
-        </div>
-        <div>
-          <div>Lab Rondes</div>
-          <small style="color:var(--color-text-muted);font-size:var(--text-xs);">CGSA tracker</small>
-        </div>
-      </div>
-      <div class="week-switcher">
-        <h2>Weekschema</h2>
-        <div class="nav-list" id="weekButtons"></div>
-      </div>
-      <div class="nav-group">
-        <h2>Ronde</h2>
-        <div class="nav-list" id="routeButtons"></div>
-      </div>
-      <div class="search-card">
-        <h2>Zoek kamer</h2>
-        <input id="roomSearch" class="search-input" type="text" placeholder="Bijv. 5.149 of 321" />
-        <div class="search-actions" style="margin-top:var(--space-2);">
-          <button class="small-btn" id="findRoomBtn">Zoek</button>
-          <button class="small-btn" id="clearSearchBtn">Wis</button>
-        </div>
-        <div id="searchResult" class="search-result">Zoek snel op kamernummer om meteen de regel en notitie te zien.</div>
-      </div>
-      <div class="summary-card">
-        <h2>Voortgang</h2>
-        <div class="progress-line"><div class="progress-bar" id="progressBar"></div></div>
-        <div style="display:grid;gap:var(--space-3);margin-top:var(--space-4);font-variant-numeric:tabular-nums lining-nums;">
-          <div><strong id="summaryVisited">0</strong> kamers bezocht</div>
-          <div><strong id="summaryPicked">0</strong> keer iets opgehaald</div>
-          <div><strong id="summaryAttention">0</strong> reminders</div>
-        </div>
-      </div>
-      <div class="info-card">
-        <h2>Regels</h2>
-        <p style="font-size:var(--text-sm);color:var(--color-text-muted);">Kruis per kamer aan of je langs bent geweest en of je iets hebt opgehaald. Gebruik de reminderlijst om op het einde snel te zien wat steriel terug moet of wat je niet mag vergeten terug te brengen.</p>
-      </div>
-    </aside>
-    <main class="main" id="main-content">
-      <div class="topbar">
-        <div class="title-wrap">
-          <h1>Lab ronde tracker</h1>
-          <p>Per week zie je hier alleen de combinatie van verdiepingen die jij die dagen loopt. De reminder-sectie maakt automatisch een samenvatting van kamers waar je extra op moet letten.</p>
-        </div>
-        <div class="top-actions">
-          <button class="small-btn mobile-toggle" id="menuToggle" aria-label="Open menu">☰ Menu</button>
-          <button class="small-btn" id="themeToggle" aria-label="Switch theme">🌙 Thema</button>
-          <button class="small-btn" id="clearRouteBtn">Ronde leegmaken</button>
-          <button class="small-btn" id="jumpSummaryBtn">Samenvatting</button><button class="small-btn primary" id="exportBtn">Kopieer overzicht</button>
-        </div>
-      </div>
-      <section class="panel">
-        <div class="panel-header">
-          <div>
-            <h2 id="routeTitle">Nog geen route gekozen</h2>
-            <p id="routeSubtitle">Selecteer een combinatie van verdiepingen voor deze week.</p>
-          </div>
-          <div class="route-meta" id="routeMeta"></div>
-        </div>
-        <div class="panel-body">
-          <div class="kpis">
-            <div class="kpi"><span>Totaal kamers</span><strong id="kpiRooms">0</strong></div>
-            <div class="kpi"><span>Bezocht</span><strong id="kpiVisited">0</strong></div>
-            <div class="kpi"><span>Ophalen</span><strong id="kpiPicked">0</strong></div>
-            <div class="kpi"><span>Nog open</span><strong id="kpiOpen">0</strong></div>
-          </div>
-        </div>
-      </section>
-      <section class="panel">
-        <div class="panel-header">
-          <div>
-            <h2>Kamers</h2>
-            <p>Per kamer: bezocht, iets opgehaald, en extra notitie als geheugensteun.</p>
-          </div>
-        </div>
-        <div class="panel-body">
-          <div class="controls">
-            <button class="filter-btn active" data-filter="all">Alles</button>
-            <button class="filter-btn" data-filter="pending">Nog open</button>
-            <button class="filter-btn" data-filter="visited">Bezocht</button>
-            <button class="filter-btn" data-filter="picked">Opgehaald</button>
-          </div>
-          <div id="roomsContainer" class="rooms"></div>
-        </div>
-      </section>
-      <section class="panel" id="summary-section">
-        <div class="panel-header">
-          <div>
-            <h2>Reminder samenvatting</h2>
-            <p>Automatisch overzicht van kamers waar je iets moet terugbrengen of extra op moet letten.</p>
-          </div>
-        </div>
-        <div class="panel-body">
-          <div id="reminderList" class="reminder-list"></div>
-        </div>
-      </section>
-      <section class="panel">
-        <div class="panel-header">
-          <div>
-            <h2>Dagoverzicht</h2>
-            <p>Handig om te plakken in WhatsApp of notities.</p>
-          </div>
-        </div>
-        <div class="panel-body">
-          <textarea id="dailySummary" class="note-area" readonly></textarea>
-          <p class="footer-tip" style="margin-top:var(--space-3);">Het overzicht wordt automatisch bijgewerkt terwijl je de ronde invult.</p>
-        </div>
-      </section>
+<a class="sr-only" href="#main-content">Ga naar inhoud</a>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+<div class="logo" aria-label="Lab Rondes Tracker logo">
+<div class="logo-mark" aria-hidden="true">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v7l-4 7a3 3 0 0 0 2.7 4h12.6A3 3 0 0 0 21 17l-4-7V3"></path><path d="M9.5 3h5"></path><path d="M8 14h8"></path></svg>
+</div>
+<div>
+<div>Lab Rondes</div>
+<small style="color:var(--color-text-muted);font-size:var(--text-xs);">CGSA tracker</small>
+</div>
+</div>
+<div class="week-switcher">
+<h2>Weekschema</h2>
+<div class="nav-list" id="weekButtons"></div>
+</div>
+<div class="nav-group">
+<h2>Ronde</h2>
+<div class="nav-list" id="routeButtons"></div>
+</div>
+<div class="search-card">
+<h2>Zoek kamer</h2>
+<input id="roomSearch" class="search-input" type="text" placeholder="Bijv. 5.149 of 321" />
+<div class="search-actions" style="margin-top:var(--space-2);">
+<button class="small-btn" id="findRoomBtn">Zoek</button>
+<button class="small-btn" id="clearSearchBtn">Wis</button>
+</div>
+<div id="searchResult" class="search-result">Zoek snel op kamernummer om meteen de regel en notitie te zien.</div>
+</div>
+<div class="summary-card">
+<h2>Voortgang</h2>
+<div class="progress-line"><div class="progress-bar" id="progressBar"></div></div>
+<div style="display:grid;gap:var(--space-3);margin-top:var(--space-4);font-variant-numeric:tabular-nums lining-nums;">
+<div><strong id="summaryVisited">0</strong> kamers bezocht</div>
+<div><strong id="summaryPicked">0</strong> keer iets opgehaald</div>
+<div><strong id="summaryAttention">0</strong> reminders</div>
+</div>
+</div>
+<div class="info-card">
+<h2>Regels</h2>
+<p style="font-size:var(--text-sm);color:var(--color-text-muted);">Kruis per kamer aan of je langs bent geweest en of je iets hebt opgehaald. Gebruik de reminderlijst om op het einde snel te zien wat steriel terug moet of wat je niet mag vergeten terug te brengen.</p>
+</div>
+</aside>
+<main class="main" id="main-content">
+<div class="topbar">
+<div class="title-wrap">
+<h1>Lab ronde tracker</h1>
+<p>Per week zie je hier alleen de combinatie van verdiepingen die jij die dagen loopt. De reminder-sectie maakt automatisch een samenvatting van kamers waar je extra op moet letten.</p>
+</div>
+<div class="top-actions">
+<button class="small-btn mobile-toggle" id="menuToggle" aria-label="Open menu">☰ Menu</button>
+<button class="small-btn" id="themeToggle" aria-label="Switch theme">🌙 Thema</button>
+<button class="small-btn" id="clearRouteBtn">Ronde leegmaken</button>
+<button class="small-btn" id="jumpSummaryBtn">Samenvatting</button><button class="small-btn primary" id="exportBtn">Kopieer overzicht</button>
+</div>
+</div>
+<section class="panel">
+<div class="panel-header">
+<div>
+<h2 id="routeTitle">Nog geen route gekozen</h2>
+<p id="routeSubtitle">Selecteer een combinatie van verdiepingen voor deze week.</p>
+</div>
+<div class="route-meta" id="routeMeta"></div>
+</div>
+<div class="panel-body">
+<div class="kpis">
+<div class="kpi"><span>Totaal kamers</span><strong id="kpiRooms">0</strong></div>
+<div class="kpi"><span>Bezocht</span><strong id="kpiVisited">0</strong></div>
+<div class="kpi"><span>Ophalen</span><strong id="kpiPicked">0</strong></div>
+<div class="kpi"><span>Nog open</span><strong id="kpiOpen">0</strong></div>
+</div>
+</div>
+</section>
+<section class="panel">
+<div class="panel-header">
+<div>
+<h2>Kamers</h2>
+<p>Per kamer: bezocht, iets opgehaald, en extra notitie als geheugensteun.</p>
+</div>
+</div>
+<div class="panel-body">
+<div class="controls">
+<button class="filter-btn active" data-filter="all">Alles</button>
+<button class="filter-btn" data-filter="pending">Nog open</button>
+<button class="filter-btn" data-filter="visited">Bezocht</button>
+<button class="filter-btn" data-filter="picked">Opgehaald</button>
+</div>
+<div id="roomsContainer" class="rooms"></div>
+</div>
+</section>
+<section class="panel" id="summary-section">
+<div class="panel-header">
+<div>
+<h2>Reminder samenvatting</h2>
+<p>Automatisch overzicht van kamers waar je iets moet terugbrengen of extra op moet letten.</p>
+</div>
+</div>
+<div class="panel-body">
+<div id="reminderList" class="reminder-list"></div>
+</div>
+</section>
+<section class="panel">
+<div class="panel-header">
+<div>
+<h2>Dagoverzicht</h2>
+<p>Handig om te plakken in WhatsApp of notities.</p>
+</div>
+</div>
+<div class="panel-body">
+<textarea id="dailySummary" class="note-area" readonly></textarea>
+<p class="footer-tip" style="margin-top:var(--space-3);">Het overzicht wordt automatisch bijgewerkt terwijl je de ronde invult.</p>
+</div>
+</section>
           <button class="small-btn quick-summary" id="floatingSummaryBtn" aria-label="Ga naar samenvatting">Samenvatting</button><button class="small-btn quick-summary primary" id="floatingTopBtn" style="bottom:74px" aria-label="Ga naar bovenkant">&#8679; Boven</button>
-    </main>
-  </div>
-  <script>
-    const weekSchedules = [
-      { id: 'week-a', label: 'Week A', detail: 'Verdieping 0 + 5', routes: ['0-5'] },
-      { id: 'week-b', label: 'Week B', detail: 'Verdieping 2 + 4', routes: ['2-4'] },
-      { id: 'week-c', label: 'Week C', detail: 'Verdieping 3 + 1', routes: ['3-1'] }
-    ];
+</main>
+</div>
+<script>
+const weekSchedules = [
+{ id: 'week-a', label: 'Week A', detail: 'Verdieping 0 + 5', routes: ['0-5'] },
+{ id: 'week-b', label: 'Week B', detail: 'Verdieping 2 + 4', routes: ['2-4'] },
+{ id: 'week-c', label: 'Week C', detail: 'Verdieping 3 + 1', routes: ['3-1'] }
+];
 
-    const routeData = {
-      '0-5': { title: 'Ronde verdieping 0 + 5', subtitle: 'Dagronde voor de combinatie van verdieping 0 en 5.', floors: ['0', '5'], rooms: [
-        { code: '0.207', area: '0 Midden', sterile: 'Alles steriel met sticker', note: 'Bij de printer.', reminder: 'Let op: spullen van 0.207 moeten volgens sticker-regel steriel terug.' },
-        { code: '0.307', area: '0 Zuid', sterile: 'Niet steriel', note: 'Glazen deur.', reminder: '0.307 is niet steriel terug.' },
-        { code: '0.337', area: '0 Zuid', sterile: 'Niet steriel', note: 'Tweede glazen deur.', reminder: '0.337 is niet steriel terug.' },
-        { code: '5.127', area: '5 Noord', sterile: 'Niet steriel', note: 'Linkerlab terugzetten op werktafel.', reminder: 'Niet vergeten: spullen van 5.127 terug op werktafel zetten.' },
-        { code: '5.140', area: '5 Noord', sterile: 'Alleen flessen steriel met sticker', note: 'Linkerlab terugzetten op werktafel.', reminder: 'Let op bij 5.140: alleen flessen met sticker steriel terug; linkerlab terug op werktafel.' },
-        { code: '5.147', area: '5 Noord', sterile: 'Alleen flessen steriel met sticker', note: '5147F en 5147B horen hierbij.', reminder: '5.147: alleen flessen met sticker steriel terug.' },
-        { code: '5.149', area: '5 Noord', sterile: 'Alles steriel met sticker', note: 'Via 5.147H om de hoek; MW-fles vullen met MilliQ en steriliseren.', reminder: '5.149: steriele spullen volgens sticker terug; MW-fles met MilliQ vullen en steriliseren.' },
-        { code: '5.207', area: '5 Midden', sterile: 'Meestal zakjes of doosjes; glaswerk wel steriel met sticker', note: 'Bijna nooit naar binnen.', reminder: '5.207: glaswerk met sticker steriel terug als aanwezig.' },
-        { code: '5.213', area: '5 Midden', sterile: 'Niets steriel', note: 'Merlin, tweede deur.', reminder: '5.213 is niet steriel terug.' },
-        { code: '5.237', area: '5 Midden', sterile: 'Flessen steriel zonder sticker; glaswerk in aluminiumfolie maar niet steriel', note: 'Ronde plastic fles ook steriel in autoclaaf.', reminder: '5.237: flessen steriel terug, glaswerk alleen in aluminiumfolie; ronde plastic fles in autoclaaf.' },
-        { code: '5.249', area: '5 Midden', sterile: 'Niets steriel', note: 'Vaak dicht.', reminder: '5.249 meestal niet steriel; check of deur open was.' },
-        { code: '5.301', area: '5 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: 'Plastic bakjes in groen zakje sealen en autoclaaf.', reminder: '5.301: alles steriel terug; plastic bakjes in groen zakje sealen en autoclaaf.' },
-        { code: '5.307', area: '5 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: 'Flessen en glaswerk.', reminder: '5.307: alles steriel terug.' },
-        { code: '5.313', area: '5 Zuid', sterile: 'Niets steriel', note: '', reminder: '5.313 is niet steriel terug.' },
-        { code: '5.325', area: '5 Zuid', sterile: 'Niets steriel', note: '', reminder: '5.325 is niet steriel terug.' },
-        { code: '5.337', area: '5 Zuid', sterile: 'Niets steriel', note: '', reminder: '5.337 is niet steriel terug.' },
-        { code: '5.345', area: '5 Zuid', sterile: 'Alleen flessen steriel zonder sticker', note: '', reminder: '5.345: alleen flessen steriel terug.' }
-      ]},
-      '2-4': { title: 'Ronde verdieping 2 + 4', subtitle: 'Weekroute voor verdieping 2 en 4 samen.', floors: ['2', '4'], rooms: [
-        { code: '2.207', area: '2 Midden', sterile: 'Alles steriel en flessen met sticker', note: '', reminder: '2.207: alles volgens sticker steriel terug.' },
-        { code: '2.219', area: '2 Midden', sterile: 'Niets steriel', note: 'Biobank.', reminder: '2.219 is niet steriel terug.' },
-        { code: '2.313', area: '2 Zuid', sterile: 'Alles steriel met sticker', note: '', reminder: '2.313: volgens sticker steriel terug.' },
-        { code: '2.323', area: '2 Zuid', sterile: 'Niets steriel', note: '', reminder: '2.323 is niet steriel terug.' },
-        { code: '2.331', area: '2 Zuid', sterile: 'Niets steriel', note: '', reminder: '2.331 is niet steriel terug.' },
-        { code: '2.347', area: '2 Zuid', sterile: 'Niets steriel', note: 'Rechter lab van de twee.', reminder: '2.347 is niet steriel terug.' },
-        { code: '2.353', area: '2 Zuid', sterile: 'Niets steriel', note: 'Linker lab.', reminder: '2.353 is niet steriel terug.' },
-        { code: '2.359', area: '2 Zuid', sterile: 'Niets steriel', note: '', reminder: '2.359 is niet steriel terug.' },
-        { code: '4.141', area: '4 Noord', sterile: 'Niets steriel', note: 'Aan linkerkant schoon neerzetten.', reminder: '4.141: niet steriel; schoon aan linkerkant neerzetten.' },
-        { code: '4.149', area: '4 Noord', sterile: 'Niets steriel', note: '', reminder: '4.149 is niet steriel terug.' },
-        { code: '4.159', area: '4 Noord', sterile: 'Alleen flessen steriel met sticker', note: 'Gewoon glaswerk niet steriel.', reminder: '4.159: alleen flessen met sticker steriel terug; gewoon glaswerk niet.' },
-        { code: '4.161', area: '4 Noord', sterile: 'Niets steriel', note: '', reminder: '4.161 is niet steriel terug.' },
-        { code: '4.230', area: '4 Midden', sterile: 'Niets steriel', note: '', reminder: '4.230 is niet steriel terug.' },
-        { code: '4.231', area: '4 Midden', sterile: 'Alleen flessen met rode dop en sticker steriel', note: 'Met plastic rondje erin.', reminder: '4.231: alleen flessen met rode dop en sticker steriel terug.' },
-        { code: '4.237', area: '4 Midden', sterile: 'Niets steriel', note: '', reminder: '4.237 is niet steriel terug.' },
-        { code: '4.307', area: '4 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: 'Zelfde lab als 4.305 en 4.313.', reminder: '4.307: alles steriel terug.' },
-        { code: '4.313', area: '4 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: 'Zelfde lab aan beide kanten.', reminder: '4.313: alles steriel terug.' },
-        { code: '4.319', area: '4 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: '', reminder: '4.319: alles steriel terug.' },
-        { code: '4.323', area: '4 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: 'Zelfde plek als 4.329.', reminder: '4.323: alles steriel terug.' },
-        { code: '4.329', area: '4 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: '', reminder: '4.329: alles steriel terug.' }
-      ]},
-      '3-1': { title: 'Ronde verdieping 3 + 1', subtitle: 'Weekroute voor verdieping 3 en 1 samen.', floors: ['3', '1'], rooms: [
-        { code: '3.117', area: '3 Noord', sterile: 'Alles steriel en flessen met sticker', note: 'Na de lift bij 3.100; MQ-flessen vullen met MilliQ en steriliseren.', reminder: '3.117: steriel terug volgens sticker; MQ-flessen vullen met MilliQ en steriliseren.' },
-        { code: '3.135', area: '3 Noord', sterile: 'Alles steriel en flessen met sticker', note: '', reminder: '3.135: alles steriel terug.' },
-        { code: '3.137', area: '3 Noord', sterile: 'Alles steriel en flessen met sticker', note: '', reminder: '3.137: alles steriel terug.' },
-        { code: '3.143', area: '3 Noord', sterile: 'Niets steriel', note: '', reminder: '3.143 is niet steriel terug.' },
-        { code: '3.159', area: '3 Noord', sterile: 'Alleen zakjes terugbrengen', note: 'Bij de linkerdeur.', reminder: 'Niet vergeten: bij 3.159 alleen zakjes terugbrengen aan de linkerdeur.' },
-        { code: '3.201', area: '3 Midden', sterile: 'Zakjes en bakjes steriel', note: 'Meestal alleen zakjes en bakjes.', reminder: '3.201: zakjes en bakjes steriel terug.' },
-        { code: '3.207', area: '3 Midden', sterile: 'Zakjes en bakjes steriel', note: 'Meestal alleen zakjes en bakjes.', reminder: '3.207: zakjes en bakjes steriel terug.' },
-        { code: '3.305', area: '3 Zuid', sterile: 'Alles steriel en flessen met sticker', note: '', reminder: '3.305: alles steriel terug.' },
-        { code: '3.309', area: '3 Zuid', sterile: 'Alles steriel en flessen met sticker', note: '', reminder: '3.309: alles steriel terug.' },
-        { code: '3.311', area: '3 Zuid', sterile: 'Alles steriel en flessen met sticker', note: '', reminder: '3.311: alles steriel terug.' },
-        { code: '3.319', area: '3 Zuid', sterile: 'Alleen flessen steriel met sticker', note: '', reminder: '3.319: alleen flessen steriel terug.' },
-        { code: '1.119', area: '1 Noord', sterile: 'Niets steriel', note: 'Grote plastic flessen bij vuil vullen met MilliQ, niet steriel; klein bakje naar spoelmachine programma 3.', reminder: '1.119: niet steriel terug; grote plastic flessen vullen met MilliQ; klein bakje naar spoelmachine programma 3.' },
-        { code: '1.132', area: '1 Noord', sterile: 'Alleen driehoekige flessen steriel met sticker', note: 'Dop heeft drie puntjes.', reminder: '1.132: alleen driehoekige flessen met sticker steriel terug.' },
-        { code: '1.137', area: '1 Noord', sterile: 'Niets steriel', note: '', reminder: '1.137 is niet steriel terug.' },
-        { code: '1.303', area: '1 Zuid', sterile: 'Alles steriel en flessen zonder sticker', note: '', reminder: '1.303: alles steriel terug.' },
-        { code: '1.305', area: '1 Zuid', sterile: 'Niets steriel', note: '', reminder: '1.305 is niet steriel terug.' },
-        { code: '1.307', area: '1 Zuid', sterile: 'Niets steriel', note: '', reminder: '1.307 is niet steriel terug.' },
-        { code: '1.317', area: '1 Zuid', sterile: 'Niets steriel', note: '', reminder: '1.317 is niet steriel terug.' },
-        { code: '1.321', area: '1 Zuid', sterile: 'Alles steriel en flessen met sticker', note: 'Schoon en vuil op dezelfde plek; plastic erlenmeyers in autoclaaf met 4-dubbel aluminiumfolie; grote flessen in stoof; doppen apart in twee zakjes.', reminder: '1.321: alles steriel terug; plastic erlenmeyers in autoclaaf; grote flessen in stoof; doppen apart in twee zakjes.' },
-        { code: '1.323', area: '1 Zuid', sterile: 'Alles steriel en flessen met sticker', note: 'Schoon en vuil op dezelfde plek.', reminder: '1.323: alles steriel terug.' },
-        { code: '1.325', area: '1 Zuid', sterile: 'Niets steriel', note: '', reminder: '1.325 is niet steriel terug.' }
-      ]}
-    };
+const routeData = {
+'0-5': { title: 'Ronde verdieping 0 + 5', subtitle: 'Dagronde voor de combinatie van verdieping 0 en 5.', floors: ['0', '5'], rooms: [
+{ code: '0.207', area: '0 Midden', sterile: 'Alles steriel met sticker', note: 'Bij de printer.', reminder: 'Let op: spullen van 0.207 moeten volgens sticker-regel steriel terug.' },
+{ code: '0.307', area: '0 Zuid', sterile: 'Niet steriel', note: 'Glazen deur.', reminder: '0.307 is niet steriel terug.' },
+{ code: '0.337', area: '0 Zuid', sterile: 'Niet steriel', note: 'Tweede glazen deur.', reminder: '0.337 is niet steriel terug.' },
+{ code: '5.127', area: '5 Noord', sterile: 'Niet steriel', note: 'Linkerlab terugzetten op werktafel.', reminder: 'Niet vergeten: spullen van 5.127 terug op werktafel zetten.' },
+{ code: '5.140', area: '5 Noord', sterile: 'Alleen flessen steriel met sticker', note: 'Linkerlab terugzetten op werktafel.', reminder: 'Let op bij 5.140: alleen flessen met sticker steriel terug; linkerlab terug op werktafel.' },
+{ code: '5.147', area: '5 Noord', sterile: 'Alleen flessen steriel met sticker', note: '5147F en 5147B horen hierbij.', reminder: '5.147: alleen flessen met sticker steriel terug.' },
+{ code: '5.149', area: '5 Noord', sterile: 'Alles steriel met sticker', note: 'Via 5.147H om de hoek; MW-fles vullen met MilliQ en steriliseren.', reminder: '5.149: steriele spullen volgens sticker terug; MW-fles met MilliQ vullen en steriliseren.' },
+{ code: '5.207', area: '5 Midden', sterile: 'Meestal zakjes of doosjes; glaswerk wel steriel met sticker', note: 'Bijna nooit naar binnen.', reminder: '5.207: glaswerk met sticker steriel terug als aanwezig.' },
+{ code: '5.213', area: '5 Midden', sterile: 'Niets steriel', note: 'Merlin, tweede deur.', reminder: '5.213 is niet steriel terug.' },
+{ code: '5.237', area: '5 Midden', sterile: 'Flessen steriel zonder sticker; glaswerk in aluminiumfolie maar niet steriel', note: 'Ronde plastic fles ook steriel in autoclaaf.', reminder: '5.237: flessen steriel terug, glaswerk alleen in aluminiumfolie; ronde plastic fles in autoclaaf.' },
+{ code: '5.249', area: '5 Midden', sterile: 'Niets steriel', note: 'Vaak dicht.', reminder: '5.249 meestal niet steriel; check of deur open was.' },
+{ code: '5.301', area: '5 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: 'Plastic bakjes in groen zakje sealen en autoclaaf.', reminder: '5.301: alles steriel terug; plastic bakjes in groen zakje sealen en autoclaaf.' },
+{ code: '5.307', area: '5 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: 'Flessen en glaswerk.', reminder: '5.307: alles steriel terug.' },
+{ code: '5.313', area: '5 Zuid', sterile: 'Niets steriel', note: '', reminder: '5.313 is niet steriel terug.' },
+{ code: '5.325', area: '5 Zuid', sterile: 'Niets steriel', note: '', reminder: '5.325 is niet steriel terug.' },
+{ code: '5.337', area: '5 Zuid', sterile: 'Niets steriel', note: '', reminder: '5.337 is niet steriel terug.' },
+{ code: '5.345', area: '5 Zuid', sterile: 'Alleen flessen steriel zonder sticker', note: '', reminder: '5.345: alleen flessen steriel terug.' }
+]},
+'2-4': { title: 'Ronde verdieping 2 + 4', subtitle: 'Weekroute voor verdieping 2 en 4 samen.', floors: ['2', '4'], rooms: [
+{ code: '2.207', area: '2 Midden', sterile: 'Alles steriel en flessen met sticker', note: '', reminder: '2.207: alles volgens sticker steriel terug.' },
+{ code: '2.219', area: '2 Midden', sterile: 'Niets steriel', note: 'Biobank.', reminder: '2.219 is niet steriel terug.' },
+{ code: '2.313', area: '2 Zuid', sterile: 'Alles steriel met sticker', note: '', reminder: '2.313: volgens sticker steriel terug.' },
+{ code: '2.323', area: '2 Zuid', sterile: 'Niets steriel', note: '', reminder: '2.323 is niet steriel terug.' },
+{ code: '2.331', area: '2 Zuid', sterile: 'Niets steriel', note: '', reminder: '2.331 is niet steriel terug.' },
+{ code: '2.347', area: '2 Zuid', sterile: 'Niets steriel', note: 'Rechter lab van de twee.', reminder: '2.347 is niet steriel terug.' },
+{ code: '2.353', area: '2 Zuid', sterile: 'Niets steriel', note: 'Linker lab.', reminder: '2.353 is niet steriel terug.' },
+{ code: '2.359', area: '2 Zuid', sterile: 'Niets steriel', note: '', reminder: '2.359 is niet steriel terug.' },
+{ code: '4.141', area: '4 Noord', sterile: 'Niets steriel', note: 'Aan linkerkant schoon neerzetten.', reminder: '4.141: niet steriel; schoon aan linkerkant neerzetten.' },
+{ code: '4.149', area: '4 Noord', sterile: 'Niets steriel', note: '', reminder: '4.149 is niet steriel terug.' },
+{ code: '4.159', area: '4 Noord', sterile: 'Alleen flessen steriel met sticker', note: 'Gewoon glaswerk niet steriel.', reminder: '4.159: alleen flessen met sticker steriel terug; gewoon glaswerk niet.' },
+{ code: '4.161', area: '4 Noord', sterile: 'Niets steriel', note: '', reminder: '4.161 is niet steriel terug.' },
+{ code: '4.230', area: '4 Midden', sterile: 'Niets steriel', note: '', reminder: '4.230 is niet steriel terug.' },
+{ code: '4.231', area: '4 Midden', sterile: 'Alleen flessen met rode dop en sticker steriel', note: 'Met plastic rondje erin.', reminder: '4.231: alleen flessen met rode dop en sticker steriel terug.' },
+{ code: '4.237', area: '4 Midden', sterile: 'Niets steriel', note: '', reminder: '4.237 is niet steriel terug.' },
+{ code: '4.307', area: '4 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: 'Zelfde lab als 4.305 en 4.313.', reminder: '4.307: alles steriel terug.' },
+{ code: '4.313', area: '4 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: 'Zelfde lab aan beide kanten.', reminder: '4.313: alles steriel terug.' },
+{ code: '4.319', area: '4 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: '', reminder: '4.319: alles steriel terug.' },
+{ code: '4.323', area: '4 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: 'Zelfde plek als 4.329.', reminder: '4.323: alles steriel terug.' },
+{ code: '4.329', area: '4 Zuid', sterile: 'Alles steriel; flessen zonder sticker', note: '', reminder: '4.329: alles steriel terug.' }
+]},
+'3-1': { title: 'Ronde verdieping 3 + 1', subtitle: 'Weekroute voor verdieping 3 en 1 samen.', floors: ['3', '1'], rooms: [
+{ code: '3.117', area: '3 Noord', sterile: 'Alles steriel en flessen met sticker', note: 'Na de lift bij 3.100; MQ-flessen vullen met MilliQ en steriliseren.', reminder: '3.117: steriel terug volgens sticker; MQ-flessen vullen met MilliQ en steriliseren.' },
+{ code: '3.135', area: '3 Noord', sterile: 'Alles steriel en flessen met sticker', note: '', reminder: '3.135: alles steriel terug.' },
+{ code: '3.137', area: '3 Noord', sterile: 'Alles steriel en flessen met sticker', note: '', reminder: '3.137: alles steriel terug.' },
+{ code: '3.143', area: '3 Noord', sterile: 'Niets steriel', note: '', reminder: '3.143 is niet steriel terug.' },
+{ code: '3.159', area: '3 Noord', sterile: 'Alleen zakjes terugbrengen', note: 'Bij de linkerdeur.', reminder: 'Niet vergeten: bij 3.159 alleen zakjes terugbrengen aan de linkerdeur.' },
+{ code: '3.201', area: '3 Midden', sterile: 'Zakjes en bakjes steriel', note: 'Meestal alleen zakjes en bakjes.', reminder: '3.201: zakjes en bakjes steriel terug.' },
+{ code: '3.207', area: '3 Midden', sterile: 'Zakjes en bakjes steriel', note: 'Meestal alleen zakjes en bakjes.', reminder: '3.207: zakjes en bakjes steriel terug.' },
+{ code: '3.305', area: '3 Zuid', sterile: 'Alles steriel en flessen met sticker', note: '', reminder: '3.305: alles steriel terug.' },
+{ code: '3.309', area: '3 Zuid', sterile: 'Alles steriel en flessen met sticker', note: '', reminder: '3.309: alles steriel terug.' },
+{ code: '3.311', area: '3 Zuid', sterile: 'Alles steriel en flessen met sticker', note: '', reminder: '3.311: alles steriel terug.' },
+{ code: '3.319', area: '3 Zuid', sterile: 'Alleen flessen steriel met sticker', note: '', reminder: '3.319: alleen flessen steriel terug.' },
+{ code: '1.119', area: '1 Noord', sterile: 'Niets steriel', note: 'Grote plastic flessen bij vuil vullen met MilliQ, niet steriel; klein bakje naar spoelmachine programma 3.', reminder: '1.119: niet steriel terug; grote plastic flessen vullen met MilliQ; klein bakje naar spoelmachine programma 3.' },
+{ code: '1.132', area: '1 Noord', sterile: 'Alleen driehoekige flessen steriel met sticker', note: 'Dop heeft drie puntjes.', reminder: '1.132: alleen driehoekige flessen met sticker steriel terug.' },
+{ code: '1.137', area: '1 Noord', sterile: 'Niets steriel', note: '', reminder: '1.137 is niet steriel terug.' },
+{ code: '1.303', area: '1 Zuid', sterile: 'Alles steriel en flessen zonder sticker', note: '', reminder: '1.303: alles steriel terug.' },
+{ code: '1.305', area: '1 Zuid', sterile: 'Niets steriel', note: '', reminder: '1.305 is niet steriel terug.' },
+{ code: '1.307', area: '1 Zuid', sterile: 'Niets steriel', note: '', reminder: '1.307 is niet steriel terug.' },
+{ code: '1.317', area: '1 Zuid', sterile: 'Niets steriel', note: '', reminder: '1.317 is niet steriel terug.' },
+{ code: '1.321', area: '1 Zuid', sterile: 'Alles steriel en flessen met sticker', note: 'Schoon en vuil op dezelfde plek; plastic erlenmeyers in autoclaaf met 4-dubbel aluminiumfolie; grote flessen in stoof; doppen apart in twee zakjes.', reminder: '1.321: alles steriel terug; plastic erlenmeyers in autoclaaf; grote flessen in stoof; doppen apart in twee zakjes.' },
+{ code: '1.323', area: '1 Zuid', sterile: 'Alles steriel en flessen met sticker', note: 'Schoon en vuil op dezelfde plek.', reminder: '1.323: alles steriel terug.' },
+{ code: '1.325', area: '1 Zuid', sterile: 'Niets steriel', note: '', reminder: '1.325 is niet steriel terug.' }
+]}
+};
 
-    const state = { weekId: weekSchedules[0].id, routeId: weekSchedules[0].routes[0], filter: 'all', roomStates: {}, searchTerm: '', highlightedRoom: '' };
-    const els = {
-      weekButtons: document.getElementById('weekButtons'), routeButtons: document.getElementById('routeButtons'), roomsContainer: document.getElementById('roomsContainer'),
-      routeTitle: document.getElementById('routeTitle'), routeSubtitle: document.getElementById('routeSubtitle'), routeMeta: document.getElementById('routeMeta'),
-      progressBar: document.getElementById('progressBar'), summaryVisited: document.getElementById('summaryVisited'), summaryPicked: document.getElementById('summaryPicked'), summaryAttention: document.getElementById('summaryAttention'),
-      kpiRooms: document.getElementById('kpiRooms'), kpiVisited: document.getElementById('kpiVisited'), kpiPicked: document.getElementById('kpiPicked'), kpiOpen: document.getElementById('kpiOpen'),
-      dailySummary: document.getElementById('dailySummary'), reminderList: document.getElementById('reminderList'), roomSearch: document.getElementById('roomSearch'), searchResult: document.getElementById('searchResult'),
-      findRoomBtn: document.getElementById('findRoomBtn'), clearSearchBtn: document.getElementById('clearSearchBtn'), themeToggle: document.getElementById('themeToggle'), clearRouteBtn: document.getElementById('clearRouteBtn'), exportBtn: document.getElementById('exportBtn'), jumpSummaryBtn: document.getElementById('jumpSummaryBtn'), floatingSummaryBtn: document.getElementById('floatingSummaryBtn'), menuToggle: document.getElementById('menuToggle'), sidebar: document.getElementById('sidebar')
-    };
+const state = { weekId: weekSchedules[0].id, routeId: weekSchedules[0].routes[0], filter: 'all', roomStates: {}, searchTerm: '', highlightedRoom: '' };
+const els = {
+weekButtons: document.getElementById('weekButtons'), routeButtons: document.getElementById('routeButtons'), roomsContainer: document.getElementById('roomsContainer'),
+routeTitle: document.getElementById('routeTitle'), routeSubtitle: document.getElementById('routeSubtitle'), routeMeta: document.getElementById('routeMeta'),
+progressBar: document.getElementById('progressBar'), summaryVisited: document.getElementById('summaryVisited'), summaryPicked: document.getElementById('summaryPicked'), summaryAttention: document.getElementById('summaryAttention'),
+kpiRooms: document.getElementById('kpiRooms'), kpiVisited: document.getElementById('kpiVisited'), kpiPicked: document.getElementById('kpiPicked'), kpiOpen: document.getElementById('kpiOpen'),
+dailySummary: document.getElementById('dailySummary'), reminderList: document.getElementById('reminderList'), roomSearch: document.getElementById('roomSearch'), searchResult: document.getElementById('searchResult'),
+findRoomBtn: document.getElementById('findRoomBtn'), clearSearchBtn: document.getElementById('clearSearchBtn'), themeToggle: document.getElementById('themeToggle'), clearRouteBtn: document.getElementById('clearRouteBtn'), exportBtn: document.getElementById('exportBtn'), jumpSummaryBtn: document.getElementById('jumpSummaryBtn'), floatingSummaryBtn: document.getElementById('floatingSummaryBtn'), menuToggle: document.getElementById('menuToggle'), sidebar: document.getElementById('sidebar')
+};
 
-    function getCurrentRoute(){ return routeData[state.routeId]; }
-    function saveState(){ try{ localStorage.setItem('labRondesState', JSON.stringify(state.roomStates)); }catch(e){} } function loadState(){ try{ const saved=localStorage.getItem('labRondesState'); if(saved) state.roomStates=JSON.parse(saved); }catch(e){} }
-    function getRoomState(code){ if(!state.roomStates[code]) state.roomStates[code]={visited:null,picked:null,extraNote:''}; return state.roomStates[code]; }
-    function setWeek(weekId){ state.weekId=weekId; state.routeId=weekSchedules.find(w=>w.id===weekId).routes[0]; state.searchTerm=''; state.highlightedRoom=''; render(); }
-    function setRoute(routeId){ state.routeId=routeId; state.searchTerm=''; state.highlightedRoom=''; render(); }
-    function cycleTheme(){ const root=document.documentElement; const next=root.getAttribute('data-theme')==='dark'?'light':'dark'; root.setAttribute('data-theme',next); els.themeToggle.textContent=next==='dark'?'☀️ Thema':'🌙 Thema'; }
-    function renderWeekButtons(){ els.weekButtons.innerHTML=weekSchedules.map(week=>`<button class="week-btn ${week.id===state.weekId?'active':''}" data-week="${week.id}"><strong>${week.label}</strong><small style="display:block;color:var(--color-text-muted);font-size:var(--text-xs);">${week.detail}</small></button>`).join(''); els.weekButtons.querySelectorAll('[data-week]').forEach(btn=>btn.addEventListener('click',()=>setWeek(btn.dataset.week))); }
-    function renderRouteButtons(){ const week=weekSchedules.find(w=>w.id===state.weekId); els.routeButtons.innerHTML=week.routes.map(routeId=>`<button class="nav-btn ${routeId===state.routeId?'active':''}" data-route="${routeId}"><strong>${routeData[routeId].title}</strong><small>${routeData[routeId].rooms.length} kamers</small></button>`).join(''); els.routeButtons.querySelectorAll('[data-route]').forEach(btn=>btn.addEventListener('click',()=>setRoute(btn.dataset.route))); }
-    function roomMatchesFilter(room){ const s=getRoomState(room.code); if(state.filter==='pending') return s.visited!==true; if(state.filter==='visited') return s.visited===true; if(state.filter==='picked') return s.picked===true; return true; }
-    function renderRooms(){ const rooms=getCurrentRoute().rooms.filter(roomMatchesFilter); if(!rooms.length){ els.roomsContainer.innerHTML='<div class="empty-state">Geen kamers in deze filter.</div>'; return; } els.roomsContainer.innerHTML=rooms.map(room=>{ const s=getRoomState(room.code); const highlight=state.highlightedRoom===room.code?'highlight':''; return `<article class="room-card ${highlight}" id="room-${room.code.replace(/\./g,'-')}"><div class="room-head"><div><div class="room-code">${room.code}</div><div class="room-location">${room.area}</div></div><div class="route-meta"><span class="tag">Regel: ${room.sterile}</span></div></div>${room.note?`<div class="notes">${room.note}</div>`:''}<div class="check-row"><div class="toggle-box"><strong>Ben je langs geweest?</strong><div class="option-row"><button class="${s.visited===true?'active-yes':''}" data-action="visited" data-value="yes" data-room="${room.code}">Ja</button><button class="${s.visited===false?'active-no':''}" data-action="visited" data-value="no" data-room="${room.code}">Nee</button></div></div><div class="toggle-box"><strong>Iets opgehaald?</strong><div class="option-row"><button class="${s.picked===true?'active-yes':''}" data-action="picked" data-value="yes" data-room="${room.code}">Ja</button><button class="${s.picked===false?'active-no':''}" data-action="picked" data-value="no" data-room="${room.code}">Nee</button></div></div></div><div><label for="note-${room.code}" class="notes">Extra notitie</label><textarea id="note-${room.code}" class="note-area" data-action="note" data-room="${room.code}" placeholder="Bijvoorbeeld: deur dicht, zakjes terug, iets niet vergeten...">${s.extraNote||''}</textarea></div></article>`; }).join(''); els.roomsContainer.querySelectorAll('button[data-action]').forEach(btn=>btn.addEventListener('click',handleRoomButton)); els.roomsContainer.querySelectorAll('textarea[data-action="note"]').forEach(area=>area.addEventListener('input',handleNoteInput)); if(state.highlightedRoom){ const target=document.getElementById(`room-${state.highlightedRoom.replace(/\./g,'-')}`); if(target) target.scrollIntoView({behavior:'smooth',block:'center'}); } }
-    function handleRoomButton(e){ const {room,action,value}=e.currentTarget.dataset; const s=getRoomState(room); if(action==='visited') s.visited=value==='yes'; if(action==='picked') s.picked=value==='yes'; saveState(); render(); }
-    function handleNoteInput(e){ getRoomState(e.currentTarget.dataset.room).extraNote=e.currentTarget.value; saveState(); renderSummaryOnly(); renderReminders(); }
-    function buildSummaryText(route){ const lines=[route.title,'']; route.rooms.forEach(room=>{ const s=getRoomState(room.code); const visited=s.visited===true?'bezocht':s.visited===false?'niet bezocht':'open'; const picked=s.picked===true?'iets opgehaald':s.picked===false?'niets opgehaald':'ophaalmelding open'; const extra=s.extraNote?` | notitie: ${s.extraNote}`:''; lines.push(`${room.code} (${room.area}) - ${visited} | ${picked}${extra}`); }); const reminders = buildReminderEntries(route); if(reminders.length){ lines.push('', 'Reminders:'); reminders.forEach(item=>lines.push(`- ${item.text}`)); } return lines.join('\n'); }
-    function buildReminderEntries(route){ return route.rooms.filter(room=>{ const s=getRoomState(room.code); return s.picked===true || (s.extraNote && s.extraNote.trim()); }).map(room=>{ const s=getRoomState(room.code); let text = room.reminder; if(s.extraNote && s.extraNote.trim()) text += ` Extra notitie: ${s.extraNote.trim()}.`; return { code: room.code, text }; }); }
-    function renderReminders(){ const reminders = buildReminderEntries(getCurrentRoute()); els.summaryAttention.textContent = reminders.length; if(!reminders.length){ els.reminderList.innerHTML='<div class="empty-state">Nog geen reminders. Zodra je kamers afvinkt of notities zet, verschijnt hier automatisch een samenvatting.</div>'; return; } els.reminderList.innerHTML = reminders.map(item=>`<div class="reminder-item"><div class="tag attention">${item.code}</div><div style="margin-top:var(--space-2);">${item.text}</div></div>`).join(''); }
-    function renderSummaryOnly(){ const route=getCurrentRoute(); els.dailySummary.value=buildSummaryText(route); const rooms=route.rooms; const visited=rooms.filter(r=>getRoomState(r.code).visited===true).length; const picked=rooms.filter(r=>getRoomState(r.code).picked===true).length; const total=rooms.length; els.summaryVisited.textContent=visited; els.summaryPicked.textContent=picked; els.kpiRooms.textContent=total; els.kpiVisited.textContent=visited; els.kpiPicked.textContent=picked; els.kpiOpen.textContent=total-visited; els.progressBar.style.width=`${total?Math.round((visited/total)*100):0}%`; }
-    function renderHeader(){ const route=getCurrentRoute(); els.routeTitle.textContent=route.title; els.routeSubtitle.textContent=route.subtitle; els.routeMeta.innerHTML=`<span class="tag success">${route.floors.length} verdiepingen</span><span class="tag">${route.rooms.length} kamers</span><span class="tag warning">3 rondes per dag</span>`; }
-    function renderFilters(){ document.querySelectorAll('.filter-btn').forEach(btn=>{ btn.classList.toggle('active',btn.dataset.filter===state.filter); btn.onclick=()=>{ state.filter=btn.dataset.filter; renderRooms(); }; }); }
-    function clearCurrentRoute(){ getCurrentRoute().rooms.forEach(room=>state.roomStates[room.code]={visited:null,picked:null,extraNote:''}); state.searchTerm=''; state.highlightedRoom=''; els.roomSearch.value=''; render(); }
-    async function copySummary(){ try{ await navigator.clipboard.writeText(els.dailySummary.value); }catch(e){ els.dailySummary.select(); document.execCommand('copy'); } els.exportBtn.textContent='Gekopieerd'; setTimeout(()=>els.exportBtn.textContent='Kopieer overzicht',1500); }
-    function findRoom(){ const route = getCurrentRoute(); const term = els.roomSearch.value.trim().replace(',', '.'); state.searchTerm = term; if(!term){ state.highlightedRoom=''; els.searchResult.textContent='Zoek snel op kamernummer om meteen de regel en notitie te zien.'; renderRooms(); return; } const found = route.rooms.find(room => room.code.includes(term)); if(!found){ state.highlightedRoom=''; els.searchResult.textContent=`Geen kamer gevonden voor "${term}" in deze route.`; renderRooms(); return; } state.highlightedRoom = found.code; els.searchResult.innerHTML = `<strong>${found.code}</strong> · ${found.area}<br>Regel: ${found.sterile}<br>${found.note ? `Notitie: ${found.note}<br>` : ''}Reminder: ${found.reminder}`; renderRooms(); }
-    function render(){ renderWeekButtons(); renderRouteButtons(); renderHeader(); renderFilters(); renderSummaryOnly(); renderReminders(); renderRooms(); els.sidebar.classList.remove('open'); }
-    els.findRoomBtn.addEventListener('click', findRoom); els.clearSearchBtn.addEventListener('click', ()=>{ els.roomSearch.value=''; state.highlightedRoom=''; findRoom(); }); els.roomSearch.addEventListener('keydown', e=>{ if(e.key==='Enter') findRoom(); });
-    const goToSummary = ()=>document.getElementById('summary-section').scrollIntoView({behavior:'smooth',block:'start'});
-    loadState(); els.themeToggle.addEventListener('click',cycleTheme); els.clearRouteBtn.addEventListener('click',clearCurrentRoute); els.exportBtn.addEventListener('click',copySummary); els.jumpSummaryBtn.addEventListener('click',goToSummary); els.floatingSummaryBtn.addEventListener('click',goToSummary); document.getElementById('floatingTopBtn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'})); function scrollToRoom(dir){const route=getCurrentRoute();const ids=route.rooms.map(r=>r.code);const cards=ids.map(id=>document.getElementById('room-'+id.replace(/\./g,'-'))).filter(Boolean);if(!cards.length)return;const mid=window.scrollY+window.innerHeight/2;let idx=0;for(let i=0;i<cards.length;i++){if(cards[i].getBoundingClientRect().top+window.scrollY<mid)idx=i;}if(dir==='next')idx=Math.min(idx+1,cards.length-1);else idx=Math.max(idx-1,0);cards[idx].scrollIntoView({behavior:'smooth',block:'center'});} const prevBtn=document.getElementById('floatingPrevBtn'); if(prevBtn) prevBtn.addEventListener('click',()=>scrollToRoom('prev')); const nextBtn=document.getElementById('floatingNextBtn'); if(nextBtn) nextBtn.addEventListener('click',()=>scrollToRoom('next')); els.menuToggle.addEventListener('click',()=>els.sidebar.classList.toggle('open')); document.addEventListener('click',e=>{ if(window.innerWidth>1024) return; if(!els.sidebar.contains(e.target)&&!els.menuToggle.contains(e.target)) els.sidebar.classList.remove('open'); });
-    render();
-  </script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch(() => {});
-      });
-    }
-  </script>
+function getCurrentRoute(){ return routeData[state.routeId]; }
+function saveState(){ try{ localStorage.setItem('labRondesState', JSON.stringify(state.roomStates)); }catch(e){} } function loadState(){ try{ const saved=localStorage.getItem('labRondesState'); if(saved) state.roomStates=JSON.parse(saved); }catch(e){} }
+function getRoomState(code){ if(!state.roomStates[code]) state.roomStates[code]={visited:null,picked:null,extraNote:''}; return state.roomStates[code]; }
+function setWeek(weekId){ state.weekId=weekId; state.routeId=weekSchedules.find(w=>w.id===weekId).routes[0]; state.searchTerm=''; state.highlightedRoom=''; render(); }
+function setRoute(routeId){ state.routeId=routeId; state.searchTerm=''; state.highlightedRoom=''; render(); }
+function cycleTheme(){ const root=document.documentElement; const next=root.getAttribute('data-theme')==='dark'?'light':'dark'; root.setAttribute('data-theme',next); els.themeToggle.textContent=next==='dark'?'☀️ Thema':'🌙 Thema'; }
+function renderWeekButtons(){ els.weekButtons.innerHTML=weekSchedules.map(week=>`<button class="week-btn ${week.id===state.weekId?'active':''}" data-week="${week.id}"><strong>${week.label}</strong><small style="display:block;color:var(--color-text-muted);font-size:var(--text-xs);">${week.detail}</small></button>`).join(''); els.weekButtons.querySelectorAll('[data-week]').forEach(btn=>btn.addEventListener('click',()=>setWeek(btn.dataset.week))); }
+function renderRouteButtons(){ const week=weekSchedules.find(w=>w.id===state.weekId); els.routeButtons.innerHTML=week.routes.map(routeId=>`<button class="nav-btn ${routeId===state.routeId?'active':''}" data-route="${routeId}"><strong>${routeData[routeId].title}</strong><small>${routeData[routeId].rooms.length} kamers</small></button>`).join(''); els.routeButtons.querySelectorAll('[data-route]').forEach(btn=>btn.addEventListener('click',()=>setRoute(btn.dataset.route))); }
+function roomMatchesFilter(room){ const s=getRoomState(room.code); if(state.filter==='pending') return s.visited!==true; if(state.filter==='visited') return s.visited===true; if(state.filter==='picked') return s.picked===true; return true; }
+function renderRooms(){ const rooms=getCurrentRoute().rooms.filter(roomMatchesFilter); if(!rooms.length){ els.roomsContainer.innerHTML='<div class="empty-state">Geen kamers in deze filter.</div>'; return; } els.roomsContainer.innerHTML=rooms.map(room=>{ const s=getRoomState(room.code); const highlight=state.highlightedRoom===room.code?'highlight':''; return `<article class="room-card ${highlight}" id="room-${room.code.replace(/\./g,'-')}"><div class="room-head"><div><div class="room-code">${room.code}</div><div class="room-location">${room.area}</div></div><div class="route-meta"><span class="tag">Regel: ${room.sterile}</span></div></div>${room.note?`<div class="notes">${room.note}</div>`:''}<div class="check-row"><div class="toggle-box"><strong>Ben je langs geweest?</strong><div class="option-row"><button class="${s.visited===true?'active-yes':''}" data-action="visited" data-value="yes" data-room="${room.code}">Ja</button><button class="${s.visited===false?'active-no':''}" data-action="visited" data-value="no" data-room="${room.code}">Nee</button></div></div><div class="toggle-box"><strong>Iets opgehaald?</strong><div class="option-row"><button class="${s.picked===true?'active-yes':''}" data-action="picked" data-value="yes" data-room="${room.code}">Ja</button><button class="${s.picked===false?'active-no':''}" data-action="picked" data-value="no" data-room="${room.code}">Nee</button></div></div></div><div><label for="note-${room.code}" class="notes">Extra notitie</label><textarea id="note-${room.code}" class="note-area" data-action="note" data-room="${room.code}" placeholder="Bijvoorbeeld: deur dicht, zakjes terug, iets niet vergeten...">${s.extraNote||''}</textarea></div></article>`; }).join(''); els.roomsContainer.querySelectorAll('button[data-action]').forEach(btn=>btn.addEventListener('click',handleRoomButton)); els.roomsContainer.querySelectorAll('textarea[data-action="note"]').forEach(area=>area.addEventListener('input',handleNoteInput)); if(state.highlightedRoom){ const target=document.getElementById(`room-${state.highlightedRoom.replace(/\./g,'-')}`); if(target) target.scrollIntoView({behavior:'smooth',block:'center'}); } }
+function handleRoomButton(e){ const {room,action,value}=e.currentTarget.dataset; const s=getRoomState(room); if(action==='visited') s.visited=value==='yes'; if(action==='picked') s.picked=value==='yes'; saveState(); render(); }
+function handleNoteInput(e){ getRoomState(e.currentTarget.dataset.room).extraNote=e.currentTarget.value; saveState(); renderSummaryOnly(); renderReminders(); }
+function buildSummaryText(route){ const lines=[route.title,'']; route.rooms.forEach(room=>{ const s=getRoomState(room.code); const visited=s.visited===true?'bezocht':s.visited===false?'niet bezocht':'open'; const picked=s.picked===true?'iets opgehaald':s.picked===false?'niets opgehaald':'ophaalmelding open'; const extra=s.extraNote?` | notitie: ${s.extraNote}`:''; lines.push(`${room.code} (${room.area}) - ${visited} | ${picked}${extra}`); }); const reminders = buildReminderEntries(route); if(reminders.length){ lines.push('', 'Reminders:'); reminders.forEach(item=>lines.push(`- ${item.text}`)); } return lines.join('\n'); }
+function buildReminderEntries(route){ return route.rooms.filter(room=>{ const s=getRoomState(room.code); return s.picked===true || (s.extraNote && s.extraNote.trim()); }).map(room=>{ const s=getRoomState(room.code); let text = room.reminder; if(s.extraNote && s.extraNote.trim()) text += ` Extra notitie: ${s.extraNote.trim()}.`; return { code: room.code, text }; }); }
+function renderReminders(){ const reminders = buildReminderEntries(getCurrentRoute()); els.summaryAttention.textContent = reminders.length; if(!reminders.length){ els.reminderList.innerHTML='<div class="empty-state">Nog geen reminders. Zodra je kamers afvinkt of notities zet, verschijnt hier automatisch een samenvatting.</div>'; return; } els.reminderList.innerHTML = reminders.map(item=>`<div class="reminder-item"><div class="tag attention">${item.code}</div><div style="margin-top:var(--space-2);">${item.text}</div></div>`).join(''); }
+function renderSummaryOnly(){ const route=getCurrentRoute(); els.dailySummary.value=buildSummaryText(route); const rooms=route.rooms; const visited=rooms.filter(r=>getRoomState(r.code).visited===true).length; const picked=rooms.filter(r=>getRoomState(r.code).picked===true).length; const total=rooms.length; els.summaryVisited.textContent=visited; els.summaryPicked.textContent=picked; els.kpiRooms.textContent=total; els.kpiVisited.textContent=visited; els.kpiPicked.textContent=picked; els.kpiOpen.textContent=total-visited; els.progressBar.style.width=`${total?Math.round((visited/total)*100):0}%`; }
+function renderHeader(){ const route=getCurrentRoute(); els.routeTitle.textContent=route.title; els.routeSubtitle.textContent=route.subtitle; els.routeMeta.innerHTML=`<span class="tag success">${route.floors.length} verdiepingen</span><span class="tag">${route.rooms.length} kamers</span><span class="tag warning">3 rondes per dag</span>`; }
+function renderFilters(){ document.querySelectorAll('.filter-btn').forEach(btn=>{ btn.classList.toggle('active',btn.dataset.filter===state.filter); btn.onclick=()=>{ state.filter=btn.dataset.filter; renderRooms(); }; }); }
+function clearCurrentRoute(){ getCurrentRoute().rooms.forEach(room=>state.roomStates[room.code]={visited:null,picked:null,extraNote:''}); state.searchTerm=''; state.highlightedRoom=''; els.roomSearch.value=''; render(); }
+async function copySummary(){ try{ await navigator.clipboard.writeText(els.dailySummary.value); }catch(e){ els.dailySummary.select(); document.execCommand('copy'); } els.exportBtn.textContent='Gekopieerd'; setTimeout(()=>els.exportBtn.textContent='Kopieer overzicht',1500); }
+function findRoom(){ const route = getCurrentRoute(); const term = els.roomSearch.value.trim().replace(',', '.'); state.searchTerm = term; if(!term){ state.highlightedRoom=''; els.searchResult.textContent='Zoek snel op kamernummer om meteen de regel en notitie te zien.'; renderRooms(); return; } const found = route.rooms.find(room => room.code.includes(term)); if(!found){ state.highlightedRoom=''; els.searchResult.textContent=`Geen kamer gevonden voor "${term}" in deze route.`; renderRooms(); return; } state.highlightedRoom = found.code; els.searchResult.innerHTML = `<strong>${found.code}</strong> · ${found.area}<br>Regel: ${found.sterile}<br>${found.note ? `Notitie: ${found.note}<br>` : ''}Reminder: ${found.reminder}`; renderRooms(); }
+function render(){ renderWeekButtons(); renderRouteButtons(); renderHeader(); renderFilters(); renderSummaryOnly(); renderReminders(); renderRooms(); els.sidebar.classList.remove('open'); }
+els.findRoomBtn.addEventListener('click', findRoom); els.clearSearchBtn.addEventListener('click', ()=>{ els.roomSearch.value=''; state.highlightedRoom=''; findRoom(); }); els.roomSearch.addEventListener('keydown', e=>{ if(e.key==='Enter') findRoom(); });
+const goToSummary = ()=>document.getElementById('summary-section').scrollIntoView({behavior:'smooth',block:'start'});
+    loadState(); els.themeToggle.addEventListener('click',cycleTheme); els.clearRouteBtn.addEventListener('click',clearCurrentRoute); els.exportBtn.addEventListener('click',copySummary); els.jumpSummaryBtn.addEventListener('click',goToSummary); els.floatingSummaryBtn.addEventListener('click',goToSummary); document.getElementById('floatingTopBtn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'})); els.menuToggle.addEventListener('click',()=>els.sidebar.classList.toggle('open')); document.addEventListener('click',e=>{ if(window.innerWidth>1024) return; if(!els.sidebar.contains(e.target)&&!els.menuToggle.contains(e.target)) els.sidebar.classList.remove('open'); });
+render();
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+window.addEventListener("load", () => {
+navigator.serviceWorker.register("./sw.js").catch(() => {});
+});
+}
+</script>
 </body>
 </html>
