@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lab-rondes-v1';
+const CACHE_NAME = 'lab-rondes-v3';
 const urlsToCache = ['/', '/index.html', '/manifest.webmanifest'];
 
 self.addEventListener('install', event => {
