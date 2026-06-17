@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Lab Rondes" />
-<link rel="manifest" href="./manifest.webmanifest" />
+<script type="text/javascript" nonce="15f5738b34be468993241f4ddd6" src="//injections.adguard.org?ts=1781712730589&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2Ff7c900ffef1cc2d4370c3a8b762c200f%2Fc9943330-0cae-4ff1-a8a8-72d0d72da06a%2F8b00fe6a.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253D%2522index-v15.html%2522%253B%2520filename%252A%253DUTF-8%2527%2527index-v15.html%26AWSAccessKeyId%3DASIA2F3EMEYETM4H46ON%26Signature%3D84vsi2a%252FxGaFb0%252FugBCSggh4WCA%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEMn%252F%252F%252F%252F%252F%252F%252F%252F%252F%252FwEaCXVzLWVhc3QtMSJHMEUCIQC1BchRmzcdBhmprUAWVh6VsdtGXWC8leSPGKVWf%252Bj%252F4AIgCT9ciMaFOt7xpIrQIvfmCWp2VAKSqqAwzphIOVg5zdMq%252FAQIkf%252F%252F%252F%252F%252F%252F%252F%252F%252F%252FARABGgw2OTk3NTMzMDk3MDUiDAxVLUNLCeNl2SJIDirQBD1GjcIEtsmwOwCZjKskWuCsAdSNZPzO6aOCggiRX2D1tfpqjSDqhEEyCX5OXhu2okqfHQQ8F0ezGhOGCZiMFB5m5LzGVUhndYmFFDWKAJFybhomg%252B4bnqSVOUiPSfHYBm9gqvANX6HiVGz6HI58R1MCEGgFhFF%252FsExoT0hZZPEuWgRWtzx5NYpOuPqCsvfYR%252FgDMffnQhxeux%252BuXrUqfttpnB5r26nFOj51yEeJiGCxZYR%252F3jTDyXgnS61MPFvL14AaviXJ%252BX9S5ke%252FUNZMvkhSlGzi8gFwrLo6Ky7PkLvCkLK6qmO9MHe5bp2jbiJ0mzYZ6Ycm1QlpTi%252FUBFaE8h39kcltptZ9%252BMj38pF4qOFupguoABvHPJXzEGaTs3OH%252Fblc%252BYhQiGoagYwXZe8oMDjjyYQu6pdl%252FjnJAXkN0isjXB8WX9CiY2FWKhx9j2Zi63YAWbM2KIJuRAzMd9UTWsy8sg3owQMFwnduOmGJ9rOrWgnx%252BbwhVHVK%252FIvr7ghMwgYV8za1JUVV6pghcFy3om8%252BFnoUdjwsZ9Un63e%252BCtbLKA4NBTBfsuzC%252Fgw%252Fo%252B%252BrYM%252FwoJJCOxOsfBi%252FLhouDU7vb0b99WdsJ86bnJfBvkAVXcja1QQxHdGeAtCK%252FWql%252FSJj%252B4kOEYo%252BO5Gtysdl%252FI6IAelLpZ%252Bv%252FNoy4eDSUe8jRBC4G%252BlKKexgPTZ20m9UQjjDYdVuiC3mc4YwozoYitepxBTU7p0mSYvE2aXxuqdwta%252BSn3344nkGihzsoHAhH%252BxqOwF84vpGkc3VzlYQRVcw8Y7L0QY6mAG7O1zvnQVu%252B0y2LlVPrpn9IpdmFBaqT3rcDRUfSwJGRgW0j50BLk%252B1VT4C9pajjill7wIJcxZc7ZezzvVNVVVpI%252BKEVO00y8ncdzdJu5dYz2RAeiLHuEZ91YeCBK3Um%252BVFXu9u%252F9rSZHo1zjM%252BvXgyhEMpvsX535sfwpnneaUcXJgcAnubm87WWjyqSqkA3LvWD9seUQ08qA%253D%253D%26Expires%3D1781714494&amp;app=comet.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script><script type="text/javascript" nonce="15f5738b34be468993241f4ddd6" src="//injections.adguard.org?ts=1781712730589&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./icon-180.png" />
 <title>Lab Rondes Tracker</title>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
@@ -549,7 +549,7 @@ img,svg{display:block}
           </div>
 
           <!-- Reminders -->
-          <div class="section-hd"><h2>Reminder samenvatting</h2></div>
+          <div class="section-hd"><h2>Steriel overzicht</h2></div>
           <div id="reminderList"></div>
 
           <!-- Dagoverzicht -->
@@ -1017,11 +1017,22 @@ function renderSummary(){
   document.getElementById('sumPct').textContent=pct+'%';
   document.getElementById('sumBar').style.width=pct+'%';
 
-  const reminders=rooms.filter(rm=>{ const s=getRoomState(rm.code); return s.picked===true||(s.extraNote&&s.extraNote.trim()); });
+  const reminders=rooms.filter(rm=>getRoomState(rm.code).visited===true);
   document.getElementById('sumReminders').textContent=reminders.length;
   const rl=document.getElementById('reminderList');
   if(!reminders.length){ rl.innerHTML='<div class="empty-state">Nog geen reminders. Zodra je kamers afvinkt verschijnt hier automatisch een samenvatting.</div>'; }
-  else rl.innerHTML=reminders.map(room=>{ const s=getRoomState(room.code); let txt=room.reminder; if(s.extraNote&&s.extraNote.trim()) txt+=' Extra notitie: '+s.extraNote.trim(); return `<div class="reminder-card" style="margin-bottom:var(--s3)"><div class="reminder-code">${room.code}</div><div class="reminder-text">${txt}</div></div>`; }).join('');
+  else rl.innerHTML=reminders.map(room=>{
+    const sterielText = room.sterile||'';
+    const isNiet = /^(niet|niets|nee|no\b)/i.test(sterielText.trim());
+    const label = isNiet ? 'Niet steriel terug' : 'Steriel terug';
+    const color = isNiet ? 'var(--c-danger)' : 'var(--c-success)';
+    const bg    = isNiet ? 'color-mix(in srgb,var(--c-danger) 10%,var(--c-surface))' : 'color-mix(in srgb,var(--c-success) 10%,var(--c-surface))';
+    const border= isNiet ? 'color-mix(in srgb,var(--c-danger) 25%,transparent)' : 'color-mix(in srgb,var(--c-success) 25%,transparent)';
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:var(--r-lg);background:${bg};border:1px solid ${border};margin-bottom:var(--s2);">
+      <span style="font-size:15px;font-weight:700;">${room.code}</span>
+      <span style="font-size:13px;font-weight:700;color:${color};">${label}</span>
+    </div>`;
+  }).join('');
 
   const lines=[r.title,''];
   rooms.forEach(room=>{ const s=getRoomState(room.code); const v=s.visited===true?'bezocht':s.visited===false?'niet bezocht':'open'; const p=s.picked===true?'iets opgehaald':s.picked===false?'niets opgehaald':'open'; const extra=s.extraNote?` | ${s.extraNote}`:''; var ckLabels=['Deur dicht','Laminaat zakjes','MilliQ water vullen','Plastic bakjes'];var ckStr=(s.checks||[]).map(function(v,i){return v?ckLabels[i]:null;}).filter(Boolean).join(', ');lines.push(`${room.code} (${room.area}) - ${v} | ${p}` + (ckStr?' | '+ckStr:'')); });
