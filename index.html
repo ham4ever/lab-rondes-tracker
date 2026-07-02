@@ -745,7 +745,7 @@ function renderWeekChips(){
 
 function renderRouteCards(){
   const c=document.getElementById('routeCards');
-  const week=weekSchedules.find(w=>w.id===state.weekId);
+  const week=weekSchedules.find(w=>w.id===state.weekId)||weekSchedules[0];
   c.innerHTML=week.routes.map(rid=>{
     const r=routeData[rid];
     const rooms=r.rooms; const visited=rooms.filter(rm=>getRoomState(rm.code).visited===true).length;
