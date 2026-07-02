@@ -1017,7 +1017,7 @@ function renderSummary(){
   document.getElementById('sumPct').textContent=pct+'%';
   document.getElementById('sumBar').style.width=pct+'%';
 
-  const reminders=rooms.filter(rm=>getRoomState(rm.code).visited===true);
+  const reminders=rooms.filter(rm=>getRoomState(rm.code).picked===true);
   document.getElementById('sumReminders').textContent=reminders.length;
   const rl=document.getElementById('reminderList');
   if(!reminders.length){ rl.innerHTML='<div class="empty-state">Nog geen reminders. Zodra je kamers afvinkt verschijnt hier automatisch een samenvatting.</div>'; }
