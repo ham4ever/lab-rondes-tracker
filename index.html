@@ -162,15 +162,15 @@ img,svg{display:block}
 .room-card.visited-done{border-left:3px solid var(--c-success)}
 .room-card-header{padding:var(--s4);display:flex;align-items:flex-start;gap:var(--s3)}
 .room-badge{
-  min-width:54px;height:54px;border-radius:var(--r-md);
+  min-width:64px;height:64px;border-radius:var(--r-md);
   background:var(--c-pill-bg);color:var(--c-accent);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   font-size:11px;font-weight:700;flex-shrink:0;gap:1px
 }
-.room-badge-num{font-size:17px;line-height:1}
+.room-badge-num{font-size:26px;line-height:1;font-weight:800}
 .room-badge-floor{font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.04em}
 .room-info{flex:1;min-width:0}
-.room-code{font-size:17px;font-weight:700;letter-spacing:-.01em}
+.room-code{font-size:20px;font-weight:800;letter-spacing:-.01em}
 .room-area{font-size:12px;color:var(--c-muted);margin-top:1px}
 .room-sterile{font-size:11px;font-weight:600;margin-top:5px;
   display:inline-flex;align-items:center;gap:4px;
@@ -183,7 +183,7 @@ img,svg{display:block}
 .toggle-label{font-size:12px;font-weight:600;color:var(--c-muted);text-transform:uppercase;letter-spacing:.04em}
 .toggle-btns{display:flex;gap:var(--s2);width:100%}
 .toggle-btns button{
-  flex:1;padding:14px 10px;border-radius:var(--r-lg);font-size:15px;font-weight:700;
+  flex:1;padding:20px 10px;border-radius:var(--r-lg);font-size:18px;font-weight:700;
   border:1px solid var(--c-border);background:var(--c-surface2);color:var(--c-muted);
   transition:all 180ms var(--ease);-webkit-tap-highlight-color:transparent;
   touch-action:manipulation;user-select:none;
@@ -824,12 +824,6 @@ function roomCardHTML(room) {
             + '<button class="' + (s.picked === false ? 'no' : '') + '" data-action="picked" data-value="no" data-room="' + room.code + '">&#10007; Nee</button>'
           + '</div>'
         + '</div>'
-        + '<div>' + '<div class="checklist-hd">Notities</div>' + '<div class="checklist">'
-    + '<button class="checklist-item' + (s.checks[0] ? ' checked' : '') + '"' + ' data-check="0" data-room="' + room.code + '">'  + '<div class="checklist-box">'  + '<svg class="checklist-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'  + '<polyline points="20 6 9 17 4 12"/>'  + '</svg></div>'  + '<span class="checklist-label">Deur dicht</span>'  + '</button>'
-    + '<button class="checklist-item' + (s.checks[1] ? ' checked' : '') + '"' + ' data-check="1" data-room="' + room.code + '">'  + '<div class="checklist-box">'  + '<svg class="checklist-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'  + '<polyline points="20 6 9 17 4 12"/>'  + '</svg></div>'  + '<span class="checklist-label">Laminaat zakjes</span>'  + '</button>'
-    + '<button class="checklist-item' + (s.checks[2] ? ' checked' : '') + '"' + ' data-check="2" data-room="' + room.code + '">'  + '<div class="checklist-box">'  + '<svg class="checklist-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'  + '<polyline points="20 6 9 17 4 12"/>'  + '</svg></div>'  + '<span class="checklist-label">MilliQ water vullen</span>'  + '</button>'
-    + '<button class="checklist-item' + (s.checks[3] ? ' checked' : '') + '"' + ' data-check="3" data-room="' + room.code + '">'  + '<div class="checklist-box">'  + '<svg class="checklist-check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'  + '<polyline points="20 6 9 17 4 12"/>'  + '</svg></div>'  + '<span class="checklist-label">Plastic bakjes</span>'  + '</button>'
-    + '</div>' + '</div>'
       + '</div>'
     + '</div>'
     + '</article>';
