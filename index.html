@@ -886,29 +886,7 @@ function renderRooms() {
       + '</div>';
   }).join('');
 
-  .checklist-hd{font-size:11px;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
-/* ─── FLOOR JUMP BAR ────────────────────────────────── */
-.floor-jump-bar{display:flex;gap:var(--s2);overflow-x:auto;padding:var(--s2) var(--s4);scrollbar-width:none;border-bottom:1px solid var(--c-border);background:var(--c-surface);position:sticky;top:0;z-index:20;}
-.floor-jump-bar::-webkit-scrollbar{display:none}
-.floor-jump-pill{flex-shrink:0;min-width:44px;height:44px;border-radius:12px;font-size:15px;font-weight:800;background:var(--c-surface2);border:1px solid var(--c-border);color:var(--c-muted);transition:all 180ms var(--ease);display:grid;place-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
-.floor-jump-pill:active{transform:sc// Toggle buttons — in-place update, no full re-renderale(.92);}if (!rooms.length) {
-    c.innerHTML = '<div class="empty-state">Geen kamers in deze filter.</div>';
-    return;// Apply custom order if saved
-  if (customRoomOrder[state.routeId]) {
-    var ord = customRoomOrder[state.routeId];
-    rooms.sort(function(a,b){ var ai=ord.indexOf(a.code); var bi=ord.indexOf(b.code); if(ai===-1)return 1; if(bi===-1)return -1; return ai-bi; });
-  }
-  if (!rooms.length) {
-    c.innerHTML = '<div class="empty-state">Geen kamers in deze filter.</div>';
-    return;
-  }
-  }
-id="roomsList"/* ─── DRAG TO REORDER ───────────────────────────────── */
-.drag-handle{width:36px;height:44px;display:flex;align-items:center;justify-c'<div class="room-card-header">' + '<div class="r// Floor complete buttonsoom-badge">ontent:center;color:var(--c-muted);cursor:grab;flex-shrink:0;touch-action:none;-webkit-tap-highlight-color:transparent;opacity:.5;}
-.drag-handle:active{cursor:grabbing;opacity:1;}
-.room-card.dragging{opacity:.4;border:2px dashed var(--c-accent);}
-.room-card.drag-over{border-top:3px solid var(--c-accent);transform:translateY(2px);}
-    btn.addEventListener('click', function() {
+    c.querySelectorAll('.floor-complete-btn').forEach(function(btn) {  btn.addEventListener('click', function() {
       var fl = btn.dataset.floor;
       var flRooms = r.rooms.filter(function(rm){ return rm.code.split('.')[0] === fl; });
       var allDone = floorDoneCount(flRooms) === flRooms.length;
