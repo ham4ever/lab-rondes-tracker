@@ -407,6 +407,17 @@ img,svg{display:block}
 .checklist-label{font-size:13px;font-weight:600;flex:1;pointer-events:none;line-height:1.3;}
 .checklist-item.checked .checklist-label{color:var(--c-success);}
 .checklist-hd{font-size:11px;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+/* ─── FLOOR JUMP BAR ────────────────────────────────── */
+.floor-jump-bar{display:flex;gap:var(--s2);overflow-x:auto;padding:var(--s2) var(--s4);scrollbar-width:none;border-bottom:1px solid var(--c-border);background:var(--c-surface);position:sticky;top:0;z-index:20;}
+.floor-jump-bar::-webkit-scrollbar{display:none}
+.floor-jump-pill{flex-shrink:0;min-width:44px;height:44px;border-radius:12px;font-size:15px;font-weight:800;background:var(--c-surface2);border:1px solid var(--c-border);color:var(--c-muted);transition:all 180ms var(--ease);display:grid;place-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.floor-jump-pill:active{transform:scale(.92);}
+.floor-jump-pill.active{background:linear-gradient(135deg,var(--c-accent),var(--c-accent2));border-color:var(--c-accent);color:#fff;box-shadow:0 2px 8px color-mix(in srgb,var(--c-accent) 35%,transparent);}
+/* ─── DRAG TO REORDER ───────────────────────────────── */
+.drag-handle{width:36px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--c-muted);cursor:grab;flex-shrink:0;touch-action:none;-webkit-tap-highlight-color:transparent;opacity:.5;}
+.drag-handle:active{cursor:grabbing;opacity:1;}
+.room-card.dragging{opacity:.4;border:2px dashed var(--c-accent);}
+.room-card.drag-over{border-top:3px solid var(--c-accent);transform:translateY(2px);}
 
 </style>
 </head>
@@ -512,7 +523,8 @@ img,svg{display:block}
     </div>
   </div>
 </div>
-        <div class="rooms-list" id="roomsList"></div>
+      <div id="floorJumps" class="floor-jump-bar"></div>
+<div class="rooms-list" id="roomsList"></div>
       </div>
     </div>
 
@@ -805,6 +817,7 @@ function roomCardHTML(room) {
         + '<div class="room-area">' + room.area + '</div>'
         + '<span class="room-sterile">' + room.sterile + '</span>'
       + '</div>'
+            + '<div class="drag-handle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="7" x2="19" y2="7"/><line x1="5" y1="12" x2="19" y2="12"/><line x1="5" y1="17" x2="19" y2="17"/></svg></div>'
     + '</div>'
     + (room.note ? '<div class="room-note">' + room.note + '</div>' : '')
     + '<div class="room-body" style="display:block">'
@@ -873,8 +886,28 @@ function renderRooms() {
       + '</div>';
   }).join('');
 
-  // Floor complete buttons
-  c.querySelectorAll('.floor-complete-btn').forEach(function(btn) {
+  .checklist-hd{font-size:11px;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+/* ─── FLOOR JUMP BAR ────────────────────────────────── */
+.floor-jump-bar{display:flex;gap:var(--s2);overflow-x:auto;padding:var(--s2) var(--s4);scrollbar-width:none;border-bottom:1px solid var(--c-border);background:var(--c-surface);position:sticky;top:0;z-index:20;}
+.floor-jump-bar::-webkit-scrollbar{display:none}
+.floor-jump-pill{flex-shrink:0;min-width:44px;height:44px;border-radius:12px;font-size:15px;font-weight:800;background:var(--c-surface2);border:1px solid var(--c-border);color:var(--c-muted);transition:all 180ms var(--ease);display:grid;place-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.floor-jump-pill:active{transform:sc// Toggle buttons — in-place update, no full re-renderale(.92);}if (!rooms.length) {
+    c.innerHTML = '<div class="empty-state">Geen kamers in deze filter.</div>';
+    return;// Apply custom order if saved
+  if (customRoomOrder[state.routeId]) {
+    var ord = customRoomOrder[state.routeId];
+    rooms.sort(function(a,b){ var ai=ord.indexOf(a.code); var bi=ord.indexOf(b.code); if(ai===-1)return 1; if(bi===-1)return -1; return ai-bi; });
+  }
+  if (!rooms.length) {
+    c.innerHTML = '<div class="empty-state">Geen kamers in deze filter.</div>';
+    return;
+  }
+  }
+id="roomsList"/* ─── DRAG TO REORDER ───────────────────────────────── */
+.drag-handle{width:36px;height:44px;display:flex;align-items:center;justify-c'<div class="room-card-header">' + '<div class="r// Floor complete buttonsoom-badge">ontent:center;color:var(--c-muted);cursor:grab;flex-shrink:0;touch-action:none;-webkit-tap-highlight-color:transparent;opacity:.5;}
+.drag-handle:active{cursor:grabbing;opacity:1;}
+.room-card.dragging{opacity:.4;border:2px dashed var(--c-accent);}
+.room-card.drag-over{border-top:3px solid var(--c-accent);transform:translateY(2px);}
     btn.addEventListener('click', function() {
       var fl = btn.dataset.floor;
       var flRooms = r.rooms.filter(function(rm){ return rm.code.split('.')[0] === fl; });
@@ -955,6 +988,8 @@ function renderRooms() {
   });
 
   setTimeout(updateFloatCounter, 50);
+    renderFloorJumps();
+  initDragToReorder();
  
 }
 
@@ -995,6 +1030,173 @@ function doSearch(){
 }
 document.getElementById('searchInput').addEventListener('input', doSearch);
 document.getElementById('clearSearch').addEventListener('click',()=>{ document.getElementById('searchInput').value=''; doSearch(); });
+
+/* ── FLOOR JUMP BAR ────────────────────────────────────── */
+function renderFloorJumps() {
+  var r = getRoute();
+  var bar = document.getElementById('floorJumps');
+  if (!bar) return;
+  var floors = [];
+  r.rooms.forEach(function(rm) {
+    var fl = rm.code.split('.')[0];
+    if (floors.indexOf(fl) === -1) floors.push(fl);
+  });
+  bar.innerHTML = floors.map(function(fl) {
+    return '<button class="floor-jump-pill" data-floor="' + fl + '">' + fl + '</button>';
+  }).join('');
+  bar.querySelectorAll('.floor-jump-pill').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var fl = btn.dataset.floor;
+      var target = document.querySelector('.floor-group[data-floor="' + fl + '"]');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      bar.querySelectorAll('.floor-jump-pill').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+  });
+  // highlight active floor on scroll
+  var scrollEl = document.querySelector('#view-rooms .scroll-region');
+  if (scrollEl) {
+    scrollEl.onscroll = function() {
+      var groups = document.querySelectorAll('.floor-group[data-floor]');
+      var active = null;
+      groups.forEach(function(g) {
+        var rect = g.getBoundingClientRect();
+        if (rect.top <= 120) active = g.dataset.floor;
+      });
+      bar.querySelectorAll('.floor-jump-pill').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.floor === active);
+      });
+    };
+  }
+  // set first pill active
+  var first = bar.querySelector('.floor-jump-pill');
+  if (first) first.classList.add('active');
+}
+
+/* ── DRAG TO REORDER ───────────────────────────────────── */
+var customRoomOrder = {};
+function loadCustomOrder() {
+  try { var s = localStorage.getItem('roomOrder'); if (s) customRoomOrder = JSON.parse(s); } catch(e){}
+}
+function saveCustomOrder() {
+  try { localStorage.setItem('roomOrder', JSON.stringify(customRoomOrder)); } catch(e){}
+}
+loadCustomOrder();
+
+function initDragToReorder() {
+  var c = document.getElementById('roomsList');
+  if (!c) return;
+  var dragSrc = null;
+  var dragSrcFloor = null;
+
+  function getCards() { return Array.from(c.querySelectorAll('.room-card')); }
+
+  function onDragStart(e) {
+    dragSrc = this;
+    dragSrcFloor = this.closest('.floor-group') ? this.closest('.floor-group').dataset.floor : null;
+    this.classList.add('dragging');
+    if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', this.id); }
+  }
+  function onDragEnd() {
+    this.classList.remove('dragging');
+    c.querySelectorAll('.room-card').forEach(function(card) { card.classList.remove('drag-over'); });
+    saveOrderFromDOM();
+  }
+  function onDragOver(e) {
+    e.preventDefault();
+    if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+    c.querySelectorAll('.room-card').forEach(function(card) { card.classList.remove('drag-over'); });
+    this.classList.add('drag-over');
+  }
+  function onDrop(e) {
+    e.stopPropagation();
+    if (dragSrc && dragSrc !== this) {
+      var srcFloorGrp = dragSrc.closest('.floor-group');
+      var tgtFloorGrp = this.closest('.floor-group');
+      if (srcFloorGrp && tgtFloorGrp && srcFloorGrp === tgtFloorGrp) {
+        var parent = this.parentNode;
+        var srcIdx = Array.from(parent.children).indexOf(dragSrc);
+        var tgtIdx = Array.from(parent.children).indexOf(this);
+        if (srcIdx < tgtIdx) parent.insertBefore(dragSrc, this.nextSibling);
+        else parent.insertBefore(dragSrc, this);
+      }
+    }
+    this.classList.remove('drag-over');
+    saveOrderFromDOM();
+  }
+
+  // Touch support
+  var touchCard = null, touchClone = null, touchOffX = 0, touchOffY = 0;
+  function onTouchStart(e) {
+    touchCard = this;
+    var t = e.touches[0];
+    touchOffX = t.clientX - this.getBoundingClientRect().left;
+    touchOffY = t.clientY - this.getBoundingClientRect().top;
+    touchClone = this.cloneNode(true);
+    touchClone.style.cssText = 'position:fixed;opacity:.7;pointer-events:none;z-index:9999;width:' + this.offsetWidth + 'px;top:' + (t.clientY - touchOffY) + 'px;left:' + (t.clientX - touchOffX) + 'px;';
+    document.body.appendChild(touchClone);
+    this.classList.add('dragging');
+  }
+  function onTouchMove(e) {
+    e.preventDefault();
+    if (!touchClone) return;
+    var t = e.touches[0];
+    touchClone.style.top = (t.clientY - touchOffY) + 'px';
+    touchClone.style.left = (t.clientX - touchOffX) + 'px';
+    c.querySelectorAll('.room-card').forEach(function(card) { card.classList.remove('drag-over'); });
+    var el = document.elementFromPoint(t.clientX, t.clientY);
+    var over = el ? el.closest('.room-card') : null;
+    if (over && over !== touchCard) over.classList.add('drag-over');
+  }
+  function onTouchEnd(e) {
+    if (touchClone) { document.body.removeChild(touchClone); touchClone = null; }
+    if (!touchCard) return;
+    touchCard.classList.remove('dragging');
+    var t = e.changedTouches[0];
+    var el = document.elementFromPoint(t.clientX, t.clientY);
+    var over = el ? el.closest('.room-card') : null;
+    c.querySelectorAll('.room-card').forEach(function(card) { card.classList.remove('drag-over'); });
+    if (over && over !== touchCard) {
+      var srcFloorGrp = touchCard.closest('.floor-group');
+      var tgtFloorGrp = over.closest('.floor-group');
+      if (srcFloorGrp && tgtFloorGrp && srcFloorGrp === tgtFloorGrp) {
+        var parent = over.parentNode;
+        var srcIdx = Array.from(parent.children).indexOf(touchCard);
+        var tgtIdx = Array.from(parent.children).indexOf(over);
+        if (srcIdx < tgtIdx) parent.insertBefore(touchCard, over.nextSibling);
+        else parent.insertBefore(touchCard, over);
+      }
+    }
+    touchCard = null;
+    saveOrderFromDOM();
+  }
+
+  function saveOrderFromDOM() {
+    var r = getRoute();
+    var order = [];
+    c.querySelectorAll('.room-card').forEach(function(card) {
+      var code = card.id.replace('rc-','').replace(/-/g,'.');
+      order.push(code);
+    });
+    customRoomOrder[state.routeId] = order;
+    saveCustomOrder();
+  }
+
+  // Attach drag handle events to each card
+  c.querySelectorAll('.room-card').forEach(function(card) {
+    card.setAttribute('draggable', 'true');
+    card.addEventListener('dragstart', onDragStart);
+    card.addEventListener('dragend', onDragEnd);
+    card.addEventListener('dragover', onDragOver);
+    card.addEventListener('drop', onDrop);
+    var handle = card.querySelector('.drag-handle');
+    if (handle) {
+      handle.addEventListener('touchstart', onTouchStart.bind(card), { passive: false });
+      handle.addEventListener('touchmove', onTouchMove.bind(card), { passive: false });
+      handle.addEventListener('touchend', onTouchEnd.bind(card), { passive: false });
+    }
+  });
+}
 
 /* ── SUMMARY ────────────────────────────────────────────── */
 function renderSummary(){
