@@ -449,6 +449,19 @@ img,svg{display:block}
 .instellen-sw input:checked + .instellen-sw-track{background:var(--c-accent);}
 .instellen-sw-thumb{position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform 200ms var(--ease);pointer-events:none;box-shadow:0 1px 4px rgba(0,0,0,.2);}
 .instellen-sw input:checked ~ .instellen-sw-thumb{transform:translateX(18px);}
+/* Overslaan chips */
+.skip-chips-section{padding:var(--s4);border-bottom:1px solid var(--c-border)}
+.skip-chips-title{font-size:11px;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:var(--s3)}
+.skip-chips-grid{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.skip-chip{padding:6px 12px;border-radius:99px;border:1.5px solid var(--c-border);background:var(--c-surface2);color:var(--c-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all 180ms var(--ease)}
+.skip-chip-active{background:var(--c-danger);border-color:var(--c-danger);color:#fff;text-decoration:line-through}
+/* Reorder toolbar */
+.reorder-toolbar{display:flex;gap:var(--s2);padding:var(--s3) var(--s4);background:var(--c-surface2);border-bottom:1px solid var(--c-border);position:sticky;top:0;z-index:10}
+.reorder-btn{flex:1;padding:8px 4px;border-radius:var(--r-md);border:1.5px solid var(--c-border);background:var(--c-surface);color:var(--c-text);font-size:13px;font-weight:600;cursor:pointer}
+.reorder-btn-desel{color:var(--c-muted);flex:0.6}
+/* Multi-select */
+.instellen-selected{background:var(--c-accent2) !important;border-left:4px solid var(--c-accent) !important}
+.instellen-list-inner{display:flex;flex-direction:column;gap:0}
 
 </style>
 </head>
@@ -892,7 +905,7 @@ function floorDoneCount(rooms) {
 
 function renderRooms() {
   var r = getRoute();
-  var rooms = r.rooms.slice(); var _customOrder=localStorage.getItem('roomOrder_'+state.routeId); if(_customOrder){try{var _co=JSON.parse(_customOrder); rooms.sort(function(a,b){var ai=_co.indexOf(a.code);var bi=_co.indexOf(b.code);return (ai<0?9999:ai)-(bi<0?9999:bi);});}catch(e){}}
+  var rooms = r.rooms.slice(); var _customOrder=localStorage.getItem('roomOrder_'+state.routeId); if(_customOrder){try{var _co=JSON.parse(_customOrder); var as=getRoomState(a.code).skipped?10000:0,bs=getRoomState(b.code).skipped?10000:0;return (ai<0?9999:ai)+as-(bi<0?9999:bi)-bs;var ai=_co.indexOf(a.code);var bi=_co.indexOf(b.code);return (ai<0?9999:ai)-(bi<0?9999:bi);});}catch(e){}}
   if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return getRoomState(rm.code).visited !== true; });
   if (state.filter === 'visited') rooms = rooms.filter(function(rm){ return getRoomState(rm.code).visited === true; });
   if (state.filter === 'picked')  rooms = rooms.filter(function(rm){ return getRoomState(rm.code).picked === true; });
@@ -1327,43 +1340,97 @@ doSearch();
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw-1.js').catch(()=>{}); }
 
 /* -- INSTELLEN -- */
-function renderInstellen(){
   var r=getRoute();
   var rooms=r.rooms;
   var c=document.getElementById('installenList');
-  c.innerHTML=rooms.map(function(room){
+  var selectedCodes=[];
+
+  // --- OVERSLAAN CHIPS ---
+  var skipSection='<div class="skip-chips-section"><div class="skip-chips-title">Overslaan vandaag</div><div class="skip-chips-grid" id="skipChipsGrid">';
+  rooms.forEach(function(room){
     var s=getRoomState(room.code);
+    skipSection+='<button class="skip-chip'+(s.skipped?' skip-chip-active':'')'" data-skip-chip="'+room.code+'">'+room.code+'</button>';
+  });
+  skipSection+='</div></div>';
+
+  // --- REORDER LIST ---
+  var reorderSection='<div class="reorder-toolbar" id="reorderToolbar"><button class="reorder-btn" id="btnMoveUp">&#9650; Omhoog</button><button class="reorder-btn" id="btnMoveDown">&#9660; Omlaag</button><button class="reorder-btn reorder-btn-desel" id="btnDeselect">Deselecteer</button></div>';
+  reorderSection+='<div class="instellen-list-inner" id="installenInner">';
+  rooms.forEach(function(room){
     var num=room.code.split('.')[1]||room.code;
     var floor=room.code.split('.')[0];
-        return '<div class="instellen-row" data-code="'+room.code+'">'+
-      '<div class="instellen-drag">&#9776;</div>'+
-      '<div class="instellen-badge"><span class="instellen-badge-num">'+num+'</span></div>'+
-      '<div class="instellen-info"><span class="instellen-code">'+room.code+'</span><span class="instellen-area">'+room.area+'</span></div>'+
-      '<div class="instellen-skip-wrap">'+
-        '<span class="instellen-skip-lbl">Overslaan</span>'+
-        '<label class="instellen-sw"><input type="checkbox" data-action="skip" data-room="'+room.code+'"'+(s.skipped?' checked':'')+'>'+
-          '<span class="instellen-sw-track"></span><span class="instellen-sw-thumb"></span>'+
-        '</label>'+
-      '</div>'+
-    '</div>';
-  }).join('');
-  c.querySelectorAll('[data-action="skip"]').forEach(function(cb){
-    cb.addEventListener('change',function(){
-      var code=this.dataset.room;
+    reorderSection+='<div class="instellen-row" data-code="'+room.code+'">';
+    reorderSection+='<div class="instellen-drag">&#9776;</div>';
+    reorderSection+='<div class="instellen-badge"><span class="instellen-badge-num">'+num+'</span></div>';
+    reorderSection+='<div class="instellen-info"><span class="instellen-code">'+room.code+'</span><span class="instellen-area">'+room.area+'</span></div>';
+    reorderSection+='</div>';
+  });
+  reorderSection+='</div>';
+
+  c.innerHTML=skipSection+reorderSection;
+
+  // --- SKIP CHIP LOGIC ---
+  c.querySelectorAll('[data-skip-chip]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var code=this.dataset.skipChip;
       var s=getRoomState(code);
-      s.skipped=this.checked;
+      s.skipped=!s.skipped;
+      this.classList.toggle('skip-chip-active',s.skipped);
       saveState();
       renderRooms();
     });
   });
-// Drag to reorder — touch & mouse
-  var _items=Array.from(c.querySelectorAll('.instellen-row'));
+
+  // --- MULTI-SELECT LOGIC ---
+  var inner=document.getElementById('installenInner');
+  inner.querySelectorAll('.instellen-row').forEach(function(row){
+    row.querySelector('.instellen-info').addEventListener('click',function(){
+      var code=row.dataset.code;
+      var idx=selectedCodes.indexOf(code);
+      if(idx===-1){selectedCodes.push(code);row.classList.add('instellen-selected');}
+      else{selectedCodes.splice(idx,1);row.classList.remove('instellen-selected');}
+    });
+  });
+
+  function _saveOrder(){
+    var o=Array.from(inner.querySelectorAll('.instellen-row')).map(function(i){return i.dataset.code;});
+    localStorage.setItem('roomOrder_'+state.routeId,JSON.stringify(o));
+    renderRooms();
+  }
+
+  document.getElementById('btnMoveUp').addEventListener('click',function(){
+    if(!selectedCodes.length)return;
+    var rows=Array.from(inner.querySelectorAll('.instellen-row'));
+    var selected=rows.filter(function(r){return selectedCodes.indexOf(r.dataset.code)!==-1;});
+    selected.forEach(function(row){
+      var prev=row.previousElementSibling;
+      if(prev&&selectedCodes.indexOf(prev.dataset.code)===-1)inner.insertBefore(row,prev);
+    });
+    _saveOrder();
+  });
+
+  document.getElementById('btnMoveDown').addEventListener('click',function(){
+    if(!selectedCodes.length)return;
+    var rows=Array.from(inner.querySelectorAll('.instellen-row')).reverse();
+    var selected=rows.filter(function(r){return selectedCodes.indexOf(r.dataset.code)!==-1;});
+    selected.forEach(function(row){
+      var next=row.nextElementSibling;
+      if(next&&selectedCodes.indexOf(next.dataset.code)===-1)inner.insertBefore(next,row);
+    });
+    _saveOrder();
+  });
+
+  document.getElementById('btnDeselect').addEventListener('click',function(){
+    selectedCodes=[];
+    inner.querySelectorAll('.instellen-row').forEach(function(r){r.classList.remove('instellen-selected');});
+  });
+
+  // --- DRAG TO REORDER (touch & mouse) ---
   var _dragEl=null,_clone=null,_startY=0;
-  function _saveOrder(){var o=Array.from(c.querySelectorAll('.instellen-row')).map(function(i){return i.dataset.code;});localStorage.setItem('roomOrder_'+state.routeId,JSON.stringify(o));renderRooms();}
-  function _start(el,clientY){_dragEl=el;_startY=clientY;var r=el.getBoundingClientRect();_clone=el.cloneNode(true);_clone.style.cssText='position:fixed;left:'+r.left+'px;top:'+r.top+'px;width:'+r.width+'px;opacity:0.85;z-index:9999;pointer-events:none;box-shadow:0 8px 28px rgba(0,0,0,.22);border-radius:var(--r-lg);background:var(--c-surface);transition:none;';document.body.appendChild(_clone);el.style.opacity='0.35';}
-  function _move(clientY){if(!_dragEl)return;var dy=clientY-_startY;var r=_dragEl.getBoundingClientRect();_clone.style.top=(r.top+dy)+'px';var els=Array.from(c.querySelectorAll('.instellen-row'));els.forEach(function(el){if(el===_dragEl)return;var er=el.getBoundingClientRect();if(clientY>er.top+er.height*0.25&&clientY<er.bottom-er.height*0.25){var from=els.indexOf(_dragEl),to=els.indexOf(el);if(from<to)el.after(_dragEl);else el.before(_dragEl);}});}
+  function _start(el,clientY){_dragEl=el;_startY=clientY;var rect=el.getBoundingClientRect();_clone=el.cloneNode(true);_clone.style.cssText='position:fixed;left:'+rect.left+'px;top:'+rect.top+'px;width:'+rect.width+'px;opacity:0.85;z-index:9999;pointer-events:none;box-shadow:0 8px 28px rgba(0,0,0,.22);border-radius:var(--r-lg);background:var(--c-surface);';document.body.appendChild(_clone);el.style.opacity='0.35';}
+  function _move(clientY){if(!_dragEl)return;var dy=clientY-_startY;var rect=_dragEl.getBoundingClientRect();_clone.style.top=(rect.top+dy)+'px';var els=Array.from(inner.querySelectorAll('.instellen-row'));els.forEach(function(el){if(el===_dragEl)return;var er=el.getBoundingClientRect();if(clientY>er.top+er.height*0.25&&clientY<er.bottom-er.height*0.25){var from=els.indexOf(_dragEl),to=els.indexOf(el);if(from<to)el.after(_dragEl);else el.before(_dragEl);}});}
   function _end(){if(!_dragEl)return;if(_clone){_clone.remove();_clone=null;}_dragEl.style.opacity='1';_dragEl=null;_saveOrder();}
-  _items.forEach(function(item){
+  inner.querySelectorAll('.instellen-row').forEach(function(item){
     var handle=item.querySelector('.instellen-drag');
     if(!handle)return;
     handle.addEventListener('touchstart',function(e){e.preventDefault();_start(item,e.touches[0].clientY);},{passive:false});
@@ -1372,7 +1439,6 @@ function renderInstellen(){
     handle.addEventListener('mousedown',function(e){e.preventDefault();_start(item,e.clientY);var mm=function(e){_move(e.clientY);};var mu=function(){_end();document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu);};document.addEventListener('mousemove',mm);document.addEventListener('mouseup',mu);});
   });
 }
-
 /* -- ALGEMENE INFO TOGGLE -- */
 document.getElementById('algInfoToggle').addEventListener('click', function() {
   var body = document.getElementById('algInfoBody');
