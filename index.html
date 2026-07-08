@@ -1341,7 +1341,7 @@ if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw-1.js').
 
 /* -- INSTELLEN -- */
   var r=getRoute();
-  var rooms=r.rooms;
+      var rooms=r?r.rooms:[];
   if(!r||!rooms)rooms=[];
   var c=document.getElementById('installenList');
   var selectedCodes=[];
