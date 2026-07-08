@@ -1339,7 +1339,7 @@ doSearch();
 // SW
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw-1.js').catch(()=>{}); }
 
-/* -- INSTELLEN -- */
+try{/* -- INSTELLEN -- */
   var r=getRoute();
       var rooms=r?r.rooms:[];
   if(!r||!rooms)rooms=[];
@@ -1371,7 +1371,7 @@ if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw-1.js').
 if(c){  c.innerHTML=skipSection+reorderSection;
 
   // --- SKIP CHIP LOGIC ---
-  c.querySelectorAll('[data-skip-chip]').forEach(function(btn){
+  if(c)c.querySelectorAll('[data-skip-chip]').forEach(function(btn){
     btn.addEventListener('click',function(){
       var code=this.dataset.skipChip;
       var s=getRoomState(code);
@@ -1443,8 +1443,9 @@ var _btnMoveUp=document.getElementById('btnMoveUp');if(_btnMoveUp)_btnMoveUp.add
   });
 }
     }
+  }catch(e){console.error('INSTELLEN error:',e);}
 /* -- ALGEMENE INFO TOGGLE -- */
-document.getElementById('algInfoToggle').addEventListener('click', function() {
+var _algToggle=document.getElementById('algInfoToggle');if(_algToggle)_algToggle.addEventListener('click', function() {
   var body = document.getElementById('algInfoBody');
   var chev = document.getElementById('algInfoChevron');
   var open = body.style.display === 'block';
