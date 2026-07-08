@@ -1342,6 +1342,7 @@ if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw-1.js').
 /* -- INSTELLEN -- */
   var r=getRoute();
   var rooms=r.rooms;
+  if(!r||!rooms)rooms=[];
   var c=document.getElementById('installenList');
   var selectedCodes=[];
 
@@ -1367,7 +1368,7 @@ if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw-1.js').
   });
   reorderSection+='</div>';
 
-  c.innerHTML=skipSection+reorderSection;
+if(c){  c.innerHTML=skipSection+reorderSection;
 
   // --- SKIP CHIP LOGIC ---
   c.querySelectorAll('[data-skip-chip]').forEach(function(btn){
@@ -1380,9 +1381,11 @@ if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw-1.js').
       renderRooms();
     });
   });
+      }
 
   // --- MULTI-SELECT LOGIC ---
   var inner=document.getElementById('installenInner');
+  if(inner){
   inner.querySelectorAll('.instellen-row').forEach(function(row){
     row.querySelector('.instellen-info').addEventListener('click',function(){
       var code=row.dataset.code;
@@ -1439,6 +1442,7 @@ if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw-1.js').
     handle.addEventListener('mousedown',function(e){e.preventDefault();_start(item,e.clientY);var mm=function(e){_move(e.clientY);};var mu=function(){_end();document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu);};document.addEventListener('mousemove',mm);document.addEventListener('mouseup',mu);});
   });
 }
+    }
 /* -- ALGEMENE INFO TOGGLE -- */
 document.getElementById('algInfoToggle').addEventListener('click', function() {
   var body = document.getElementById('algInfoBody');
