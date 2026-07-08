@@ -182,7 +182,7 @@ img,svg{display:block}
 .toggle-label{font-size:12px;font-weight:600;color:var(--c-muted);text-transform:uppercase;letter-spacing:.04em}
 .toggle-btns{display:flex;gap:var(--s2);width:100%}
 .toggle-btns button{
-    flex:1;padding:10px 6px;border-radius:var(--r-lg);font-size:14px;font-weight:700;
+    flex:1;padding:14px 10px;border-radius:var(--r-lg);font-size:15px;font-weight:700;
   border:1px solid var(--c-border);background:var(--c-surface2);color:var(--c-muted);
   transition:all 180ms var(--ease);-webkit-tap-highlight-color:transparent;
   touch-action:manipulation;user-select:none;
@@ -867,7 +867,7 @@ function roomCardHTML(room) {
       + (isSkipped
     ? '<div class="skip-banner"><span class="skip-banner-text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Hoeft niet vandaag</span><button class="skip-unblock" data-action="unskip" data-room="' + room.code + '">Activeer</button></div>'
     : '<div class="room-body" style="display:block">'
-      + '<div class="room-actions" style="border-top:1px solid var(--c-border);display:flex;flex-direction:column;gap:var(--s3)">'
+      + '<div  class="room-actions">'
       + '<div class="toggle-row">'
       + '<span class="toggle-label">Langs geweest?</span>'
       + '<div class="toggle-btns">'
