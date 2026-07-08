@@ -275,6 +275,8 @@ img,svg{display:block}
 .sw input:checked + .sw-track{background:var(--c-accent)}
 .sw-thumb{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform 200ms var(--ease);pointer-events:none;box-shadow:0 1px 4px rgba(0,0,0,.2)}
 .sw input:checked ~ .sw-thumb{transform:translateX(20px)}
+  .instellen-sw{width:48px;height:28px;position:relative;flex-shrink:0}
+  .instellen-sw input{opacity:0;width:0;height:0;position:absolute}.instellen-sw-track{position:absolute;inset:0;border-radius:99px;background:var(--c-border);transition:background 200ms var(--ease);cursor:pointer}.instellen-sw input:checked + .instellen-sw-track{background:var(--c-accent)}.instellen-sw-thumb{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform 200ms var(--ease);pointer-events:none;box-shadow:0 1px 4px rgba(0,0,0,.2)}.instellen-sw input:checked ~ .instellen-sw-thumb{transform:translateX(20px)}
 
 /* ─── PROGRESS BAR ───────────────────────────────────── */
 .progress-bar-wrap{height:6px;border-radius:99px;background:var(--c-border);overflow:hidden}
@@ -848,6 +850,7 @@ function roomCardHTML(room) {
   var isCurrent = lastTouchedRoom === room.code;
   var cardClass = 'room-card' + (isDone ? ' visited-done' : '') + (isCurrent ? ' current-room' : '') + (isSkipped ? ' skipped' : '');
   var cardId = 'rc-' + room.code.replace(/\./g, '-');
+      var note = room.note;
   return '<article class="' + cardClass + '" id="' + cardId + '">'
     + '<div class="room-card-header">'
       + '<div class="room-badge">'
