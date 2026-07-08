@@ -94,7 +94,7 @@ img,svg{display:block}
   position:fixed;bottom:0;left:0;right:0;z-index:100;
   background:var(--c-surface);
   border-top:1px solid var(--c-border);
-  display:grid;grid-template-columns:repeat(4,1fr);
+  display:grid;grid-template-columns:repeat(5,1fr);
   height:calc(var(--nav-h) + var(--safe-bottom));
   padding-bottom:var(--safe-bottom);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
@@ -418,6 +418,34 @@ img,svg{display:block}
 .drag-handle:active{cursor:grabbing;opacity:1;}
 .room-card.dragging{opacity:.4;border:2px dashed var(--c-accent);}
 .room-card.drag-over{border-top:3px solid var(--c-accent);transform:translateY(2px);}
+/* ─── SKIP CARD ─────────────────────────────────── */
+.room-card.skipped{opacity:.55;border-style:dashed;}
+.skip-banner{padding:var(--s3) var(--s4);display:flex;align-items:center;justify-content:space-between;gap:var(--s2);background:color-mix(in srgb,var(--c-muted) 8%,transparent);border-top:1px solid var(--c-border);}
+.skip-banner-text{font-size:13px;color:var(--c-muted);display:flex;align-items:center;gap:6px;}
+.skip-banner-text svg{width:16px;height:16px;flex-shrink:0;}
+.skip-unblock{padding:6px 14px;border-radius:99px;font-size:12px;font-weight:700;background:var(--c-surface);border:1px solid var(--c-border);color:var(--c-muted);transition:all 180ms var(--ease);touch-action:manipulation;}
+.skip-unblock:active{background:var(--c-accent);color:#fff;border-color:var(--c-accent);}
+/* ─── INSTELLEN VIEW ────────────────────────────── */
+.instellen-list{display:flex;flex-direction:column;gap:0;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--c-border);}
+.instellen-row{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s4);background:var(--c-surface);border-bottom:1px solid var(--c-border);user-select:none;}
+.instellen-row:last-child{border-bottom:none;}
+.instellen-row.dragging-row{opacity:.35;background:var(--c-surface2);}
+.instellen-row.dragover-row{border-top:2px solid var(--c-accent);}
+.instellen-drag{width:32px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--c-muted);cursor:grab;flex-shrink:0;opacity:.5;touch-action:none;}
+.instellen-drag:active{opacity:1;cursor:grabbing;}
+.instellen-badge{min-width:46px;height:46px;border-radius:var(--r-sm);background:var(--c-pill-bg);color:var(--c-accent);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;gap:1px;}
+.instellen-badge-num{font-size:20px;line-height:1;font-weight:800;}
+.instellen-info{flex:1;min-width:0;}
+.instellen-code{font-size:15px;font-weight:700;}
+.instellen-area{font-size:11px;color:var(--c-muted);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.instellen-skip-wrap{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.instellen-skip-lbl{font-size:9px;font-weight:600;color:var(--c-muted);text-transform:uppercase;letter-spacing:.04em;}
+.instellen-sw{width:44px;height:26px;position:relative;}
+.instellen-sw input{opacity:0;width:0;height:0;position:absolute;}
+.instellen-sw-track{position:absolute;inset:0;border-radius:99px;background:var(--c-border);transition:background 200ms var(--ease);cursor:pointer;}
+.instellen-sw input:checked + .instellen-sw-track{background:var(--c-warn);}
+.instellen-sw-thumb{position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform 200ms var(--ease);pointer-events:none;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.instellen-sw input:checked ~ .instellen-sw-thumb{transform:translateX(18px);}
 
 </style>
 </head>
@@ -577,6 +605,14 @@ img,svg{display:block}
       </div>
     </div>
 
+        <!-- INSTELLEN VIEW -->
+    <div class="view" id="view-instellen">
+      <div class="scroll-region">
+        <div class="section-hd" style="margin-bottom:var(--s3)"><h2>Instellen</h2></div>
+        <p style="font-size:13px;color:var(--c-muted);margin-bottom:var(--s4)">Sleep kamers om de volgorde te wijzigen. Zet de schakelaar aan om een kamer vandaag over te slaan.</p>
+        <div class="instellen-list" id="installenList"></div>
+      </div>
+    </div>
   </main>
 
   <!-- BOTTOM NAV -->
@@ -597,6 +633,10 @@ img,svg{display:block}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
       <span>Overzicht</span>
     </button>
+          <button class="nav-item" data-view="instellen">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>Instellen</span>
+      </button>
   </nav>
 </div>
 
@@ -702,7 +742,7 @@ const state = {
 
 function loadState(){ try{ const s=localStorage.getItem('labRondes2'); if(s){const p=JSON.parse(s);if(p.roomStates){state.roomStates=p.roomStates;if(p.weekId)state.weekId=p.weekId;if(p.routeId)state.routeId=p.routeId;if(p.filter)state.filter=p.filter;}else{state.roomStates=p;}} }catch(e){} }
 function saveState(){ try{ localStorage.setItem('labRondes2',JSON.stringify({roomStates:state.roomStates,weekId:state.weekId,routeId:state.routeId,filter:state.filter})); }catch(e){} }
-function getRoomState(code){ if(!state.roomStates[code]) state.roomStates[code]={visited:null,picked:null,checks:[false,false,false,false]}; if(!state.roomStates[code].checks) state.roomStates[code].checks=[false,false,false,false]; return state.roomStates[code]; }
+function getRoomState(code){ if(!state.roomStates[code]) state.roomStates[code]={visited:null,picked:null,checks:[false,false,false,false]}; if(!state.roomStates[code].checks) state.roomStates[code].checks=[false,false,false,false]; if(state.roomStates[code].skipped===undefined)state.roomStates[code].skipped=false; return state.roomStates[code]; }
 function haptic(kind){ try{ if(!navigator.vibrate) return; if(kind==='yes') navigator.vibrate(12); else if(kind==='no') navigator.vibrate([10,20,10]); else navigator.vibrate(8); }catch(e){} }
 function getRoute(){ return routeData[state.routeId]; }
 
@@ -721,6 +761,7 @@ function switchView(viewId){
   if(viewId==='rooms'){ renderRooms(); var _r=getRoute().rooms,_last=-1,_i; for(_i=0;_i<_r.length;_i++){if(getRoomState(_r[_i].code).visited===true)_last=_i;} floatRoomIndex=(_last+1<_r.length)?_last+1:(_last<0?0:_last); setTimeout(function(){updateFloatCounter();var _ids=getVisibleRoomIds();if(_ids[floatRoomIndex]){var _el=document.getElementById(_ids[floatRoomIndex]);if(_el)_el.scrollIntoView({behavior:'smooth',block:'center'});}},80); }
   if(viewId==='summary') renderSummary();
   if(viewId==='home') renderHome();
+    if(viewId==='instellen') renderInstellen();
 }
 document.querySelectorAll('.nav-item').forEach(btn=>{
   btn.addEventListener('click',()=>switchView(btn.dataset.view));
@@ -803,8 +844,9 @@ function roomCardHTML(room) {
   var floor = room.code.split('.')[0];
   var num = room.code.split('.')[1] || room.code;
   var isDone = s.visited === true;
+    var isSkipped = s.skipped === true;
   var isCurrent = lastTouchedRoom === room.code;
-  var cardClass = 'room-card' + (isDone ? ' visited-done' : '') + (isCurrent ? ' current-room' : '');
+  var cardClass = 'room-card' + (isDone ? ' visited-done' : '') + (isCurrent ? ' current-room' : '') + (isSkipped ? ' skipped' : '');
   var cardId = 'rc-' + room.code.replace(/\./g, '-');
   return '<article class="' + cardClass + '" id="' + cardId + '">'
     + '<div class="room-card-header">'
@@ -817,29 +859,28 @@ function roomCardHTML(room) {
         + '<div class="room-area">' + room.area + '</div>'
         + '<span class="room-sterile">' + room.sterile + '</span>'
       + '</div>'
-            + '<div class="drag-handle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="7" x2="19" y2="7"/><line x1="5" y1="12" x2="19" y2="12"/><line x1="5" y1="17" x2="19" y2="17"/></svg></div>'
-    + '</div>'
-    + (room.note ? '<div class="room-note">' + room.note + '</div>' : '')
-    + '<div class="room-body" style="display:block">'
+            note ? '<div class="room-note">' + room.note + '</div>' : '')
+      + (isSkipped
+    ? '<div class="skip-banner"><span class="skip-banner-text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Hoeft niet vandaag</span><button class="skip-unblock" data-action="unskip" data-room="' + room.code + '">Activeer</button></div>'
+    : '<div class="room-body" style="display:block">'
       + '<div class="room-actions" style="border-top:1px solid var(--c-border);display:flex;flex-direction:column;gap:var(--s3)">'
-        + '<div class="toggle-row">'
-          + '<span class="toggle-label">Langs geweest?</span>'
-          + '<div class="toggle-btns">'
-            + '<button class="' + (s.visited === true ? 'yes' : '') + '" data-action="visited" data-value="yes" data-room="' + room.code + '">&#10003; Ja</button>'
-            + '<button class="' + (s.visited === false ? 'no' : '') + '" data-action="visited" data-value="no" data-room="' + room.code + '">&#10007; Nee</button>'
-          + '</div>'
-        + '</div>'
-        + '<div class="toggle-row">'
-          + '<span class="toggle-label">Iets opgehaald?</span>'
-          + '<div class="toggle-btns">'
-            + '<button class="' + (s.picked === true ? 'yes' : '') + '" data-action="picked" data-value="yes" data-room="' + room.code + '">&#10003; Ja</button>'
-            + '<button class="' + (s.picked === false ? 'no' : '') + '" data-action="picked" data-value="no" data-room="' + room.code + '">&#10007; Nee</button>'
-          + '</div>'
-        + '</div>'
+      + '<div class="toggle-row">'
+      + '<span class="toggle-label">Langs geweest?</span>'
+      + '<div class="toggle-btns">'
+      + '<button class="' + (s.visited === true ? 'yes' : '') + '" data-action="visited" data-value="yes" data-room="' + room.code + '">&#10003; Ja</button>'
+      + '<button class="' + (s.visited === false ? 'no' : '') + '" data-action="visited" data-value="no" data-room="' + room.code + '">&#10007; Nee</button>'
       + '</div>'
-    + '</div>'
-    + '</article>';
-}
+      + '</div>'
+      + '<div class="toggle-row">'
+      + '<span class="toggle-label">Iets opgehaald?</span>'
+      + '<div class="toggle-btns">'
+      + '<button class="' + (s.picked === true ? 'yes' : '') + '" data-action="picked" data-value="yes" data-room="' + room.code + '">&#10003; Ja</button>'
+      + '<button class="' + (s.picked === false ? 'no' : '') + '" data-action="picked" data-value="no" data-room="' + room.code + '">&#10007; Nee</button>'
+      + '</div>'
+      + '</div>'
+      + '</div>'
+      + '</div>')
+  + '</article>';
 
 function floorDoneCount(rooms) {
   return rooms.filter(function(r){ return getRoomState(r.code).visited === true; }).length;
@@ -847,7 +888,7 @@ function floorDoneCount(rooms) {
 
 function renderRooms() {
   var r = getRoute();
-  var rooms = r.rooms.slice();
+  var rooms = r.rooms.slice(); var _customOrder=localStorage.getItem('roomOrder_'+state.routeId); if(_customOrder){try{var _co=JSON.parse(_customOrder); rooms.sort(function(a,b){var ai=_co.indexOf(a.code);var bi=_co.indexOf(b.code);return (ai<0?9999:ai)-(bi<0?9999:bi);});}catch(e){}}
   if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return getRoomState(rm.code).visited !== true; });
   if (state.filter === 'visited') rooms = rooms.filter(function(rm){ return getRoomState(rm.code).visited === true; });
   if (state.filter === 'picked')  rooms = rooms.filter(function(rm){ return getRoomState(rm.code).picked === true; });
@@ -898,6 +939,7 @@ function renderRooms() {
   // Toggle buttons — in-place update, no full re-render
   c.querySelectorAll('button[data-action]').forEach(function(btn) {
     if (btn.dataset.action === 'note') return;
+        if (btn.dataset.action === 'unskip') { var s2=getRoomState(btn.dataset.room); s2.skipped=false; saveState(); renderRooms(); return; }
     btn.addEventListener('click', function() {
       var s = getRoomState(btn.dataset.room);
       var val = btn.dataset.value === 'yes';
@@ -967,7 +1009,6 @@ function renderRooms() {
 
   setTimeout(updateFloatCounter, 50);
     renderFloorJumps();
-  initDragToReorder();
  
 }
 
@@ -1182,7 +1223,7 @@ function renderSummary(){
   const rooms=r.rooms;
   const visited=rooms.filter(rm=>getRoomState(rm.code).visited===true).length;
   const picked=rooms.filter(rm=>getRoomState(rm.code).picked===true).length;
-  const total=rooms.length;
+      const total=rooms.filter(rm=>!getRoomState(rm.code).skipped).length;
   const pct=total?Math.round((visited/total)*100):0;
   document.getElementById('sumVisited').textContent=visited;
   document.getElementById('sumPicked').textContent=picked;
@@ -1280,6 +1321,60 @@ doSearch();
 
 // SW
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw-1.js').catch(()=>{}); }
+
+/* -- INSTELLEN -- */
+function renderInstellen(){
+  var r=getRoute();
+  var rooms=r.rooms;
+  var c=document.getElementById('installenList');
+  c.innerHTML=rooms.map(function(room){
+    var s=getRoomState(room.code);
+    var num=room.code.split('.')[1]||room.code;
+    var floor=room.code.split('.')[0];
+        return '<div class="instellen-row" data-code="'+room.code+'">'+
+      '<div class="instellen-drag">&#9776;</div>'+
+      '<div class="instellen-badge"><span class="instellen-badge-num">'+num+'</span></div>'+
+      '<div class="instellen-info"><span class="instellen-code">'+room.code+'</span><span class="instellen-area">'+room.area+'</span></div>'+
+      '<div class="instellen-skip-wrap">'+
+        '<span class="instellen-skip-lbl">Overslaan</span>'+
+        '<label class="instellen-sw"><input type="checkbox" data-action="skip" data-room="'+room.code+'"'+(s.skipped?' checked':'')+'>'+
+          '<span class="instellen-sw-track"><span class="instellen-sw-thumb"></span></span>'+
+        '</label>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+  c.querySelectorAll('[data-action="skip"]').forEach(function(cb){
+    cb.addEventListener('change',function(){
+      var code=this.dataset.room;
+      var s=getRoomState(code);
+      s.skipped=this.checked;
+      saveState();
+      renderRooms();
+    });
+  });
+  // Drag to reorder
+  var items=Array.from(c.querySelectorAll('.instellen-row'));
+  var dragged=null;
+  items.forEach(function(item){
+    item.setAttribute('draggable','true');
+    item.addEventListener('dragstart',function(){dragged=item;item.style.opacity='0.5';});
+    item.addEventListener('dragend',function(){item.style.opacity='1';dragged=null;});
+    item.addEventListener('dragover',function(e){e.preventDefault();});
+    item.addEventListener('drop',function(e){
+      e.preventDefault();
+      if(dragged&&dragged!==item){
+        var allItems=Array.from(c.querySelectorAll('.instellen-row'));
+        var fromIdx=allItems.indexOf(dragged);
+        var toIdx=allItems.indexOf(item);
+        if(fromIdx<toIdx) item.after(dragged); else item.before(dragged);
+        var newOrder=Array.from(c.querySelectorAll('.instellen-row')).map(function(i){return i.dataset.code;});
+        var key='roomOrder_'+state.routeId;
+        localStorage.setItem(key,JSON.stringify(newOrder));
+        renderRooms();
+      }
+    });
+  });
+}
 
 /* -- ALGEMENE INFO TOGGLE -- */
 document.getElementById('algInfoToggle').addEventListener('click', function() {
