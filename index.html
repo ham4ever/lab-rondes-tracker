@@ -1442,8 +1442,8 @@ var _btnMoveUp=document.getElementById('btnMoveUp');if(_btnMoveUp)_btnMoveUp.add
     handle.addEventListener('mousedown',function(e){e.preventDefault();_start(item,e.clientY);var mm=function(e){_move(e.clientY);};var mu=function(){_end();document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu);};document.addEventListener('mousemove',mm);document.addEventListener('mouseup',mu);});
   });
 }
-    }
   }
+    
 /* -- ALGEMENE INFO TOGGLE -- */
 var _algToggle=document.getElementById('algInfoToggle');if(_algToggle)_algToggle.addEventListener('click', function() {
   var body = document.getElementById('algInfoBody');
