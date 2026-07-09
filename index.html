@@ -159,7 +159,7 @@ img,svg{display:block}
 }
 .room-card.highlight{border-color:var(--c-accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--c-accent) 15%,transparent)}
 .room-card.visited-done{border-left:3px solid var(--c-success)}
-.room-card-header{padding:var(--s4);display:flex;align-items:flex-start;gap:var(--s3);flex-wrap:wrap}
+.room-card-header{padding:var(--s4);display:flex;align-items:flex-start;gap:var(--s3);}
 .room-badge{
   min-width:64px;height:64px;border-radius:var(--r-md);
   background:var(--c-pill-bg);color:var(--c-accent);
@@ -452,7 +452,7 @@ img,svg{display:block}
 /* Overslaan chips */
 .skip-chips-section{padding:var(--s4);border-bottom:1px solid var(--c-border)}
 .skip-chips-title{font-size:11px;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:var(--s3)}
-.skip-chips-grid{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.skip-chips-grid{display:flex;;gap:var(--s2)}
 .skip-chip{padding:6px 12px;border-radius:99px;border:1.5px solid var(--c-border);background:var(--c-surface2);color:var(--c-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all 180ms var(--ease)}
 .skip-chip-active{background:var(--c-danger);border-color:var(--c-danger);color:#fff;text-decoration:line-through}
 /* Reorder toolbar */
@@ -532,7 +532,7 @@ img,svg{display:block}
             <div class="settings-row-label">Regels</div>
             <div class="settings-row-sub" style="margin-top:4px;line-height:1.5">Kruis per kamer aan of je langs bent geweest en of je iets hebt opgehaald. Gebruik de reminderlijst om op het einde snel te zien wat steriel terug moet of wat je niet mag vergeten terug te brengen.</div>
           </div>
-          <div style="display:flex;gap:var(--s2);flex-wrap:wrap">
+          <div style="display:flex;gap:var(--s2);">
             <span class="tag-pill green">3 rondes per dag</span>
             <span class="tag-pill blue">Automatische reminders</span>
             <span class="tag-pill amber">WhatsApp export</span>
@@ -876,7 +876,7 @@ function roomCardHTML(room) {
         + '<div class="room-area">' + room.area + '</div>'
         + '<span class="room-sterile">' + room.sterile + '</span>'
       + '</div>'
-            + (note ? '<div class="room-note">' + room.note + '</div>' : '') + '</div>'
+            + '</div>' + (note ? '<div class="room-note">' + room.note + '</div>' : '')
       + (isSkipped
     ? '<div class="skip-banner"><span class="skip-banner-text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Hoeft niet vandaag</span><button class="skip-unblock" data-action="unskip" data-room="' + room.code + '">Activeer</button></div>'
     : '<div class="room-body" style="display:block">'
