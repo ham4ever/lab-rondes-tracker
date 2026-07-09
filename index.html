@@ -977,7 +977,7 @@ if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return getRoo
   // Toggle buttons — in-place update, no full re-render
   c.querySelectorAll('button[data-action]').forEach(function(btn) {
     if (btn.dataset.action === 'note') return;
-        if (btn.dataset.action === 'unskip') { var s2=getRoomState(btn.dataset.room); s2.skipped=false; saveState(); renderRooms(); return; }
+        if (btn.dataset.action === 'unskip') { btn.addEventListener('click',function(){var s2=getRoomState(btn.dataset.room);s2.skipped=false;saveState();renderRooms();});return;}
     btn.addEventListener('click', function() {
       var s = getRoomState(btn.dataset.room);
       var val = btn.dataset.value === 'yes';
