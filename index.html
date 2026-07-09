@@ -1339,7 +1339,7 @@ doSearch();
 // SW
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw-1.js').catch(()=>{}); }
 
-try{/* -- INSTELLEN -- */
+function renderInstellen(){/* -- INSTELLEN -- */
   var r=getRoute();
       var rooms=r?r.rooms:[];
   if(!r||!rooms)rooms=[];
@@ -1443,7 +1443,7 @@ var _btnMoveUp=document.getElementById('btnMoveUp');if(_btnMoveUp)_btnMoveUp.add
   });
 }
     }
-  }catch(e){console.error('INSTELLEN error:',e);}
+  }
 /* -- ALGEMENE INFO TOGGLE -- */
 var _algToggle=document.getElementById('algInfoToggle');if(_algToggle)_algToggle.addEventListener('click', function() {
   var body = document.getElementById('algInfoBody');
