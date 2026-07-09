@@ -182,7 +182,7 @@ img,svg{display:block}
 .toggle-label{font-size:12px;font-weight:600;color:var(--c-muted);text-transform:uppercase;letter-spacing:.04em}
 .toggle-btns{display:flex;gap:var(--s2);width:100%}
 .toggle-btns button{
-    flex:1;padding:14px 10px;border-radius:var(--r-lg);font-size:15px;font-weight:700;
+  flex:1;padding:20px 10px;border-radius:var(--r-lg);font-size:18px;font-weight:700;
   border:1px solid var(--c-border);background:var(--c-surface2);color:var(--c-muted);
   transition:all 180ms var(--ease);-webkit-tap-highlight-color:transparent;
   touch-action:manipulation;user-select:none;
@@ -191,8 +191,7 @@ img,svg{display:block}
 .toggle-btns button:active{transform:scale(.96)}
 .toggle-btns button.yes{background:var(--c-success);border-color:var(--c-success);color:#fff}
 .toggle-btns button.no{background:var(--c-danger);border-color:var(--c-danger);color:#fff}
-.toggle-row{display:flex;flex-direction:column;gap:4px}
-.toggle-label{font-size:11px;font-weight:600;color:var(--c-muted);text-transform:uppercase;letter-spacing:.4px}
+
 .room-body{display:block}
 
 /* ─── ROUTE PICKER (HOME) ───────────────────────────── */
@@ -444,24 +443,11 @@ img,svg{display:block}
 .instellen-skip-wrap{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;}
 .instellen-skip-lbl{font-size:9px;font-weight:600;color:var(--c-muted);text-transform:uppercase;letter-spacing:.04em;}
 .instellen-sw{width:44px;height:26px;position:relative;}
-.instellen-sw input{opacity:0;width:0;height:0;position:absolute;-webkit-appearance:none;appearance:none;}
+.instellen-sw input{opacity:0;width:0;height:0;position:absolute;}
 .instellen-sw-track{position:absolute;inset:0;border-radius:99px;background:var(--c-border);transition:background 200ms var(--ease);cursor:pointer;}
-.instellen-sw input:checked + .instellen-sw-track{background:var(--c-accent);}
+.instellen-sw input:checked + .instellen-sw-track{background:var(--c-warn);}
 .instellen-sw-thumb{position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform 200ms var(--ease);pointer-events:none;box-shadow:0 1px 4px rgba(0,0,0,.2);}
 .instellen-sw input:checked ~ .instellen-sw-thumb{transform:translateX(18px);}
-/* Overslaan chips */
-.skip-chips-section{padding:var(--s4);border-bottom:1px solid var(--c-border)}
-.skip-chips-title{font-size:11px;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:var(--s3)}
-.skip-chips-grid{display:flex;flex-wrap:wrap;gap:var(--s2)}
-.skip-chip{padding:6px 12px;border-radius:99px;border:1.5px solid var(--c-border);background:var(--c-surface2);color:var(--c-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all 180ms var(--ease)}
-.skip-chip-active{background:var(--c-danger);border-color:var(--c-danger);color:#fff;text-decoration:line-through}
-/* Reorder toolbar */
-.reorder-toolbar{display:flex;gap:var(--s2);padding:var(--s3) var(--s4);background:var(--c-surface2);border-bottom:1px solid var(--c-border);position:sticky;top:0;z-index:10}
-.reorder-btn{flex:1;padding:8px 4px;border-radius:var(--r-md);border:1.5px solid var(--c-border);background:var(--c-surface);color:var(--c-text);font-size:13px;font-weight:600;cursor:pointer}
-.reorder-btn-desel{color:var(--c-muted);flex:0.6}
-/* Multi-select */
-.instellen-selected{background:var(--c-accent2) !important;border-left:4px solid var(--c-accent) !important}
-.instellen-list-inner{display:flex;flex-direction:column;gap:0}
 
 </style>
 </head>
@@ -756,7 +742,7 @@ const state = {
   activeView: 'home'
 };
 
-function loadState(){ try{ const s=localStorage.getItem('labRondes2'); if(s){const p=JSON.parse(s);if(p.roomStates){state.roomStates=p.roomStates;if(p.weekId)state.weekId=p.weekId;if(p.routeId&&routeData[p.routeId])state.routeId=p.routeId;if(p.filter)state.filter=p.filter;}else{state.roomStates=p;}} }catch(e){} }
+function loadState(){ try{ const s=localStorage.getItem('labRondes2'); if(s){const p=JSON.parse(s);if(p.roomStates){state.roomStates=p.roomStates;if(p.weekId)state.weekId=p.weekId;if(p.routeId)state.routeId=p.routeId;if(p.filter)state.filter=p.filter;}else{state.roomStates=p;}} }catch(e){} }
 function saveState(){ try{ localStorage.setItem('labRondes2',JSON.stringify({roomStates:state.roomStates,weekId:state.weekId,routeId:state.routeId,filter:state.filter})); }catch(e){} }
 function getRoomState(code){ if(!state.roomStates[code]) state.roomStates[code]={visited:null,picked:null,checks:[false,false,false,false]}; if(!state.roomStates[code].checks) state.roomStates[code].checks=[false,false,false,false]; if(state.roomStates[code].skipped===undefined)state.roomStates[code].skipped=false; return state.roomStates[code]; }
 function haptic(kind){ try{ if(!navigator.vibrate) return; if(kind==='yes') navigator.vibrate(12); else if(kind==='no') navigator.vibrate([10,20,10]); else navigator.vibrate(8); }catch(e){} }
@@ -774,7 +760,7 @@ function switchView(viewId){
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.view===viewId));
   // show float scroll nav only on rooms view
   document.getElementById('floatNav').style.display=viewId==='rooms'?'flex':'none';
-  if(viewId==='rooms'){ renderRooms(); var _r=(getRoute()||{rooms:[]}).rooms,_last=-1,_i; for(_i=0;_i<_r.length;_i++){if(getRoomState(_r[_i].code).visited===true)_last=_i;} floatRoomIndex=(_last+1<_r.length)?_last+1:(_last<0?0:_last); setTimeout(function(){updateFloatCounter();var _ids=getVisibleRoomIds();if(_ids[floatRoomIndex]){var _el=document.getElementById(_ids[floatRoomIndex]);if(_el)_el.scrollIntoView({behavior:'smooth',block:'center'});}},80); }
+  if(viewId==='rooms'){ renderRooms(); var _r=getRoute().rooms,_last=-1,_i; for(_i=0;_i<_r.length;_i++){if(getRoomState(_r[_i].code).visited===true)_last=_i;} floatRoomIndex=(_last+1<_r.length)?_last+1:(_last<0?0:_last); setTimeout(function(){updateFloatCounter();var _ids=getVisibleRoomIds();if(_ids[floatRoomIndex]){var _el=document.getElementById(_ids[floatRoomIndex]);if(_el)_el.scrollIntoView({behavior:'smooth',block:'center'});}},80); }
   if(viewId==='summary') renderSummary();
   if(viewId==='home') renderHome();
     if(viewId==='instellen') renderInstellen();
@@ -797,7 +783,7 @@ function renderHome(){
 }
 
 function renderWeekChips(){
-  const c=document.getElementById('weekChips'); if(!c)return;
+  const c=document.getElementById('weekChips');
   c.innerHTML=weekSchedules.map(w=>`
     <button class="week-chip ${w.id===state.weekId?'active':''}" data-week="${w.id}">
       <strong>${w.label}</strong><small>${w.detail}</small>
@@ -813,7 +799,7 @@ function renderRouteCards(){
   const c=document.getElementById('routeCards');
   const week=weekSchedules.find(w=>w.id===state.weekId);
   c.innerHTML=week.routes.map(rid=>{
-    const r=routeData[rid]; if(!r)return '';
+    const r=routeData[rid];
     const rooms=r.rooms; const visited=rooms.filter(rm=>getRoomState(rm.code).visited===true).length;
     const pct=rooms.length?Math.round((visited/rooms.length)*100):0;
     return `<button class="route-card ${rid===state.routeId?'active':''}" data-route="${rid}" style="width:100%;text-align:left;margin-bottom:var(--s2)">
@@ -836,7 +822,7 @@ function renderRouteCards(){
 }
 
 function renderHeroStats(){
-  const r=getRoute(); if(!r)return;
+  const r=getRoute();
   const rooms=r.rooms;
   const visited=rooms.filter(rm=>getRoomState(rm.code).visited===true).length;
   const picked=rooms.filter(rm=>getRoomState(rm.code).picked===true).length;
@@ -876,11 +862,11 @@ function roomCardHTML(room) {
         + '<div class="room-area">' + room.area + '</div>'
         + '<span class="room-sterile">' + room.sterile + '</span>'
       + '</div>'
-            + (note ? '<div class="room-note">' + room.note + '</div>' : '') + '</div>'
+            + (note ? '<div class="room-note">' + room.note + '</div>' : '')
       + (isSkipped
     ? '<div class="skip-banner"><span class="skip-banner-text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Hoeft niet vandaag</span><button class="skip-unblock" data-action="unskip" data-room="' + room.code + '">Activeer</button></div>'
     : '<div class="room-body" style="display:block">'
-      + '<div  class="room-actions">'
+      + '<div class="room-actions" style="border-top:1px solid var(--c-border);display:flex;flex-direction:column;gap:var(--s3)">'
       + '<div class="toggle-row">'
       + '<span class="toggle-label">Langs geweest?</span>'
       + '<div class="toggle-btns">'
@@ -905,7 +891,7 @@ function floorDoneCount(rooms) {
 
 function renderRooms() {
   var r = getRoute();
-  var rooms = r.rooms.slice(); var _customOrder=localStorage.getItem('roomOrder_'+state.routeId); if(_customOrder){try{var _co=JSON.parse(_customOrder); var as=getRoomState(a.code).skipped?10000:0,bs=getRoomState(b.code).skipped?10000:0;return (ai<0?9999:ai)+as-(bi<0?9999:bi)-bs;var ai=_co.indexOf(a.code);var bi=_co.indexOf(b.code);return (ai<0?9999:ai)-(bi<0?9999:bi);});}catch(e){}}
+  var rooms = r.rooms.slice(); var _customOrder=localStorage.getItem('roomOrder_'+state.routeId); if(_customOrder){try{var _co=JSON.parse(_customOrder); rooms.sort(function(a,b){var ai=_co.indexOf(a.code);var bi=_co.indexOf(b.code);return (ai<0?9999:ai)-(bi<0?9999:bi);});}catch(e){}}
   if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return getRoomState(rm.code).visited !== true; });
   if (state.filter === 'visited') rooms = rooms.filter(function(rm){ return getRoomState(rm.code).visited === true; });
   if (state.filter === 'picked')  rooms = rooms.filter(function(rm){ return getRoomState(rm.code).picked === true; });
@@ -1333,19 +1319,68 @@ document.getElementById('floatNext').addEventListener('click',()=>{
 
 /* ── INIT ───────────────────────────────────────────────── */
 loadState();
-  if(!routeData[state.routeId])state.routeId=weekSchedules[0].routes[0];
 renderHome();
 doSearch();
 
 // SW
-
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw-1.js').catch(()=>{}); }
 
-function renderInstellen(){var r=getRoute();var rooms=r?r.rooms:[];var c=document.getElementById('installenList');var selectedCodes=[];var skipSection='<div class="skip-chips-section"><div class="skip-chips-title">Overslaan vandaag</div><div class="skip-chips-grid">';rooms.forEach(function(room){var s=getRoomState(room.code);skipSection+='<button class="skip-chip'+(s.skipped?' skip-chip-active':'')+'" data-skip-chip="'+room.code+'">'+room.code+'</button>';});skipSection+='</div></div>';var reorderSection='<div class="reorder-toolbar"><button class="reorder-btn" id="btnMoveUp">▲ Omhoog</button><button class="reorder-btn" id="btnMoveDown">▼ Omlaag</button><button class="reorder-btn reorder-btn-desel" id="btnDeselect">Deselecteer</button></div><div class="instellen-list-inner" id="installenInner">';rooms.forEach(function(room){reorderSection+='<div class="instellen-row" data-code="'+room.code+'"><span class="instellen-drag">☰</span><span class="instellen-info">'+room.code+' – '+room.name+'</span></div>';});reorderSection+='</div>';if(c){c.innerHTML=skipSection+reorderSection;c.querySelectorAll('[data-skip-chip]').forEach(function(btn){btn.addEventListener('click',function(){var code=this.dataset.skipChip;var s=getRoomState(code);s.skipped=!s.skipped;this.classList.toggle('skip-chip-active',s.skipped);saveState();renderRooms();});});}var inner=document.getElementById('installenInner');if(!inner)return;function _saveOrder(){var o=Array.from(inner.querySelectorAll('.instellen-row')).map(function(i){return i.dataset.code;});localStorage.setItem('roomOrder_'+state.routeId,JSON.stringify(o));renderRooms();}inner.querySelectorAll('.instellen-row').forEach(function(row){row.querySelector('.instellen-info').addEventListener('click',function(){var code=row.dataset.code;var idx=selectedCodes.indexOf(code);if(idx===-1){selectedCodes.push(code);row.classList.add('instellen-selected');}else{selectedCodes.splice(idx,1);row.classList.remove('instellen-selected');}});});var _bu=document.getElementById('btnMoveUp');if(_bu)_bu.addEventListener('click',function(){Array.from(inner.querySelectorAll('.instellen-selected')).forEach(function(row){var prev=row.previousElementSibling;if(prev&&selectedCodes.indexOf(prev.dataset.code)===-1)inner.insertBefore(row,prev);});_saveOrder();});var _bd=document.getElementById('btnMoveDown');if(_bd)_bd.addEventListener('click',function(){Array.from(inner.querySelectorAll('.instellen-selected')).reverse().forEach(function(row){var next=row.nextElementSibling;if(next&&selectedCodes.indexOf(next.dataset.code)===-1)inner.insertBefore(next,row);});_saveOrder();});var _bds=document.getElementById('btnDeselect');if(_bds)_bds.addEventListener('click',function(){selectedCodes=[];inner.querySelectorAll('.instellen-row').forEach(function(r){r.classList.remove('instellen-selected');});});var _dragEl=null,_clone=null,_startY=0;function _start(el,clientY){_dragEl=el;_startY=clientY;var rect=el.getBoundingClientRect();_clone=el.cloneNode(true);_clone.style.cssText='position:fixed;top:'+rect.top+'px;left:'+rect.left+'px;width:'+rect.width+'px;opacity:.7;z-index:999;pointer-events:none;';document.body.appendChild(_clone);el.style.opacity='.3';}function _move(clientY){if(!_dragEl)return;var dy=clientY-_startY;var rect=_dragEl.getBoundingClientRect();_clone.style.top=(rect.top+dy)+'px';_startY=clientY;Array.from(inner.querySelectorAll('.instellen-row')).forEach(function(el){if(el===_dragEl)return;var r=el.getBoundingClientRect();if(rect.top+rect.height/2+dy<r.top+r.height/2)el.before(_dragEl);else el.after(_dragEl);});}function _end(){if(!_dragEl)return;if(_clone){_clone.remove();_clone=null;}_dragEl.style.opacity='';_dragEl=null;_saveOrder();}inner.querySelectorAll('.instellen-row').forEach(function(item){var handle=item.querySelector('.instellen-drag');if(!handle)return;handle.addEventListener('touchstart',function(e){e.preventDefault();_start(item,e.touches[0].clientY);},{passive:false});handle.addEventListener('touchmove',function(e){e.preventDefault();_move(e.touches[0].clientY);},{passive:false});handle.addEventListener('touchend',function(e){e.preventDefault();_end();});handle.addEventListener('mousedown',function(e){e.preventDefault();_start(item,e.clientY);});});document.addEventListener('mousemove',function(e){if(_dragEl)_move(e.clientY);});document.addEventListener('mouseup',function(){if(_dragEl)_end();});}
-  }
-    
+/* -- INSTELLEN -- */
+function renderInstellen(){
+  var r=getRoute();
+  var rooms=r.rooms;
+  var c=document.getElementById('installenList');
+  c.innerHTML=rooms.map(function(room){
+    var s=getRoomState(room.code);
+    var num=room.code.split('.')[1]||room.code;
+    var floor=room.code.split('.')[0];
+        return '<div class="instellen-row" data-code="'+room.code+'">'+
+      '<div class="instellen-drag">&#9776;</div>'+
+      '<div class="instellen-badge"><span class="instellen-badge-num">'+num+'</span></div>'+
+      '<div class="instellen-info"><span class="instellen-code">'+room.code+'</span><span class="instellen-area">'+room.area+'</span></div>'+
+      '<div class="instellen-skip-wrap">'+
+        '<span class="instellen-skip-lbl">Overslaan</span>'+
+        '<label class="instellen-sw"><input type="checkbox" data-action="skip" data-room="'+room.code+'"'+(s.skipped?' checked':'')+'>'+
+          '<span class="instellen-sw-track"><span class="instellen-sw-thumb"></span></span>'+
+        '</label>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+  c.querySelectorAll('[data-action="skip"]').forEach(function(cb){
+    cb.addEventListener('change',function(){
+      var code=this.dataset.room;
+      var s=getRoomState(code);
+      s.skipped=this.checked;
+      saveState();
+      renderRooms();
+    });
+  });
+  // Drag to reorder
+  var items=Array.from(c.querySelectorAll('.instellen-row'));
+  var dragged=null;
+  items.forEach(function(item){
+    item.setAttribute('draggable','true');
+    item.addEventListener('dragstart',function(){dragged=item;item.style.opacity='0.5';});
+    item.addEventListener('dragend',function(){item.style.opacity='1';dragged=null;});
+    item.addEventListener('dragover',function(e){e.preventDefault();});
+    item.addEventListener('drop',function(e){
+      e.preventDefault();
+      if(dragged&&dragged!==item){
+        var allItems=Array.from(c.querySelectorAll('.instellen-row'));
+        var fromIdx=allItems.indexOf(dragged);
+        var toIdx=allItems.indexOf(item);
+        if(fromIdx<toIdx) item.after(dragged); else item.before(dragged);
+        var newOrder=Array.from(c.querySelectorAll('.instellen-row')).map(function(i){return i.dataset.code;});
+        var key='roomOrder_'+state.routeId;
+        localStorage.setItem(key,JSON.stringify(newOrder));
+        renderRooms();
+      }
+    });
+  });
+}
+
 /* -- ALGEMENE INFO TOGGLE -- */
-var _algToggle=document.getElementById('algInfoToggle');if(_algToggle)_algToggle.addEventListener('click', function() {
+document.getElementById('algInfoToggle').addEventListener('click', function() {
   var body = document.getElementById('algInfoBody');
   var chev = document.getElementById('algInfoChevron');
   var open = body.style.display === 'block';
