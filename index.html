@@ -813,7 +813,7 @@ function renderRouteCards(){
   const c=document.getElementById('routeCards');
   const week=weekSchedules.find(w=>w.id===state.weekId);
   c.innerHTML=week.routes.map(rid=>{
-    const r=routeData[rid];
+    const r=routeData[rid]; if(!r)return '';
     const rooms=r.rooms; const visited=rooms.filter(rm=>getRoomState(rm.code).visited===true).length;
     const pct=rooms.length?Math.round((visited/rooms.length)*100):0;
     return `<button class="route-card ${rid===state.routeId?'active':''}" data-route="${rid}" style="width:100%;text-align:left;margin-bottom:var(--s2)">
@@ -836,7 +836,7 @@ function renderRouteCards(){
 }
 
 function renderHeroStats(){
-  const r=getRoute();
+  const r=getRoute(); if(!r)return;
   const rooms=r.rooms;
   const visited=rooms.filter(rm=>getRoomState(rm.code).visited===true).length;
   const picked=rooms.filter(rm=>getRoomState(rm.code).picked===true).length;
