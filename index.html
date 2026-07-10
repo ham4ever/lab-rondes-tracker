@@ -804,7 +804,7 @@ function renderWeekChips(){
     </button>`).join('');
   c.querySelectorAll('[data-week]').forEach(b=>b.addEventListener('click',()=>{
     state.weekId=b.dataset.week;
-    state.routeId=weekSchedules.find(w=>w.id===state.weekId).routes[0];
+    state.routeId=weekSchedules.find(w=>w.id===state.weekId).routes[0]; saveState();
     renderHome();
   }));
 }
@@ -829,7 +829,7 @@ function renderRouteCards(){
     </button>`;
   }).join('');
   c.querySelectorAll('[data-route]').forEach(b=>b.addEventListener('click',()=>{
-    state.routeId=b.dataset.route;
+    state.routeId=b.dataset.route; saveState();
     document.getElementById('topbarRoutePill').textContent=routeData[state.routeId].title;
     renderHome();
   }));
