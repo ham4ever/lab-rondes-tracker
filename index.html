@@ -461,7 +461,7 @@ img,svg{display:block}
 .reorder-btn-desel{color:var(--c-muted);flex:0.6}
 /* Multi-select */
 .instellen-selected{background:var(--c-accent2) !important;border-left:4px solid var(--c-accent) !important}
-.instellen-list-inner{display:flex;flex-direction:column;gap:0}
+.instellen-list-inner{display:flex;flex-direction:column;gap:0} /* ─── FLOOR PICKER ──────────────────────────────────── */ .fp-section{display:flex;flex-direction:column;gap:var(--s3)} .fp-title{font-size:11px;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:.05em} .fp-chips{display:flex;gap:var(--s2);flex-wrap:wrap} .fp-chip{width:48px;height:48px;border-radius:14px;font-size:18px;font-weight:800;border:1.5px solid var(--c-border);background:var(--c-surface2);color:var(--c-muted);display:grid;place-items:center;transition:all 180ms var(--ease);touch-action:manipulation;-webkit-tap-highlight-color:transparent;flex-shrink:0} .fp-chip:active{transform:scale(.90)} .fp-chip.selected{background:linear-gradient(135deg,var(--c-accent),var(--c-accent2));border-color:var(--c-accent);color:#fff;box-shadow:0 2px 10px color-mix(in srgb,var(--c-accent) 35%,transparent)} .fp-order{display:flex;flex-direction:column;gap:var(--s2)} .fp-order-item{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s4);background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--r-lg)} .fp-order-badge{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--c-accent),var(--c-accent2));color:#fff;font-size:16px;font-weight:800;display:grid;place-items:center;flex-shrink:0} .fp-order-label{flex:1;font-size:15px;font-weight:700} .fp-order-sub{font-size:11px;color:var(--c-muted);margin-top:1px} .fp-order-btns{display:flex;flex-direction:column;gap:3px} .fp-order-btn{width:28px;height:28px;border-radius:8px;border:1px solid var(--c-border);background:var(--c-surface2);color:var(--c-muted);font-size:14px;display:grid;place-items:center;touch-action:manipulation;transition:all 150ms var(--ease)} .fp-order-btn:active{background:var(--c-accent);color:#fff;border-color:var(--c-accent);transform:scale(.90)} .fp-order-btn:disabled{opacity:.25;pointer-events:none} .fp-empty{text-align:center;padding:var(--s5);color:var(--c-muted);font-size:13px;border:1.5px dashed var(--c-border);border-radius:var(--r-lg)} .fp-presets{display:flex;gap:var(--s2);flex-wrap:wrap} .fp-preset{padding:7px 14px;border-radius:99px;font-size:13px;font-weight:600;border:1.5px solid var(--c-border);background:var(--c-surface2);color:var(--c-muted);transition:all 180ms var(--ease);touch-action:manipulation} .fp-preset:active{background:var(--c-accent2);border-color:var(--c-accent2);color:#fff} .fp-start-btn{width:100%;padding:16px;border-radius:var(--r-lg);font-size:16px;font-weight:800;background:linear-gradient(135deg,var(--c-accent),var(--c-accent2));color:#fff;border:none;box-shadow:0 4px 20px color-mix(in srgb,var(--c-accent) 35%,transparent);transition:all 180ms var(--ease);touch-action:manipulation} .fp-start-btn:active{transform:scale(.97)} .fp-start-btn:disabled{opacity:.4;pointer-events:none;box-shadow:none}
 
 </style>
 </head>
@@ -514,18 +514,20 @@ img,svg{display:block}
           </div>
         </div>
 
-        <!-- Week keuze -->
-        <div class="route-section">
-          <div class="section-hd"><h2>Weekschema</h2></div>
-          <div class="week-chips" id="weekChips"></div>
-        </div>
-
-        <!-- Route keuze -->
-        <div class="route-section">
-          <div class="section-hd"><h2>Ronde</h2></div>
-          <div id="routeCards"></div>
-        </div>
-
+        <!-- Floor Picker -->
+      <div class="fp-section">
+        <div class="fp-title">Kies verdiepingen</div>
+        <div class="fp-chips" id="fpChips"></div>
+      </div>
+      <div class="fp-section">
+        <div class="fp-title">Snelle presets</div>
+        <div class="fp-presets" id="fpPresets"></div>
+      </div>
+      <div class="fp-section">
+        <div class="fp-title">Jouw volgorde</div>
+        <div class="fp-order" id="fpOrder"><div class="fp-empty">Tik op een verdieping om toe te voegen</div></div>
+      </div>
+      <button class="fp-start-btn" id="fpStartBtn" disabled onclick="startCustomRoute()">Start ronde</button>
         <!-- Info -->
         <div class="settings-row" style="gap:var(--s3);flex-direction:column;align-items:flex-start">
           <div>
@@ -756,11 +758,11 @@ const state = {
   activeView: 'home'
 };
 
-function loadState(){ try{ const s=localStorage.getItem('labRondes2'); if(s){const p=JSON.parse(s);if(p.roomStates){state.roomStates=p.roomStates;if(p.weekId)state.weekId=p.weekId;if(p.routeId&&routeData[p.routeId])state.routeId=p.routeId;if(p.filter)state.filter=p.filter;}else{state.roomStates=p;}} }catch(e){} }
-function saveState(){ try{ localStorage.setItem('labRondes2',JSON.stringify({roomStates:state.roomStates,weekId:state.weekId,routeId:state.routeId,filter:state.filter})); }catch(e){} }
+function loadState(){ try{ const s=localStorage.getItem('labRondes2'); if(s){const p=JSON.parse(s);if(p.roomStates){state.roomStates=p.roomStates;if(p.weekId)state.weekId=p.weekId;if(p.routeId&&routeData[p.routeId])state.routeId=p.routeId;if(p.filter)state.filter=p.filter;if(p.customFloorOrder&&p.customFloorOrder.length)state.customFloorOrder=p.customFloorOrder;}else{state.roomStates=p;}} }catch(e){} }
+function saveState(){ try{ localStorage.setItem('labRondes2',JSON.stringify({roomStates:state.roomStates,weekId:state.weekId,routeId:state.routeId,filter:state.filter,customFloorOrder:state.customFloorOrder})); }catch(e){} }
 function getRoomState(code){ if(!state.roomStates[code]) state.roomStates[code]={visited:null,picked:null,checks:[false,false,false,false]}; if(!state.roomStates[code].checks) state.roomStates[code].checks=[false,false,false,false]; if(state.roomStates[code].skipped===undefined)state.roomStates[code].skipped=false; return state.roomStates[code]; }
 function haptic(kind){ try{ if(!navigator.vibrate) return; if(kind==='yes') navigator.vibrate(12); else if(kind==='no') navigator.vibrate([10,20,10]); else navigator.vibrate(8); }catch(e){} }
-function getRoute(){ return routeData[state.routeId]; }
+function getRoute(){ const ord=state.customFloorOrder; const allRooms=[]; const floorNames=[]; ord.forEach(function(f){ Object.values(routeData).forEach(function(rd){ if(rd.floors&&rd.floors.includes(f)){ rd.rooms.filter(function(r){return r.code.startsWith(f+'.');}).forEach(function(r){if(!allRooms.find(function(x){return x.code===r.code;}))allRooms.push(r);}); if(!floorNames.includes(f))floorNames.push(f); } }); }); return {title:'Verd. '+ord.join('+'), subtitle:'Verdieping '+ord.join(' en '), floors:floorNames, rooms:allRooms, custom:true}; }
 
 /* ── TOAST ─────────────────────────────────────────────── */
 let toastTimer;
@@ -791,49 +793,77 @@ document.getElementById('themeBtn').addEventListener('click',()=>{
 
 /* ── RENDER HOME ───────────────────────────────────────── */
 function renderHome(){
-  renderWeekChips();
-  renderRouteCards();
-  renderHeroStats();
+    renderFloorPicker();
+ renderHeroStats();
 }
 
-function renderWeekChips(){
-  const c=document.getElementById('weekChips');
-  c.innerHTML=weekSchedules.map(w=>`
-    <button class="week-chip ${w.id===state.weekId?'active':''}" data-week="${w.id}">
-      <strong>${w.label}</strong><small>${w.detail}</small>
-    </button>`).join('');
-  c.querySelectorAll('[data-week]').forEach(b=>b.addEventListener('click',()=>{
-    state.weekId=b.dataset.week;
-    state.routeId=weekSchedules.find(w=>w.id===state.weekId).routes[0]; saveState();
-    renderHome();
-  }));
-}
-
-function renderRouteCards(){
-  const c=document.getElementById('routeCards');
-  const week=weekSchedules.find(w=>w.id===state.weekId);
-  c.innerHTML=week.routes.map(rid=>{
-    const r=routeData[rid];
-    const rooms=r.rooms; const visited=rooms.filter(rm=>getRoomState(rm.code).visited===true).length;
-    const pct=rooms.length?Math.round((visited/rooms.length)*100):0;
-    return `<button class="route-card ${rid===state.routeId?'active':''}" data-route="${rid}" style="width:100%;text-align:left;margin-bottom:var(--s2)">
-      <div class="route-card-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v7l-4 7a3 3 0 0 0 2.7 4h12.6A3 3 0 0 0 21 17l-4-7V3"/><path d="M9.5 3h5"/></svg>
-      </div>
-      <div class="route-card-body">
-        <div class="route-card-title">${r.title}</div>
-        <div class="route-card-sub">${r.rooms.length} kamers · ${pct}% bezocht</div>
-        <div class="progress-bar-wrap" style="margin-top:6px"><div class="progress-bar-inner" style="width:${pct}%"></div></div>
-      </div>
-      ${rid===state.routeId?`<div class="route-card-check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>`:''}
-    </button>`;
+function renderFloorPicker(){
+  const allFloors=['0','1','2','3','4','5'];
+  const fp=document.getElementById('fpChips');
+  const fo=document.getElementById('fpOrder');
+  const fb=document.getElementById('fpStartBtn');
+  const fpr=document.getElementById('fpPresets');
+  // chips
+  fp.innerHTML=allFloors.map(f=>{
+    const sel=state.customFloorOrder.includes(f);
+    return `<button class="fp-chip${sel?' selected':''}" data-floor="${f}" onclick="fpToggleFloor('${f}')">${f}</button>`;
   }).join('');
-  c.querySelectorAll('[data-route]').forEach(b=>b.addEventListener('click',()=>{
-    state.routeId=b.dataset.route; saveState();
-    document.getElementById('topbarRoutePill').textContent=routeData[state.routeId].title;
-    renderHome();
-  }));
+  // presets
+  const presets=[{l:'0+5',v:['0','5']},{l:'2+4',v:['2','4']},{l:'3+1',v:['3','1']},{l:'Alles',v:['0','1','2','3','4','5']}];
+  fpr.innerHTML=presets.map(p=>`<button class="fp-preset" onclick="fpApplyPreset(${JSON.stringify(p.v)})">${p.l}</button>`).join('');
+  // order list
+  if(!state.customFloorOrder.length){
+    fo.innerHTML='<div class="fp-empty">Tik op een verdieping hierboven om toe te voegen</div>';
+  } else {
+    fo.innerHTML=state.customFloorOrder.map((f,i)=>{
+      const roomCount=Object.values(routeData).reduce((n,rd)=>n+(rd.floors&&rd.floors.includes(f)?rd.rooms.filter(r=>r.code.startsWith(f+'.')).length:0),0);
+      return `<div class="fp-order-item" data-floor="${f}">
+        <div class="fp-order-badge">${f}</div>
+        <div style="flex:1">
+          <div class="fp-order-label">Verdieping ${f}</div>
+          <div class="fp-order-sub">${roomCount} kamers</div>
+        </div>
+        <div class="fp-order-btns">
+          <button class="fp-order-btn" ${i===0?'disabled':''} onclick="fpMoveFloor(${i},-1)">&#8593;</button>
+          <button class="fp-order-btn" ${i===state.customFloorOrder.length-1?'disabled':''} onclick="fpMoveFloor(${i},1)">&#8595;</button>
+        </div>
+        <button class="fp-order-btn" style="margin-left:4px;color:var(--c-danger);border-color:var(--c-danger)" onclick="fpRemoveFloor('${f}')" title="Verwijder">&#215;</button>
+      </div>`;
+    }).join('');
+  }
+  fb.disabled=state.customFloorOrder.length===0;
+  // update topbar pill
+  if(state.customFloorOrder.length) document.getElementById('topbarRoutePill').textContent='Verd. '+state.customFloorOrder.join('+');
 }
+function fpToggleFloor(f){
+  const i=state.customFloorOrder.indexOf(f);
+  if(i===-1) state.customFloorOrder.push(f);
+  else state.customFloorOrder.splice(i,1);
+  saveState(); renderFloorPicker();
+}
+function fpMoveFloor(i,dir){
+  const arr=state.customFloorOrder;
+  const j=i+dir;
+  if(j<0||j>=arr.length) return;
+  [arr[i],arr[j]]=[arr[j],arr[i]];
+  saveState(); renderFloorPicker();
+}
+function fpRemoveFloor(f){
+  state.customFloorOrder=state.customFloorOrder.filter(x=>x!==f);
+  saveState(); renderFloorPicker();
+}
+function fpApplyPreset(floors){
+  state.customFloorOrder=floors.slice();
+  saveState(); renderFloorPicker();
+}
+function startCustomRoute(){
+  if(!state.customFloorOrder.length) return;
+  saveState();
+  switchView('rooms');
+}
+function renderWeekChips(){}
+function renderRouteCards(){}
+
 
 function renderHeroStats(){
   const r=getRoute();
