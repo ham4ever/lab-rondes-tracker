@@ -152,7 +152,7 @@ img,svg{display:block}
 .filter-pill.active{background:var(--c-accent);border-color:var(--c-accent);color:#fff}
 
 /* ─── ROOM CARD ──────────────────────────────────────── */
-.rooms-list{display:flex;flex-direction:column;gap:var(--s5)}
+.rooms-list{   display:flex;   flex-direction:column;   gap:var(--s5);   padding-top:62px; }
 .room-card{
   background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--r-lg);
   overflow:hidden;transition:border-color 200ms var(--ease),box-shadow 200ms var(--ease)
@@ -411,7 +411,7 @@ img,svg{display:block}
 .checklist-item.checked .checklist-label{color:var(--c-success);}
 .checklist-hd{font-size:11px;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
 /* ─── FLOOR JUMP BAR ────────────────────────────────── */
-.floor-jump-bar{display:flex;gap:var(--s2);overflow-x:auto;padding:var(--s2) var(--s4);scrollbar-width:none;border-bottom:1px solid var(--c-border);background:var(--c-surface);position:sticky;top:0;z-index:20;}
+.floor-jump-bar{   display:flex;   gap:var(--s2);   overflow-x:auto;   padding:var(--s2) var(--s4);   scrollbar-width:none;   border-bottom:1px solid var(--c-border);   background:var(--c-surface);   position:fixed;   top:58px;   left:0;   right:0;   z-index:90;   box-shadow:0 4px 12px rgba(0,0,0,.08); }
 .floor-jump-bar::-webkit-scrollbar{display:none}
 .floor-jump-pill{flex-shrink:0;min-width:44px;height:44px;border-radius:12px;font-size:15px;font-weight:800;background:var(--c-surface2);border:1px solid var(--c-border);color:var(--c-muted);transition:all 180ms var(--ease);display:grid;place-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 .floor-jump-pill:active{transform:scale(.92);}
