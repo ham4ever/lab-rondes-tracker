@@ -855,7 +855,7 @@ function renderFloorPicker(){
   }).join('');
   // presets
   const presets=[{l:'0+5',v:['0','5']},{l:'2+4',v:['2','4']},{l:'3+1',v:['3','1']},{l:'Alles',v:['0','1','2','3','4','5']}];
-  fpr.innerHTML=presets.map(p=>`<button class="fp-preset" onclick="fpApplyPreset(${JSON.stringify(p.v)})">${p.l}</button>`).join('');
+  fpr.innerHTML=presets.map(p=>`<button class="fp-preset" onclick="fpApplyPreset([${p.v.map(x=>"'"+x+"'").join(',')}])">${p.l}</button>`).join('');
   // order list
   if(!state.customFloorOrder.length){
     fo.innerHTML='<div class="fp-empty">Tik op een verdieping hierboven om toe te voegen</div>';
