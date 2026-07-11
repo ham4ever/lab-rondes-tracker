@@ -755,15 +755,60 @@ const state = {
   routeId: weekSchedules[0].routes[0],
   filter: 'all',
   roomStates: {},
-  activeView: 'home'
+  activeView: 'home',
+  customFloorOrder: []
 };
 
 function loadState(){ try{ const s=localStorage.getItem('labRondes2'); if(s){const p=JSON.parse(s);if(p.roomStates){state.roomStates=p.roomStates;if(p.weekId)state.weekId=p.weekId;if(p.routeId&&routeData[p.routeId])state.routeId=p.routeId;if(p.filter)state.filter=p.filter;if(p.customFloorOrder&&p.customFloorOrder.length)state.customFloorOrder=p.customFloorOrder;}else{state.roomStates=p;}} }catch(e){} }
 function saveState(){ try{ localStorage.setItem('labRondes2',JSON.stringify({roomStates:state.roomStates,weekId:state.weekId,routeId:state.routeId,filter:state.filter,customFloorOrder:state.customFloorOrder})); }catch(e){} }
 function getRoomState(code){ if(!state.roomStates[code]) state.roomStates[code]={visited:null,picked:null,checks:[false,false,false,false]}; if(!state.roomStates[code].checks) state.roomStates[code].checks=[false,false,false,false]; if(state.roomStates[code].skipped===undefined)state.roomStates[code].skipped=false; return state.roomStates[code]; }
 function haptic(kind){ try{ if(!navigator.vibrate) return; if(kind==='yes') navigator.vibrate(12); else if(kind==='no') navigator.vibrate([10,20,10]); else navigator.vibrate(8); }catch(e){} }
-function getRoute(){ const ord=state.customFloorOrder; const allRooms=[]; const floorNames=[]; ord.forEach(function(f){ Object.values(routeData).forEach(function(rd){ if(rd.floors&&rd.floors.includes(f)){ rd.rooms.filter(function(r){return r.code.startsWith(f+'.');}).forEach(function(r){if(!allRooms.find(function(x){return x.code===r.code;}))allRooms.push(r);}); if(!floorNames.includes(f))floorNames.push(f); } }); }); return {title:'Verd. '+ord.join('+'), subtitle:'Verdieping '+ord.join(' en '), floors:floorNames, rooms:allRooms, custom:true}; }
+function getRoute() {
+  const ord = state.customFloorOrder || [];
 
+  // Use the normal Week A / B / C route if no custom route is started
+  if (!ord.length) {
+    return routeData[state.routeId] || {
+      title: 'Nog geen route',
+      subtitle: '',
+      floors: [],
+      rooms: []
+    };
+  }
+
+  const allRooms = [];
+  const floorNames = [];
+
+  ord.forEach(function(f) {
+    Object.values(routeData).forEach(function(rd) {
+      if (rd.floors && rd.floors.includes(f)) {
+        rd.rooms
+          .filter(function(r) {
+            return r.code.startsWith(f + '.');
+          })
+          .forEach(function(r) {
+            if (!allRooms.find(function(x) {
+              return x.code === r.code;
+            })) {
+              allRooms.push(r);
+            }
+          });
+
+        if (!floorNames.includes(f)) {
+          floorNames.push(f);
+        }
+      }
+    });
+  });
+
+  return {
+    title: 'Verd. ' + ord.join('+'),
+    subtitle: 'Verdieping ' + ord.join(' en '),
+    floors: floorNames,
+    rooms: allRooms,
+    custom: true
+  };
+}
 /* ── TOAST ─────────────────────────────────────────────── */
 let toastTimer;
 function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2000); }
