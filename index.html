@@ -898,8 +898,13 @@ function fpRemoveFloor(f){
   saveState(); renderFloorPicker();
 }
 function fpApplyPreset(floors){
-  state.customFloorOrder=floors.slice();
-  saveState(); renderFloorPicker();
+  state.customFloorOrder = floors.slice();
+
+  saveState();
+  haptic();
+  renderFloorPicker();
+
+  showToast('Gekozen: verdieping ' + floors.join(' → '));
 }
 function startCustomRoute(){
   if(!state.customFloorOrder.length) return;
