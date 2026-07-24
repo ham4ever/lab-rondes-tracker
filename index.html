@@ -590,10 +590,6 @@ img,svg{display:block}
   <div class="scroll-region">
     <div class="section-hd"><h2>Steriel overzicht</h2><div class="count" id="sumReminders">0</div></div>
     <div id="reminderList" class="reminders-list"></div>
-<div class="daily-summary-card" style="margin-top:var(--s4);">
-  <div class="daily-summary-header"><h3>Dagsamenvatting</h3><button class="copy-btn" id="copyBtn">Kopieer</button></div>
-  <textarea id="dailySummary" class="daily-summary-textarea" readonly></textarea>
-</div>
 <button class="action-btn danger" id="clearRouteBtn" style="margin-top:var(--s4);">Ronde leegmaken</button>
   </div>
 </div>
@@ -1335,20 +1331,7 @@ function renderSummary(){
     </div>`;
   }).join('');
 
-  const lines=[r.title,''];
-  rooms.forEach(room=>{ const s=getRoomState(room.code); const v=s.visited===true?'bezocht':s.visited===false?'niet bezocht':'open'; const p=s.picked===true?'iets opgehaald':s.picked===false?'niets opgehaald':'open'; const extra=s.extraNote?` | ${s.extraNote}`:''; var ckLabels=['Deur dicht','Laminaat zakjes','MilliQ water vullen','Plastic bakjes'];var ckStr=(s.checks||[]).map(function(v,i){return v?ckLabels[i]:null;}).filter(Boolean).join(', ');lines.push(`${room.code} (${room.area}) - ${v} | ${p}` + (ckStr?' | '+ckStr:'')); });
-  if(reminders.length){ lines.push('','Reminders:'); reminders.forEach(rm=>{ const s=getRoomState(rm.code); let txt=rm.reminder; if(s.extraNote) txt+=' '+s.extraNote; lines.push('- '+txt); }); }
-  document.getElementById('dailySummary').value=lines.join('\n');
-}
-
-document.getElementById('copyBtn').addEventListener('click',async()=>{
-  const txt=document.getElementById('dailySummary').value;
-  try{ await navigator.clipboard.writeText(txt); }catch(e){ document.getElementById('dailySummary').select(); document.execCommand('copy'); }
-  showToast('Gekopieerd naar klembord ✓');
-  document.getElementById('copyBtn').textContent='Gekopieerd ✓';
-  setTimeout(()=>document.getElementById('copyBtn').textContent='Kopieer',1500);
-});
-
+  
 document.getElementById('clearRouteBtn').addEventListener('click',()=>{
   getRoute().rooms.forEach(rm=>{ state.roomStates[rm.code]={visited:null,picked:null,extraNote:''}; });
   saveState(); renderSummary(); renderHeroStats(); showToast('Ronde leeggemaakt');
