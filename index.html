@@ -94,7 +94,7 @@ img,svg{display:block}
   position:fixed;bottom:0;left:0;right:0;z-index:100;
   background:var(--c-surface);
   border-top:1px solid var(--c-border);
-  display:grid;grid-template-columns:repeat(5,1fr);
+  display:grid;grid-template-columns:repeat(4,1fr);
   height:calc(var(--nav-h) + var(--safe-bottom));
   padding-bottom:var(--safe-bottom);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
@@ -585,49 +585,11 @@ img,svg{display:block}
         <div id="searchResults"></div>
       </div>
     </div>
-
-    <!-- ── VIEW: SAMENVATTING ─────────────────────────── -->
-    <div class="view" id="view-summary">
-      <div class="scroll-region">
-        <div style="display:flex;flex-direction:column;gap:var(--s3)">
-          <!-- progress -->
-          <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:var(--s3)">
-            <div style="display:flex;justify-content:space-between;width:100%;align-items:center">
-              <div class="settings-row-label">Voortgang</div>
-              <span id="sumPct" style="font-size:13px;font-weight:700;color:var(--c-accent)">0%</span>
-            </div>
-            <div class="progress-bar-wrap" style="width:100%"><div class="progress-bar-inner" id="sumBar" style="width:0%"></div></div>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2);width:100%">
-              <div style="text-align:center"><div style="font-size:22px;font-weight:800" id="sumVisited">0</div><div style="font-size:11px;color:var(--c-muted);text-transform:uppercase;letter-spacing:.04em">Bezocht</div></div>
-              <div style="text-align:center"><div style="font-size:22px;font-weight:800" id="sumPicked">0</div><div style="font-size:11px;color:var(--c-muted);text-transform:uppercase;letter-spacing:.04em">Opgehaald</div></div>
-              <div style="text-align:center"><div style="font-size:22px;font-weight:800" id="sumReminders">0</div><div style="font-size:11px;color:var(--c-muted);text-transform:uppercase;letter-spacing:.04em">Reminders</div></div>
-            </div>
-          </div>
-
-          <!-- Reminders -->
-          <div class="section-hd"><h2>Steriel overzicht</h2></div>
-          <div id="reminderList"></div>
-
-          <!-- Dagoverzicht -->
-          <div class="daily-summary-card">
-            <div class="daily-summary-header">
-              <h3>Dagoverzicht</h3>
-              <button class="copy-btn" id="copyBtn">Kopieer</button>
-            </div>
-            <textarea class="daily-summary-textarea" id="dailySummary" readonly></textarea>
-          </div>
-
-          <!-- Clear btn -->
-          <button class="action-btn danger" id="clearRouteBtn" style="width:100%">Ronde leegmaken</button>
-        </div>
-      </div>
-    </div>
-
-        <!-- INSTELLEN VIEW -->
+<!-- INSTELLEN VIEW -->
     <div class="view" id="view-instellen">
       <div class="scroll-region">
         <div class="section-hd" style="margin-bottom:var(--s3)"><h2>Instellen</h2></div>
-        <p style="font-size:13px;color:var(--c-muted);margin-bottom:var(--s4)">Sleep kamers om de volgorde te wijzigen. Zet de schakelaar aan om een kamer vandaag over te slaan.</p>
+        <p style="font-size:13px;color:var(--c-muted);margin-bottom:var(--s4)">Zet de schakelaar aan om een kamer vandaag over te slaan.</p>
         <div class="instellen-list" id="installenList"></div>
       </div>
     </div>
@@ -646,10 +608,6 @@ img,svg{display:block}
     <button class="nav-item" data-view="search">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <span>Zoeken</span>
-    </button>
-    <button class="nav-item" data-view="summary">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      <span>Overzicht</span>
     </button>
           <button class="nav-item" data-view="instellen">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -1440,8 +1398,8 @@ doSearch();
 // SW
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(()=>{}); }
 
-function renderInstellen(){var r=getRoute();var rooms=r?r.rooms:[];var c=document.getElementById('installenList');var selectedCodes=[];var skipSection='<div class="skip-chips-section"><div class="skip-chips-title">Overslaan vandaag</div><div class="skip-chips-grid">';rooms.forEach(function(room){var s=getRoomState(room.code);skipSection+='<button class="skip-chip'+(s.skipped?' skip-chip-active':'')+'" data-skip-chip="'+room.code+'">'+room.code+'</button>';});skipSection+='</div></div>';var reorderSection='<div class="reorder-toolbar"><button class="reorder-btn" id="btnMoveUp">▲ Omhoog</button><button class="reorder-btn" id="btnMoveDown">▼ Omlaag</button><button class="reorder-btn reorder-btn-desel" id="btnDeselect">Deselecteer</button></div><div class="instellen-list-inner" id="installenInner">';rooms.forEach(function(room){reorderSection+='<div class="instellen-row" data-code="'+room.code+'"><span class="instellen-drag">☰</span><span class="instellen-info">'+room.code+' – '+room.area+'</span></div>';});reorderSection+='</div>';if(c){c.innerHTML=skipSection+reorderSection;c.querySelectorAll('[data-skip-chip]').forEach(function(btn){btn.addEventListener('click',function(){var code=this.dataset.skipChip;var s=getRoomState(code);s.skipped=!s.skipped;this.classList.toggle('skip-chip-active',s.skipped);saveState();renderRooms();});});}var inner=document.getElementById('installenInner');if(!inner)return;function _saveOrder(){var o=Array.from(inner.querySelectorAll('.instellen-row')).map(function(i){return i.dataset.code;});localStorage.setItem('roomOrder_'+state.routeId,JSON.stringify(o));renderRooms();}inner.querySelectorAll('.instellen-row').forEach(function(row){row.querySelector('.instellen-info').addEventListener('click',function(){var code=row.dataset.code;var idx=selectedCodes.indexOf(code);if(idx===-1){selectedCodes.push(code);row.classList.add('instellen-selected');}else{selectedCodes.splice(idx,1);row.classList.remove('instellen-selected');}});});var _bu=document.getElementById('btnMoveUp');if(_bu)_bu.addEventListener('click',function(){Array.from(inner.querySelectorAll('.instellen-selected')).forEach(function(row){var prev=row.previousElementSibling;if(prev&&selectedCodes.indexOf(prev.dataset.code)===-1)inner.insertBefore(row,prev);});_saveOrder();});var _bd=document.getElementById('btnMoveDown');if(_bd)_bd.addEventListener('click',function(){Array.from(inner.querySelectorAll('.instellen-selected')).reverse().forEach(function(row){var next=row.nextElementSibling;if(next&&selectedCodes.indexOf(next.dataset.code)===-1)inner.insertBefore(next,row);});_saveOrder();});var _bds=document.getElementById('btnDeselect');if(_bds)_bds.addEventListener('click',function(){selectedCodes=[];inner.querySelectorAll('.instellen-row').forEach(function(r){r.classList.remove('instellen-selected');});});var _dragEl=null,_clone=null,_startY=0;function _start(el,clientY){_dragEl=el;_startY=clientY;var rect=el.getBoundingClientRect();_clone=el.cloneNode(true);_clone.style.cssText='position:fixed;top:'+rect.top+'px;left:'+rect.left+'px;width:'+rect.width+'px;opacity:.7;z-index:999;pointer-events:none;';document.body.appendChild(_clone);el.style.opacity='.3';}function _move(clientY){if(!_dragEl)return;var dy=clientY-_startY;var rect=_dragEl.getBoundingClientRect();_clone.style.top=(rect.top+dy)+'px';_startY=clientY;Array.from(inner.querySelectorAll('.instellen-row')).forEach(function(el){if(el===_dragEl)return;var r=el.getBoundingClientRect();if(rect.top+rect.height/2+dy<r.top+r.height/2)el.before(_dragEl);else el.after(_dragEl);});}function _end(){if(!_dragEl)return;if(_clone){_clone.remove();_clone=null;}_dragEl.style.opacity='';_dragEl=null;_saveOrder();}inner.querySelectorAll('.instellen-row').forEach(function(item){var handle=item.querySelector('.instellen-drag');if(!handle)return;handle.addEventListener('touchstart',function(e){e.preventDefault();_start(item,e.touches[0].clientY);},{passive:false});handle.addEventListener('touchmove',function(e){e.preventDefault();_move(e.touches[0].clientY);},{passive:false});handle.addEventListener('touchend',function(e){e.preventDefault();_end();});handle.addEventListener('mousedown',function(e){e.preventDefault();_start(item,e.clientY);});});document.addEventListener('mousemove',function(e){if(_dragEl)_move(e.clientY);});document.addEventListener('mouseup',function(){if(_dragEl)_end();});
-  }
+function renderInstellen(){var r=getRoute();var rooms=r?r.rooms:[];var c=document.getElementById('installenList');var skipSection='<div class="skip-chips-section"><div class="skip-chips-title">Overslaan vandaag</div><div class="skip-chips-grid">';rooms.forEach(function(room){var s=getRoomState(room.code);skipSection+='<button class="skip-chip'+(s.skipped?' skip-chip-active':'')+'" data-skip-chip="'+room.code+'">'+room.code+'</button>';});skipSection+='</div></div>';if(c){c.innerHTML=skipSection;c.querySelectorAll('[data-skip-chip]').forEach(function(btn){btn.addEventListener('click',function(){var code=this.dataset.skipChip;var s=getRoomState(code);s.skipped=!s.skipped;this.classList.toggle('skip-chip-active',s.skipped);saveState();renderRooms();});});}
+}
     
 /* -- ALGEMENE INFO TOGGLE -- */
 var _algToggle=document.getElementById('algInfoToggle');if(_algToggle)_algToggle.addEventListener('click', function() {
