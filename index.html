@@ -910,11 +910,7 @@ function roomCardHTML(room) {
   var cardId = 'rc-' + room.code.replace(/\./g, '-');
       var note = room.note;
   return '<article class="' + cardClass + '" id="' + cardId + '">'
-    + '<div class="room-card-header">'
-      + '<div class="room-info">'
-                + '<div class="room-badge"><div class="room-code" style="color:#fff;margin-bottom:0">' + room.code.replace('.', '') + '</div></div>'+ '<div class="room-badge"><div class="room-code" style="color:#fff;margin-bottom:0">' + room.code.replace('.', '') + '</div></div>' + '<div class="room-info">'        + '<div class="room-area">' + room.area + '</div>'
-        + '<span class="room-sterile">' + room.sterile + '</span>'
-      + '</div>'
++ '<div class="room-card-header">' + '<div class="room-badge"><div class="room-code" style="color:#fff;margin-bottom:0">' + room.code.replace('.', '') + '</div></div>' + '<div class="room-info">' + '<div class="room-area">' + room.area + '</div>' + '<span class="room-sterile">' + room.sterile + '</span>' + '</div>' + '</div>'
             + '</div>' + (note ? '<div class="room-note">' + room.note + '</div>' : '')
       + (isSkipped
     ? '<div class="skip-banner"><span class="skip-banner-text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Hoeft niet vandaag</span><button class="skip-unblock" data-action="unskip" data-room="' + room.code + '">Activeer</button></div>'
