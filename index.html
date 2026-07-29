@@ -1060,8 +1060,8 @@ if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return getRoo
         var thisIdx = allCards.indexOf(thisCard);
         if (thisIdx !== -1 && thisIdx < allCards.length - 1) {
           setTimeout(function() {
-            allCards[thisIdx + 1].scrollIntoView({behavior: 'smooth', block: 'center'});
-          }, 320);
+            allCards[thisIdx + 1].scrollIntoView({behavior: 'smooth',block: 'nearest'});
+          }, 500);
         }
       }
     });
