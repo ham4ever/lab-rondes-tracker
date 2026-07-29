@@ -1148,10 +1148,21 @@ function renderFloorJumps() {
   }).join('');
   bar.querySelectorAll('.floor-jump-pill').forEach(function(btn) {
     btn.addEventListener('click', function() {
-      var fl = btn.dataset.floor;
-      var target = document.querySelector('.floor-group[data-floor="' + fl + '"]');
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      bar.querySelectorAll('.floor-jump-pill').forEach(function(b) { b.classList.remove('active'); });
+              var fl = btn.dataset.floor;
+              var group = document.querySelector('.floor-group[data-floor="' + fl + '"]');
+          var target = null;
+          if (group) {
+            var cards = Array.from(group.querySelectorAll('.room-card'));
+            var lastVisitedCard = null, firstPendingCard = null;
+            cards.forEach(function(card) {
+              var code = card.id.replace('rc-', '').replace(/-/g, '.');
+              var st = getRoomState(code);
+              if (st.visited === true) lastVisitedCard = card;
+              if (!firstPendingCard && st.visited !== true) firstPendingCard = card;
+            });
+            target = firstPendingCard || lastVisitedCard || group;
+          }
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });      bar.querySelectorAll('.floor-jump-pill').forEach(function(b) { b.classList.remove('active'); });
       btn.classList.add('active');
     });
   });
