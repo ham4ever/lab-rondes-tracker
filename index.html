@@ -912,12 +912,8 @@ function roomCardHTML(room) {
       var note = room.note;
   return '<article class="' + cardClass + '" id="' + cardId + '">'
     + '<div class="room-card-header">'
-      + '<div class="room-badge">'
-        + '<span class="room-badge-num">' + num + '</span>'
-        + '<span class="room-badge-floor">verd. ' + floor + '</span>'
-      + '</div>'
       + '<div class="room-info">'
-        + '<div class="room-code">' + room.code + '</div>'
+                + '<div class="room-code">' + room.code.replace('.', '') + '</div>'
         + '<div class="room-area">' + room.area + '</div>'
         + '<span class="room-sterile">' + room.sterile + '</span>'
       + '</div>'
