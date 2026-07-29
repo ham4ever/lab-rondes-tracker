@@ -912,8 +912,7 @@ function roomCardHTML(room) {
   return '<article class="' + cardClass + '" id="' + cardId + '">'
     + '<div class="room-card-header">'
       + '<div class="room-info">'
-                + '<div class="room-badge"><div class="room-code" style="color:#fff;margin-bottom:0">' + room.code.replace('.', '') + '</div></div>'
-        + '<div class="room-area">' + room.area + '</div>'
+                + '<div class="room-badge"><div class="room-code" style="color:#fff;margin-bottom:0">' + room.code.replace('.', '') + '</div></div>'+ '<div class="room-badge"><div class="room-code" style="color:#fff;margin-bottom:0">' + room.code.replace('.', '') + '</div></div>' + '<div class="room-info">'        + '<div class="room-area">' + room.area + '</div>'
         + '<span class="room-sterile">' + room.sterile + '</span>'
       + '</div>'
             + '</div>' + (note ? '<div class="room-note">' + room.note + '</div>' : '')
