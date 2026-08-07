@@ -1,5 +1,5 @@
 // Cache statische assets voor snellere loads + offline gebruik
-const CACHE_NAME = 'lab-rondes-v1';
+const CACHE_NAME = 'lab-rondes-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -25,6 +25,20 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+  const url = new URL(event.request.url);
+  // Network-first voor de app shell zodat updates meteen terechtkomen bij de gebruiker
+  if (url.pathname.endsWith('/index.html') || url.pathname.endsWith('/') || url.pathname.endsWith('/lab-rondes-tracker/')) {
+    event.respondWith(
+      fetch(event.request).then(response => {
+        if (response.ok) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+        }
+        return response;
+      }).catch(() => caches.match(event.request).then(c => c || caches.match('./index.html')))
+    );
+    return;
+  }
   event.respondWith(
     caches.match(event.request).then(cached => {
       const network = fetch(event.request).then(response => {
