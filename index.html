@@ -731,7 +731,8 @@ const state = {
 
 function loadState(){ try{ const s=localStorage.getItem('labRondes2'); if(s){const p=JSON.parse(s);if(p.roomStates){state.roomStates=p.roomStates;if(p.weekId)state.weekId=p.weekId;if(p.routeId&&routeData[p.routeId])state.routeId=p.routeId;if(p.filter)state.filter=p.filter;if(p.customFloorOrder&&Array.isArray(p.customFloorOrder))state.customFloorOrder=p.customFloorOrder;if(p.activeView)state.activeView=p.activeView;if(p.theme)state.theme=p.theme;}else{state.roomStates=p;}} }catch(e){} }
 function saveState(){ try{ localStorage.setItem('labRondes2',JSON.stringify({roomStates:state.roomStates,weekId:state.weekId,routeId:state.routeId,filter:state.filter,activeView:state.activeView,theme:state.theme,customFloorOrder:state.customFloorOrder})); }catch(e){} }
-function getRoomState(code){ if(!state.roomStates[code]) state.roomStates[code]={visited:null,picked:null,checks:[false,false,false,false]}; if(!state.roomStates[code].checks) state.roomStates[code].checks=[false,false,false,false]; if(state.roomStates[code].skipped===undefined)state.roomStates[code].skipped=false; return state.roomStates[code]; }
+function getRoomState(code){ if(!state.roomStates[code]) state.roomStates[code]={visited:null,picked:null,checks:[false,false,false,false],skipped:false}; if(!state.roomStates[code].checks) state.roomStates[code].checks=[false,false,false,false]; if(state.roomStates[code].skipped===undefined)state.roomStates[code].skipped=false; return state.roomStates[code]; }
+function peekRoomState(code){ var s=state.roomStates[code]; if(!s) return {visited:null,picked:null,checks:[false,false,false,false],skipped:false}; return {visited:s.visited==null?null:s.visited,picked:s.picked==null?null:s.picked,checks:s.checks||[false,false,false,false],skipped:!!s.skipped}; }
 function haptic(kind){ try{ if(!navigator.vibrate) return; if(kind==='yes') navigator.vibrate(12); else if(kind==='no') navigator.vibrate([10,20,10]); else navigator.vibrate(8); }catch(e){} }
 function jumpToRoom(code){
   if (state.activeView !== 'rooms') switchView('rooms');
@@ -800,7 +801,7 @@ function switchView(viewId){
   state.activeView=viewId; saveState();
   // show float scroll nav only on rooms view
   document.getElementById('floatNav').style.display=viewId==='rooms'?'flex':'none';
-  if(viewId==='rooms'){renderRooms(); var _r=(getRoute()||{rooms:[]}).rooms,_last=-1,_i; for(_i=0;_i<_r.length;_i++){if(getRoomState(_r[_i].code).visited===true)_last=_i;} floatRoomIndex=(_last+1<_r.length)?_last+1:(_last<0?0:_last); setTimeout(function(){updateFloatCounter();var _ids=getVisibleRoomIds();if(_ids[floatRoomIndex]){var _el=document.getElementById(_ids[floatRoomIndex]);if(_el)_el.scrollIntoView({behavior:'smooth',block:'center'});}},80); }
+  if(viewId==='rooms'){renderRooms(); var _r=(getRoute()||{rooms:[]}).rooms,_last=-1,_i; for(_i=0;_i<_r.length;_i++){if(peekRoomState(_r[_i].code).visited===true)_last=_i;} floatRoomIndex=(_last+1<_r.length)?_last+1:(_last<0?0:_last); setTimeout(function(){updateFloatCounter();var _ids=getVisibleRoomIds();if(_ids[floatRoomIndex]){var _el=document.getElementById(_ids[floatRoomIndex]);if(_el)_el.scrollIntoView({behavior:'smooth',block:'center'});}},80); }
   if(viewId==='summary') renderSummary();
   if(viewId==='home') renderHome();
     if(viewId==='instellen') renderInstellen();
@@ -899,9 +900,10 @@ function renderRouteCards(){}
 function renderHeroStats(){
   const r=getRoute();
   const rooms=r.rooms;
-  const visited=rooms.filter(rm=>getRoomState(rm.code).visited===true).length;
-  const picked=rooms.filter(rm=>getRoomState(rm.code).picked===true).length;
-  const total=rooms.length;
+  const active=rooms.filter(rm=>!peekRoomState(rm.code).skipped);
+  const visited=active.filter(rm=>peekRoomState(rm.code).visited===true).length;
+  const picked=active.filter(rm=>peekRoomState(rm.code).picked===true).length;
+  const total=active.length;
   const pct=total?Math.round((visited/total)*100):0;
   document.getElementById('heroRouteName').textContent=r.title;
   document.getElementById('hkpiTotal').textContent=total;
@@ -917,7 +919,7 @@ function renderHeroStats(){
 let lastTouchedRoom = null;
 
 function roomCardHTML(room) {
-  var s = getRoomState(room.code);
+  var s = peekRoomState(room.code);
   var isDone = s.visited === true;
     var isSkipped = s.skipped === true;
   var isCurrent = lastTouchedRoom === room.code;
@@ -956,18 +958,14 @@ function roomCardHTML(room) {
       + '</div>')
   + '</article>';
 }
-function floorDoneCount(rooms) {
-  return rooms.filter(function(r){ return getRoomState(r.code).visited === true; }).length;
-}
-
 function renderRooms() {
 var r = getRoute();
 var rooms = r.rooms.slice();
 
-rooms = rooms.filter(function(rm){ return !getRoomState(rm.code).skipped; });
-if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return getRoomState(rm.code).visited !== true; });
-  if (state.filter === 'visited') rooms = rooms.filter(function(rm){ return getRoomState(rm.code).visited === true; });
-  if (state.filter === 'picked')  rooms = rooms.filter(function(rm){ return getRoomState(rm.code).picked === true; });
+rooms = rooms.filter(function(rm){ return !peekRoomState(rm.code).skipped; });
+if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return peekRoomState(rm.code).visited !== true; });
+  if (state.filter === 'visited') rooms = rooms.filter(function(rm){ return peekRoomState(rm.code).visited === true; });
+  if (state.filter === 'picked')  rooms = rooms.filter(function(rm){ return peekRoomState(rm.code).picked === true; });
   var c = document.getElementById('roomsList');
   if (!rooms.length) { c.innerHTML = '<div class="empty-state">Geen kamers in deze filter.</div>'; return; }
 
@@ -983,8 +981,9 @@ if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return getRoo
   c.innerHTML = floorOrder.map(function(floor) {
     var flRooms = floorMap[floor];
     var allFloorRooms = r.rooms.filter(function(rm){ return rm.code.split('.')[0] === floor; });
-    var done = floorDoneCount(allFloorRooms);
-    var total = allFloorRooms.length;
+    var activeFloorRooms = allFloorRooms.filter(function(rm){ return !peekRoomState(rm.code).skipped; });
+    var done = activeFloorRooms.filter(function(rm){ return peekRoomState(rm.code).visited === true; }).length;
+    var total = activeFloorRooms.length;
     var allDone = done === total;
     var zones = {};
     flRooms.forEach(function(rm){
@@ -1036,7 +1035,8 @@ if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return getRoo
     c.querySelectorAll('.floor-complete-btn').forEach(function(btn) {  btn.addEventListener('click', function() {
       var fl = btn.dataset.floor;
       var flRooms = r.rooms.filter(function(rm){ return rm.code.split('.')[0] === fl; });
-      var allDone = floorDoneCount(flRooms) === flRooms.length;
+      var activeRooms = flRooms.filter(function(rm){ return !peekRoomState(rm.code).skipped; });
+      var allDone = activeRooms.length>0 && activeRooms.every(function(rm){ return peekRoomState(rm.code).visited === true; });
       if (allDone) {
         if (!confirm('Deze verdieping opnieuw openen? Alle kamers worden weer "niet bezocht".')) return;
         flRooms.forEach(function(rm){ getRoomState(rm.code).visited = null; });
@@ -1079,8 +1079,9 @@ if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return getRoo
         var flGroup = c.querySelector('.floor-group[data-floor="' + floor + '"]');
         if (flGroup) {
           var allFloorRooms = r.rooms.filter(function(rm){ return rm.code.split('.')[0] === floor; });
-          var done = floorDoneCount(allFloorRooms);
-          var total = allFloorRooms.length;
+          var activeFloorRooms = allFloorRooms.filter(function(rm){ return !peekRoomState(rm.code).skipped; });
+          var done = activeFloorRooms.filter(function(rm){ return peekRoomState(rm.code).visited === true; }).length;
+          var total = activeFloorRooms.length;
           var allDone = done === total;
           var sub = flGroup.querySelector('.floor-sub');
           if (sub) sub.textContent = done + ' / ' + total + ' bezocht';
@@ -1098,7 +1099,7 @@ if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return getRoo
         var thisIdx = allCards.indexOf(thisCard);
         function isPending(card){
           var code = card.id.replace('rc-','').replace(/-/g,'.');
-          var st = getRoomState(code);
+          var st = peekRoomState(code);
           return st.visited !== true && !st.skipped;
         }
         var target = null;
@@ -1153,7 +1154,7 @@ function doSearch(){
   const found=r.rooms.filter(rm=>fmtCode(rm.code).toLowerCase().includes(term)||rm.code.toLowerCase().includes(term)||rm.area.toLowerCase().includes(term));
   if(!found.length){ c.innerHTML='<div class="search-empty">Geen kamers gevonden voor "'+term+'".</div>'; return; }
   c.innerHTML=found.map(room=>{
-    const s=getRoomState(room.code);
+    const s=peekRoomState(room.code);
     return `<div class="search-result-card" data-jump="${room.code}" style="margin-bottom:var(--s3);cursor:pointer;-webkit-tap-highlight-color:transparent;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--s2)">
         <h3>${fmtCode(room.code)}</h3>
@@ -1206,7 +1207,7 @@ function renderFloorJumps() {
         var lastVisitedCard = null, firstPendingCard = null;
         cards.forEach(function(card) {
           var code = card.id.replace('rc-', '').replace(/-/g, '.');
-          var st = getRoomState(code);
+          var st = peekRoomState(code);
           if (st.visited === true) lastVisitedCard = card;
           if (!firstPendingCard && st.visited !== true) firstPendingCard = card;
         });
@@ -1260,11 +1261,11 @@ function renderFloorJumps() {
 function renderSummary(){
   const r=getRoute();
   const rooms=r.rooms;
-  const visited=rooms.filter(rm=>getRoomState(rm.code).visited===true).length;
-  const picked=rooms.filter(rm=>getRoomState(rm.code).picked===true).length;
-      const total=rooms.filter(rm=>!getRoomState(rm.code).skipped).length;
+  const visited=rooms.filter(rm=>peekRoomState(rm.code).visited===true).length;
+  const picked=rooms.filter(rm=>peekRoomState(rm.code).picked===true).length;
+      const total=rooms.filter(rm=>!peekRoomState(rm.code).skipped).length;
   const pct=total?Math.round((visited/total)*100):0;
-  const reminders=rooms.filter(rm=>getRoomState(rm.code).picked===true);
+  const reminders=rooms.filter(rm=>peekRoomState(rm.code).picked===true);
   document.getElementById('sumReminders').textContent=reminders.length;
   const rl=document.getElementById('reminderList');
   if(!reminders.length){ rl.innerHTML='<div class="empty-state">Nog geen reminders. Zodra je kamers afvinkt verschijnt hier automatisch een samenvatting.</div>'; }
@@ -1366,7 +1367,7 @@ if('serviceWorker' in navigator){
   }).catch(()=>{});
 }
 
-function renderInstellen(){var r=getRoute();var rooms=r?r.rooms:[];var c=document.getElementById('installenList');var skipSection='<div class="skip-chips-section"><div class="skip-chips-title">Overslaan vandaag</div><div class="skip-chips-grid">';rooms.forEach(function(room){var s=getRoomState(room.code);skipSection+='<button class="skip-chip'+(s.skipped?' skip-chip-active':'')+'" data-skip-chip="'+room.code+'">'+fmtCode(room.code)+'</button>';});skipSection+='</div></div>';if(c){c.innerHTML=skipSection;c.querySelectorAll('[data-skip-chip]').forEach(function(btn){btn.addEventListener('click',function(){var code=this.dataset.skipChip;var s=getRoomState(code);s.skipped=!s.skipped;this.classList.toggle('skip-chip-active',s.skipped);saveState();renderRooms();});});}
+function renderInstellen(){var r=getRoute();var rooms=r?r.rooms:[];var c=document.getElementById('installenList');var skipSection='<div class="skip-chips-section"><div class="skip-chips-title">Overslaan vandaag</div><div class="skip-chips-grid">';rooms.forEach(function(room){var s=peekRoomState(room.code);skipSection+='<button class="skip-chip'+(s.skipped?' skip-chip-active':'')+'" data-skip-chip="'+room.code+'">'+fmtCode(room.code)+'</button>';});skipSection+='</div></div>';if(c){c.innerHTML=skipSection;c.querySelectorAll('[data-skip-chip]').forEach(function(btn){btn.addEventListener('click',function(){var code=this.dataset.skipChip;var s=getRoomState(code);s.skipped=!s.skipped;this.classList.toggle('skip-chip-active',s.skipped);saveState();renderRooms();});});}
 }
     
 /* -- ALGEMENE INFO TOGGLE -- */
