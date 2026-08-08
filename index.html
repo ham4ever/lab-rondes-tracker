@@ -150,6 +150,10 @@ img,svg{display:block}
   background:var(--c-surface);border:1px solid var(--c-border);color:var(--c-muted);
   transition:all 180ms var(--ease)}
 .filter-pill.active{background:var(--c-accent);border-color:var(--c-accent);color:#fff}
+.zone-drag-wrap{display:flex;gap:8px;flex-wrap:wrap;padding:4px;background:var(--c-surface2);border:1px dashed var(--c-border);border-radius:var(--r-md)}
+.zone-drag-chip{display:grid;place-items:center;min-width:44px;height:40px;padding:0 12px;border-radius:10px;font-size:15px;font-weight:800;background:var(--c-surface);border:1px solid var(--c-border);color:var(--c-text);touch-action:none;user-select:none;-webkit-tap-highlight-color:transparent;cursor:grab;transition:transform 120ms var(--ease),box-shadow 120ms var(--ease)}
+.zone-drag-chip:active{cursor:grabbing}
+.zone-drag-chip.dragging{box-shadow:0 6px 18px rgba(0,0,0,.25);transform:scale(1.06)}
 .zone-order-row{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--c-surface2);border:1px solid var(--c-border);border-radius:var(--r-md);padding:6px 10px}
 .zone-order-label{font-size:14px;font-weight:800}
 .zone-order-btns{display:flex;gap:4px}
@@ -1450,46 +1454,68 @@ function renderSortControls(){
       renderSortControls();
     });
   });
-  // zone order — freely reorderable list (any sequence)
+  // zone order — drag chips to reorder (works with touch + mouse)
   var allZones = ['Noord','Midden','Zuid'];
   var revInit = {Noord:'N', Midden:'M', Zuid:'Z'};
   var order = (cfg.zones && cfg.zones.length) ? cfg.zones.slice() : allZones.slice();
-  // ensure all three zones present
   allZones.forEach(function(z){ if(order.indexOf(z)===-1) order.push(z); });
-  zo.innerHTML = order.map(function(z, i){
-    return '<div class="zone-order-row" data-zone-order="'+z+'">'
-      + '<span class="zone-order-label">'+revInit[z]+'</span>'
-      + '<span class="zone-order-btns">'
-        + '<button class="zone-order-btn" data-move="'+z+'" data-dir="-1"'+(i===0?' disabled':'')+'>&#8593;</button>'
-        + '<button class="zone-order-btn" data-move="'+z+'" data-dir="1"'+(i===order.length-1?' disabled':'')+'>&#8595;</button>'
-      + '</span>'
+  zo.innerHTML = '<div class="zone-drag-wrap" id="zoneDragWrap">'
+    + order.map(function(z){ return '<div class="zone-drag-chip" data-zone-drag="'+z+'">'+revInit[z]+'</div>'; }).join('')
     + '</div>';
-  }).join('');
   // per-zone direction
   zr.innerHTML = order.map(function(z){
     var isRev = !!cfg.zoneRev[z];
     return '<button class="filter-pill'+(isRev?' active':'')+'" data-zone="'+z+'" title="'+z+(isRev?' (omgekeerd)':'')+'">'+revInit[z]+(isRev?' ↓':' ↑')+'</button>';
   }).join('');
-  zo.querySelectorAll('[data-move]').forEach(function(b){
-    b.addEventListener('click', function(){
-      var z = b.dataset.move;
-      var dir = parseInt(b.dataset.dir, 10);
-      if (!state.roomSort[selectedSortFloor]) state.roomSort[selectedSortFloor] = { zones:(DEFAULT_SORT.zones||[]).slice(), zoneRev:{} };
-      var arr = state.roomSort[selectedSortFloor].zones.slice();
-      var i = arr.indexOf(z);
-      var j = i + dir;
-      if (i===-1 || j<0 || j>=arr.length) return;
-      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
-      state.roomSort[selectedSortFloor].zones = arr;
-      saveState(); renderSortControls(); renderRooms();
-    });
-  });
+  initZoneDrag();
   zr.querySelectorAll('[data-zone]').forEach(function(b){
     b.addEventListener('click', function(){
       var z = b.dataset.zone;
       if (!state.roomSort[selectedSortFloor]) state.roomSort[selectedSortFloor] = { zones:(DEFAULT_SORT.zones||[]).slice(), zoneRev:{} };
       state.roomSort[selectedSortFloor].zoneRev[z] = !state.roomSort[selectedSortFloor].zoneRev[z];
       saveState(); renderSortControls(); renderRooms();
+    });
+  });
+}
+function initZoneDrag(){
+  var wrap = document.getElementById('zoneDragWrap');
+  if (!wrap || !window.PointerEvent) return;
+  var dragEl = null, startX=0, startY=0, offX=0, offY=0, moved=false, placeholder=null;
+  wrap.querySelectorAll('.zone-drag-chip').forEach(function(el){
+    el.addEventListener('pointerdown', function(e){
+      e.preventDefault();
+      dragEl = el;
+      var r = el.getBoundingClientRect();
+      offX = e.clientX - r.left; offY = e.clientY - r.top;
+      startX = e.clientX; startY = e.clientY; moved=false;
+      el.setPointerCapture(e.pointerId);
+      el.classList.add('dragging');
+    });
+    el.addEventListener('pointermove', function(e){
+      if (dragEl !== el) return;
+      if (Math.abs(e.clientX-startX) > 4 || Math.abs(e.clientY-startY) > 4) moved=true;
+      if (!moved) return;
+      el.style.position='fixed'; el.style.zIndex=9999; el.style.width=el.offsetWidth+'px';
+      el.style.left=(e.clientX-offX)+'px'; el.style.top=(e.clientY-offY)+'px'; el.style.pointerEvents='none';
+      var over = document.elementFromPoint(e.clientX, e.clientY);
+      var target = over ? over.closest('.zone-drag-chip') : null;
+      if (target && target!==el && target.parentNode===wrap) {
+        var els = Array.prototype.slice.call(wrap.children);
+        var ti = els.indexOf(target), ei = els.indexOf(el);
+        if (ti < ei) wrap.insertBefore(el, target);
+        else wrap.insertBefore(el, target.nextSibling);
+      }
+    });
+    el.addEventListener('pointerup', function(e){
+      if (dragEl !== el) return;
+      el.releasePointerCapture(e.pointerId);
+      el.classList.remove('dragging');
+      el.style.position=''; el.style.left=''; el.style.top=''; el.style.zIndex=''; el.style.width=''; el.style.pointerEvents='';
+      var seq = Array.prototype.slice.call(wrap.children).map(function(c){ return c.dataset.zoneDrag; });
+      if (!state.roomSort[selectedSortFloor]) state.roomSort[selectedSortFloor] = { zones:(DEFAULT_SORT.zones||[]).slice(), zoneRev:{} };
+      state.roomSort[selectedSortFloor].zones = seq;
+      saveState(); renderSortControls(); renderRooms();
+      dragEl = null;
     });
   });
 }
