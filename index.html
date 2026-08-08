@@ -1460,7 +1460,7 @@ function renderSortControls(){
   var order = (cfg.zones && cfg.zones.length) ? cfg.zones.slice() : allZones.slice();
   allZones.forEach(function(z){ if(order.indexOf(z)===-1) order.push(z); });
   zo.innerHTML = '<div class="zone-drag-wrap" id="zoneDragWrap">'
-    + order.map(function(z){ return '<div class="zone-drag-chip" data-zone-drag="'+z+'">'+revInit[z]+'</div>'; }).join('')
+    + order.map(function(z){ return '<div class="zone-drag-chip" draggable="true" data-zone-drag="'+z+'">'+revInit[z]+'</div>'; }).join('')
     + '</div>';
   // per-zone direction
   zr.innerHTML = order.map(function(z){
@@ -1479,43 +1479,32 @@ function renderSortControls(){
 }
 function initZoneDrag(){
   var wrap = document.getElementById('zoneDragWrap');
-  if (!wrap || !window.PointerEvent) return;
-  var dragEl = null, startX=0, startY=0, offX=0, offY=0, moved=false, placeholder=null;
+  if (!wrap) return;
+  var picked = null;
+  function commit(){
+    var seq = Array.prototype.slice.call(wrap.children).map(function(c){ return c.dataset.zoneDrag; });
+    if (!state.roomSort[selectedSortFloor]) state.roomSort[selectedSortFloor] = { zones:(DEFAULT_SORT.zones||[]).slice(), zoneRev:{} };
+    state.roomSort[selectedSortFloor].zones = seq;
+    saveState(); renderSortControls(); renderRooms();
+  }
+  // Native HTML5 drag (smooth on desktop, uses browser ghost)
+  var dragSrc = null;
   wrap.querySelectorAll('.zone-drag-chip').forEach(function(el){
-    el.addEventListener('pointerdown', function(e){
-      e.preventDefault();
-      dragEl = el;
-      var r = el.getBoundingClientRect();
-      offX = e.clientX - r.left; offY = e.clientY - r.top;
-      startX = e.clientX; startY = e.clientY; moved=false;
-      el.setPointerCapture(e.pointerId);
+    el.addEventListener('dragstart', function(e){
+      dragSrc = el;
       el.classList.add('dragging');
+      try { e.dataTransfer.effectAllowed='move'; e.dataTransfer.setData('text/plain', el.dataset.zoneDrag); } catch(err){}
     });
-    el.addEventListener('pointermove', function(e){
-      if (dragEl !== el) return;
-      if (Math.abs(e.clientX-startX) > 4 || Math.abs(e.clientY-startY) > 4) moved=true;
-      if (!moved) return;
-      el.style.position='fixed'; el.style.zIndex=9999; el.style.width=el.offsetWidth+'px';
-      el.style.left=(e.clientX-offX)+'px'; el.style.top=(e.clientY-offY)+'px'; el.style.pointerEvents='none';
-      var over = document.elementFromPoint(e.clientX, e.clientY);
-      var target = over ? over.closest('.zone-drag-chip') : null;
-      if (target && target!==el && target.parentNode===wrap) {
-        var els = Array.prototype.slice.call(wrap.children);
-        var ti = els.indexOf(target), ei = els.indexOf(el);
-        if (ti < ei) wrap.insertBefore(el, target);
-        else wrap.insertBefore(el, target.nextSibling);
-      }
-    });
-    el.addEventListener('pointerup', function(e){
-      if (dragEl !== el) return;
-      el.releasePointerCapture(e.pointerId);
-      el.classList.remove('dragging');
-      el.style.position=''; el.style.left=''; el.style.top=''; el.style.zIndex=''; el.style.width=''; el.style.pointerEvents='';
-      var seq = Array.prototype.slice.call(wrap.children).map(function(c){ return c.dataset.zoneDrag; });
-      if (!state.roomSort[selectedSortFloor]) state.roomSort[selectedSortFloor] = { zones:(DEFAULT_SORT.zones||[]).slice(), zoneRev:{} };
-      state.roomSort[selectedSortFloor].zones = seq;
-      saveState(); renderSortControls(); renderRooms();
-      dragEl = null;
+    el.addEventListener('dragend', function(){ el.classList.remove('dragging'); dragSrc=null; });
+    el.addEventListener('dragover', function(e){ e.preventDefault(); if (dragSrc && dragSrc!==el) wrap.insertBefore(dragSrc, el); });
+    el.addEventListener('drop', function(e){ e.preventDefault(); commit(); });
+  });
+  // Tap-to-reorder fallback (works on touch / mobile, zero dragging physics)
+  wrap.querySelectorAll('.zone-drag-chip').forEach(function(el){
+    el.addEventListener('click', function(){
+      if (picked === el) { el.classList.remove('picked'); picked=null; return; }
+      if (picked) { wrap.insertBefore(picked, el); picked.classList.remove('picked'); picked=null; commit(); }
+      else { picked = el; el.classList.add('picked'); }
     });
   });
 }
