@@ -1051,13 +1051,14 @@ if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return peekRo
     var done = activeFloorRooms.filter(function(rm){ return peekRoomState(rm.code).visited === true; }).length;
     var total = activeFloorRooms.length;
     var allDone = done === total;
+    var cfg = getFloorSort(floor);
     var zones = {};
     flRooms.forEach(function(rm){
       var z = (rm.area || '').split(' ')[1];
       if (z && !zones[z]) zones[z] = true;
     });
-    var zoneDefs = [['Noord','Noord'],['Midden','Midden'],['Zuid','Zuid']];
-    var zoneBtns = zoneDefs.filter(function(zd){ return zones[zd[0]]; }).map(function(zd){
+    var zoneDefs = (cfg.zones || ['Noord','Midden','Zuid']).map(function(z){ return [z, z]; }).filter(function(zd){ return zones[zd[0]]; });
+    var zoneBtns = zoneDefs.map(function(zd){
       return '<button class="floor-zone-btn" data-floor="'+floor+'" data-zone="'+zd[0]+'">'+zd[1]+'</button>';
     }).join('');
     return '<div class="floor-group" data-floor="' + floor + '">'
@@ -1252,9 +1253,9 @@ function renderFloorJumps() {
     var z = (rm.area || '').split(' ')[1];
     if (z) { (floorZones[fl] = floorZones[fl] || {}); floorZones[fl][z] = true; }
   });
-    var zoneDefs = [['Noord','N'],['Midden','M'],['Zuid','Z']];
     bar.innerHTML = floors.map(function(fl) {
-      var zoneBtns = zoneDefs.filter(function(zd){ return floorZones[fl] && floorZones[fl][zd[0]]; }).map(function(zd){
+      var zoneDefs = (getFloorSort(fl).zones || ['Noord','Midden','Zuid']).map(function(z){ return [z, z==='Noord'?'N':z==='Midden'?'M':'Z']; }).filter(function(zd){ return floorZones[fl] && floorZones[fl][zd[0]]; });
+      var zoneBtns = zoneDefs.map(function(zd){
         return '<button class="floor-jump-zone" data-floor="'+fl+'" data-zone="'+zd[0]+'">'+zd[1]+'</button>';
       }).join('');
       return '<div class="floor-jump-item">'
