@@ -150,10 +150,11 @@ img,svg{display:block}
   background:var(--c-surface);border:1px solid var(--c-border);color:var(--c-muted);
   transition:all 180ms var(--ease)}
 .filter-pill.active{background:var(--c-accent);border-color:var(--c-accent);color:#fff}
-.zone-drag-wrap{display:flex;gap:8px;flex-wrap:wrap;padding:4px;background:var(--c-surface2);border:1px dashed var(--c-border);border-radius:var(--r-md)}
-.zone-drag-chip{display:grid;place-items:center;min-width:44px;height:40px;padding:0 12px;border-radius:10px;font-size:15px;font-weight:800;background:var(--c-surface);border:1px solid var(--c-border);color:var(--c-text);touch-action:none;user-select:none;-webkit-tap-highlight-color:transparent;cursor:grab;transition:transform 120ms var(--ease),box-shadow 120ms var(--ease)}
+.zone-drag-wrap{display:flex;gap:8px;flex-wrap:wrap;padding:8px;background:var(--c-surface2);border:1px solid var(--c-border);border-radius:var(--r-md);touch-action:pan-y}
+.zone-drag-chip{display:flex;align-items:center;justify-content:center;gap:8px;flex-shrink:0;min-width:64px;height:46px;padding:0 16px;border:1px solid color-mix(in srgb,var(--c-accent) 18%,transparent);border-radius:12px;background:linear-gradient(145deg,var(--c-accent),var(--c-accent2));color:#fff;font-size:18px;font-weight:800;cursor:grab;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease),box-shadow 160ms var(--ease),opacity 160ms var(--ease)}
+.zone-drag-chip .drag-handle{opacity:.7;font-size:18px;line-height:1}
 .zone-drag-chip:active{cursor:grabbing}
-.zone-drag-chip.dragging{box-shadow:0 6px 18px rgba(0,0,0,.25);transform:scale(1.06)}
+.zone-drag-chip.dragging{opacity:.9;transform:scale(1.08) rotate(2deg);box-shadow:0 16px 28px color-mix(in srgb,var(--c-accent) 34%,transparent);cursor:grabbing;z-index:2}
 .zone-order-row{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--c-surface2);border:1px solid var(--c-border);border-radius:var(--r-md);padding:6px 10px}
 .zone-order-label{font-size:14px;font-weight:800}
 .zone-order-btns{display:flex;gap:4px}
@@ -1460,7 +1461,7 @@ function renderSortControls(){
   var order = (cfg.zones && cfg.zones.length) ? cfg.zones.slice() : allZones.slice();
   allZones.forEach(function(z){ if(order.indexOf(z)===-1) order.push(z); });
   zo.innerHTML = '<div class="zone-drag-wrap" id="zoneDragWrap">'
-    + order.map(function(z){ return '<div class="zone-drag-chip" draggable="true" data-zone-drag="'+z+'">'+revInit[z]+'</div>'; }).join('')
+    + order.map(function(z){ return '<button type="button" class="zone-drag-chip" data-zone-drag="'+z+'"><span class="drag-handle" aria-hidden="true">⠿</span>'+revInit[z]+'</button>'; }).join('')
     + '</div>';
   // per-zone direction
   zr.innerHTML = order.map(function(z){
@@ -1479,34 +1480,51 @@ function renderSortControls(){
 }
 function initZoneDrag(){
   var wrap = document.getElementById('zoneDragWrap');
-  if (!wrap) return;
-  var picked = null;
+  if (!wrap || !window.PointerEvent) return;
+  var dragEl = null, pid = null;
   function commit(){
     var seq = Array.prototype.slice.call(wrap.children).map(function(c){ return c.dataset.zoneDrag; });
     if (!state.roomSort[selectedSortFloor]) state.roomSort[selectedSortFloor] = { zones:(DEFAULT_SORT.zones||[]).slice(), zoneRev:{} };
     state.roomSort[selectedSortFloor].zones = seq;
     saveState(); renderSortControls(); renderRooms();
   }
-  // Native HTML5 drag (smooth on desktop, uses browser ghost)
-  var dragSrc = null;
-  wrap.querySelectorAll('.zone-drag-chip').forEach(function(el){
-    el.addEventListener('dragstart', function(e){
-      dragSrc = el;
-      el.classList.add('dragging');
-      try { e.dataTransfer.effectAllowed='move'; e.dataTransfer.setData('text/plain', el.dataset.zoneDrag); } catch(err){}
-    });
-    el.addEventListener('dragend', function(){ el.classList.remove('dragging'); dragSrc=null; });
-    el.addEventListener('dragover', function(e){ e.preventDefault(); if (dragSrc && dragSrc!==el) wrap.insertBefore(dragSrc, el); });
-    el.addEventListener('drop', function(e){ e.preventDefault(); commit(); });
+  wrap.addEventListener('pointerdown', function(e){
+    var btn = e.target.closest('.zone-drag-chip');
+    if (!btn) return;
+    dragEl = btn; pid = e.pointerId;
+    btn.classList.add('dragging');
+    try { btn.setPointerCapture(pid); } catch(err){}
+    if (navigator.vibrate) navigator.vibrate(10);
   });
-  // Tap-to-reorder fallback (works on touch / mobile, zero dragging physics)
-  wrap.querySelectorAll('.zone-drag-chip').forEach(function(el){
-    el.addEventListener('click', function(){
-      if (picked === el) { el.classList.remove('picked'); picked=null; return; }
-      if (picked) { wrap.insertBefore(picked, el); picked.classList.remove('picked'); picked=null; commit(); }
-      else { picked = el; el.classList.add('picked'); }
+  wrap.addEventListener('pointermove', function(e){
+    if (!dragEl || e.pointerId !== pid) return;
+    var others = Array.prototype.slice.call(wrap.querySelectorAll('.zone-drag-chip:not(.dragging)'));
+    var next = null;
+    for (var i=0;i<others.length;i++){
+      var box = others[i].getBoundingClientRect();
+      if (e.clientX < box.left + box.width/2) { next = others[i]; break; }
+    }
+    var oldPos = {};
+    others.forEach(function(b){ oldPos[b.dataset.zoneDrag] = b.getBoundingClientRect(); });
+    wrap.insertBefore(dragEl, next || null);
+    others.forEach(function(b){
+      var ob = oldPos[b.dataset.zoneDrag];
+      var nb = b.getBoundingClientRect();
+      var dx = ob.left - nb.left;
+      if (dx !== 0 && b.animate) {
+        b.animate([{transform:'translateX('+dx+'px)'},{transform:'translateX(0)'}], {duration:180, easing:'cubic-bezier(0.2,0.8,0.2,1)'});
+      }
     });
   });
+  function stop(e){
+    if (!dragEl || e.pointerId !== pid) return;
+    dragEl.classList.remove('dragging');
+    try { if (dragEl.hasPointerCapture(pid)) dragEl.releasePointerCapture(pid); } catch(err){}
+    dragEl = null; pid = null;
+    commit();
+  }
+  wrap.addEventListener('pointerup', stop);
+  wrap.addEventListener('pointercancel', stop);
 }
 function renderInstellen(){var r=getRoute();var rooms=r?r.rooms:[];var c=document.getElementById('installenList');renderSortControls();var skipSection='<div class="skip-chips-section"><div class="skip-chips-title">Overslaan vandaag</div><div class="skip-chips-grid">';rooms.forEach(function(room){var s=peekRoomState(room.code);skipSection+='<button class="skip-chip'+(s.skipped?' skip-chip-active':'')+'" data-skip-chip="'+room.code+'">'+fmtCode(room.code)+'</button>';});skipSection+='</div></div>';if(c){c.innerHTML=skipSection;c.querySelectorAll('[data-skip-chip]').forEach(function(btn){btn.addEventListener('click',function(){var code=this.dataset.skipChip;var s=getRoomState(code);s.skipped=!s.skipped;this.classList.toggle('skip-chip-active',s.skipped);saveState();renderRooms();});});}
 }
