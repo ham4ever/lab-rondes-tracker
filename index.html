@@ -1488,15 +1488,21 @@ function renderSortControls(){
       renderSortControls();
     });
   });
-  // zone order — drag chips to reorder (works with touch + mouse)
+  // zones that the selected floor actually has
+  var floorZonesSet = {};
+  r.rooms.forEach(function(rm){ if(floorOf(rm)===selectedSortFloor){ var z=zoneOf(rm); if(z) floorZonesSet[z]=true; } });
+  var floorZones = Object.keys(floorZonesSet);
+  // zone order — drag chips to reorder (only the zones this floor has)
   var allZones = ['Noord','Midden','Zuid'];
   var revInit = {Noord:'N', Midden:'M', Zuid:'Z'};
   var order = (cfg.zones && cfg.zones.length) ? cfg.zones.slice() : allZones.slice();
-  allZones.forEach(function(z){ if(order.indexOf(z)===-1) order.push(z); });
+  // keep only zones the floor has, preserving the saved order; append any new ones
+  order = order.filter(function(z){ return floorZonesSet[z]; });
+  floorZones.forEach(function(z){ if(order.indexOf(z)===-1) order.push(z); });
   zo.innerHTML = '<div class="zone-drag-wrap" id="zoneDragWrap">'
     + order.map(function(z){ return '<button type="button" class="zone-drag-chip" data-zone-drag="'+z+'"><span class="drag-handle" aria-hidden="true">⠿</span>'+revInit[z]+'</button>'; }).join('')
     + '</div>';
-  // per-zone direction
+  // per-zone direction (only zones this floor has)
   zr.innerHTML = order.map(function(z){
     var isRev = !!cfg.zoneRev[z];
     return '<button class="filter-pill'+(isRev?' active':'')+'" data-zone="'+z+'" title="'+z+(isRev?' (omgekeerd)':'')+'">'+revInit[z]+(isRev?' ↓':' ↑')+'</button>';
