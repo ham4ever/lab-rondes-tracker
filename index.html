@@ -168,6 +168,8 @@ img,svg{display:block}
   background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--r-lg);
   overflow:hidden;transition:border-color 200ms var(--ease),box-shadow 200ms var(--ease)
 }
+.room-card.pulse{animation:cardPulse 420ms cubic-bezier(.2,.8,.2,1)}
+.room-card.flash{box-shadow:0 0 0 3px color-mix(in srgb,var(--c-success) 55%,transparent),0 10px 24px color-mix(in srgb,var(--c-success) 25%,transparent)}
 .room-card.highlight{border-color:var(--c-accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--c-accent) 15%,transparent)}
 .room-card.visited-done{border-left:3px solid var(--c-success)}
 .room-card-header{padding:var(--s4);display:flex;align-items:flex-start;gap:var(--s3);}
@@ -193,7 +195,7 @@ img,svg{display:block}
 .toggle-label{font-size:12px;font-weight:600;color:var(--c-muted);text-transform:uppercase;letter-spacing:.04em}
 .toggle-btns{display:flex;gap:var(--s2);width:100%}
 .toggle-btns button{
-    flex:1;padding:14px 10px;border-radius:var(--r-lg);font-size:15px;font-weight:700;
+  flex:1;padding:14px 10px;border-radius:var(--r-lg);font-size:15px;font-weight:700;
   border:1px solid var(--c-border);background:var(--c-surface2);color:var(--c-muted);
   transition:all 180ms var(--ease);-webkit-tap-highlight-color:transparent;
   touch-action:manipulation;user-select:none;
@@ -202,6 +204,18 @@ img,svg{display:block}
 .toggle-btns button:active{transform:scale(.96)}
 .toggle-btns button.yes{background:var(--c-success);border-color:var(--c-success);color:#fff}
 .toggle-btns button.no{background:var(--c-danger);border-color:var(--c-danger);color:#fff}
+.toggle-btns button.yes.pop{animation:spring-pop 0.72s cubic-bezier(0.2,1.35,0.4,1) both;box-shadow:0 0 0 4px rgba(34,197,94,0.14),0 17px 29px rgba(21,128,61,0.3)}
+.toggle-btns button.no.pop{animation:spring-pop 0.72s cubic-bezier(0.2,1.35,0.4,1) both;box-shadow:0 0 0 4px rgba(239,68,68,0.13),0 17px 29px rgba(185,28,28,0.28)}
+@keyframes spring-pop{
+  0%{transform:translateY(8px) scale(0.9)}
+  45%{transform:translateY(-4px) scale(1.07)}
+  68%{transform:translateY(2px) scale(0.985)}
+  84%{transform:translateY(-1px) scale(1.025)}
+  100%{transform:translateY(0) scale(1)}
+}
+@media (prefers-reduced-motion: reduce){
+  .toggle-btns button.pop{animation:none}
+}
 .room-body{display:block}
 /* ─── ROUTE PICKER (HOME) ───────────────────────────── */
 .route-section{display:flex;flex-direction:column;gap:var(--s3)}
@@ -1141,6 +1155,13 @@ if (state.filter === 'pending') rooms = rooms.filter(function(rm){ return peekRo
         });
         if (btn.dataset.action === 'visited') {
           card.classList.toggle('visited-done', s.visited === true);
+        }
+        // spring-pop on whichever toggle button was tapped (Ja or Nee)
+        var tb = card.querySelector('button[data-action="' + btn.dataset.action + '"][data-value="' + (val ? 'yes' : 'no') + '"]');
+        if (tb) {
+          tb.classList.remove('pop');
+          void tb.offsetWidth; // restart animation
+          tb.classList.add('pop');
         }
         // update floor sub-count live
         var floor = btn.dataset.room.split('.')[0];
