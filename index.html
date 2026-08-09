@@ -275,6 +275,7 @@ img,svg{display:block}
   background:var(--c-accent);color:#fff;transition:all 180ms var(--ease)
 }
 .action-btn.danger{background:var(--c-danger)}
+.action-btn.danger.armed{background:var(--c-accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--c-accent) 35%,transparent)}
 .action-btn:active{transform:scale(.95)}
 
 /* ─── TOGGLE SWITCH ──────────────────────────────────── */
@@ -1351,10 +1352,20 @@ function renderSummary(){
   }
 
   
-document.getElementById('clearRouteBtn').addEventListener('click',()=>{
-  if (!confirm('Hele ronde leegmaken? Alle vinkjes en opgehaalde items worden gewist.')) return;
-  getRoute().rooms.forEach(rm=>{ const s=getRoomState(rm.code); s.visited=null; s.picked=null; });
-  saveState(); renderSummary(); renderHeroStats(); showToast('Ronde leeggemaakt');
+document.getElementById('clearRouteBtn').addEventListener('click', function(){
+  if (this.dataset.armed === '1') {
+    this.dataset.armed = '';
+    this.classList.remove('armed');
+    this.textContent = 'Ronde leegmaken';
+    getRoute().rooms.forEach(rm=>{ const s=getRoomState(rm.code); s.visited=null; s.picked=null; });
+    saveState(); renderSummary(); renderHeroStats(); showToast('Ronde leeggemaakt');
+    return;
+  }
+  this.dataset.armed = '1';
+  this.classList.add('armed');
+  this.textContent = 'Nogmaals tikken om te legen';
+  var btn = this;
+  setTimeout(function(){ if (btn.dataset.armed === '1') { btn.dataset.armed=''; btn.classList.remove('armed'); btn.textContent='Ronde leegmaken'; } }, 3000);
 });
 
 /* ── UPDATE FILTER COUNTS ───────────────────────────────── */
